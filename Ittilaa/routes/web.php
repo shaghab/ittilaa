@@ -17,3 +17,5 @@ Route::get('/', 'PagesController@Home');
 Route::get('/admin', 'PagesController@Admin');
 Route::get('/login', 'PagesController@Login');
 Route::get('/data_form', 'PagesController@DataForm');
+
+Route::resource('notifications', 'NotificationsController');
