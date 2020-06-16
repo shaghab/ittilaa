@@ -35,7 +35,10 @@
 .row{
     display: flex;
     justify-content: center;
-    width:106%;
+    width:100%;
+}
+.container-fluid{
+    padding:0px;
 }
 
 /* Home Page Search */
@@ -169,6 +172,7 @@
 /* Footer */
 .custom-footer{
     margin-top:40px;
+    padding:0px;
 }
 .custom-footer > hr{
     border:1px solid #77c0b1;
@@ -204,9 +208,26 @@
     color:#62a799;
     font-size:28px;
 }
+.footer-copyright{
+    text-align: center;
+}
 .footer-copyright > p{
     font-family: helvetica;
     color:black;
     font-size: 12px;
     margin-top:30px;
+}
+
+/* Login Page */
+.login-form{
+    margin-top:30px;
+    margin-bottom:60px;
+}
+.login-form > div > label{
+    font-family:helvetica;
+    color:black;
+}
+.forgot-pwd{
+    float:right;
+    font-family:helvetica;
 }

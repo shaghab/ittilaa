@@ -1,6 +1,6 @@
 <!-- website footer for copyrights info etc. -->
 
-<div class="row">
+<div class="container-fluid">
    <div class="col-md-12 custom-footer">
       <hr/>
       <div class="col-md-12 footer-content">
