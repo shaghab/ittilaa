@@ -231,3 +231,64 @@
     float:right;
     font-family:helvetica;
 }
+
+/* Admin Page */
+.sidenav {
+    height: 1000px;
+    width: 300px;
+    background-color: white;
+    border:1px solid black;
+    overflow-x: hidden;
+    margin-top:92px;
+    margin-left:30px;
+  }
+  .sidenav a {
+    padding: 10px 10px 10px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+    border-bottom:1px solid black;
+  }
+  .sidenav a:hover {
+    color: white;
+    background-color:#77c0b1;
+  }
+  .admin-notifs{
+      justify-content: left;
+  }
+  .admin-card{
+      height:220px;
+      width:850px;
+      margin-top:30px;
+      border:1px solid black;
+      border-radius:0px;
+      display: block ruby;
+  }
+  .admin-card > div > a > img{
+      height:150px;
+      width:150px;
+      vertical-align: baseline;
+      margin-top:20px;
+  }
+  .admin-card-body{
+      padding:15px;
+  }
+  .admin-card-body > h4{
+    font-family: helvetica;
+    color:black;
+    font-weight: bold;
+    font-size:18px;
+}
+.admin-card-body > p{
+    font-family: helvetica;
+    color:black;
+}
+.btn-accept{
+    background-image: none;
+    width:100px;
+}
+.btn-reject{
+    background-image: none;
+    width:100px;
+}
