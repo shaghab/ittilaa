@@ -23,6 +23,7 @@ class CreateNotificationsTable extends Migration
             $table->string('region');
             $table->string('approved_by')->nullable();
             $table->dateTime('approval_date')->nullable();
+            $table->enum('approval_status', array('IN_PROCESS', 'APPROVED', 'REJECTED'));
             $table->string('publishing_authority')->nullable();
             $table->dateTime('publish_date')->nullable();
             $table->string('notifier')->nullable();

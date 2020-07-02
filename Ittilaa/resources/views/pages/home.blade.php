@@ -7,6 +7,7 @@
        <h3>CONVENIENT ACCESS TO GOVERNMENT NOTICES AND POLICIES</h3>
        <p>Don't miss out on the notices and policies that are important to you. Use Ittilaa to explore verified Government notifications.</p>
 </div>
+
 <div class="row">
   <form class="form-inline col-md-5">
      <div class="form-group search-container">
