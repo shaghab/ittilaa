@@ -135,7 +135,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -174,6 +173,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // custom service providers
+        App\Providers\PermissionsServiceProvider::class,
+        App\Providers\RolesServiceProvider::class,
 
     ],
 

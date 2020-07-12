@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\HasRolesAndPermissions;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRolesAndPermissions;
 
     //The table associated with the model.
     protected $table = 'x_users';
@@ -16,8 +17,7 @@ class User extends Authenticatable
     // The attributes that are mass assignable.
     protected $fillable = [
         'name', 
-        'email', 
-        'category', 
+        'email',
         'password',
     ];
 
