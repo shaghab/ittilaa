@@ -48,6 +48,13 @@
          </div>
       </form> 
    </div>
+
+<div>
+   <label >
+      <a href="<?= url('/register'); ?>">Sign Up</a>
+   </label>
+</div>
+
 </div>
 
 @endsection

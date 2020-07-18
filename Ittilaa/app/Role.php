@@ -13,10 +13,6 @@ class Role extends Model
       return $this->belongsToMany(Permission::class,'x_roles_permissions');
    }
 
-   public function users() {
-      return $this->belongsToMany(User::class,'x_users_roles');
-   }
-
    public static function GetId($roleName) {
       $role = Role::where('name',$roleName)->first();   
       return $role->id;

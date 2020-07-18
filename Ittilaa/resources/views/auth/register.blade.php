@@ -73,5 +73,11 @@
             </div>
         </div>
     </div>
+
+<div>
+    <Label>Already have an account? 
+        <a href="<?= url('/login'); ?>">Log in</a>
+    </Label>
+</div>
 </div>
 @endsection
