@@ -313,3 +313,56 @@
     background-image: none;
     width:100px;
 }
+
+/* Notification Page */
+
+.notifs-page{
+    display:inherit;
+    margin-bottom:50px;
+}
+.notif-embed{
+    margin-top:30px;
+    margin-bottom:50px;
+    border:1px solid black;
+}
+.notif-details{
+    margin-top:30px;
+}
+.notif-details > label{
+    font-family: helvetica;
+    color:white;
+    font-size:14px;
+    background-color: #62a799;
+    border-radius:4px;
+    padding-left:15px;
+    padding-right:15px;
+}
+.notif-details > h6{
+    font-family: helvetica;
+    color:black;
+    font-weight:bold;
+}
+.notif-details > p{
+    font-family: helvetica;
+    font-size:14px;
+}
+.p-black{
+    font-family: helvetica;
+    font-size:14px;
+    color:black;
+    margin-top:-10px;
+}
+.notif-details > a{
+    color:black;
+    border:1px solid black;
+}
+
+.notif-details > a:hover{
+    background-color:#77c0b1;
+    text-decoration: none;
+    color:white;
+}
+
+.notif-details > a > i{
+    margin-right:5px;
+}

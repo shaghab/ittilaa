@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'UsersController@index');
-Route::get('/home', 'UsersController@index');
-Route::get('/login', 'UsersController@login');
-Route::get('/register', 'UsersController@register');
-Route::get('/logout', 'UsersController@logout');
-
-Route::post('/login_user', 'UsersController@loginUser');
-Route::post('/register_user', 'UsersController@registerUser');
-
-Route::get('/admin', 'UsersController@admin');
-Route::get('/data_entry', 'UsersController@dataForm');
+// Auth::routes();
+Route::get('/login', 'PagesController@Login');
+Route::get('/admin', 'PagesController@Admin');
+Route::get('/data_entry', 'PagesController@DataForm');
+Route::get('/notification', 'PagesController@Notification');
+Route::get('/notification2', 'PagesController@Notification2');
 
