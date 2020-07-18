@@ -356,13 +356,43 @@
     color:black;
     border:1px solid black;
 }
-
 .notif-details > a:hover{
     background-color:#77c0b1;
     text-decoration: none;
     color:white;
 }
-
 .notif-details > a > i{
     margin-right:5px;
 }
+
+/* Data Entry Page */
+
+.dataentry-form{
+    margin-top:30px;
+    display: inline-grid;
+    justify-content: center;
+}
+.dataentry-form > div{
+    justify-content: left;
+    width:500px;
+}
+.dataentry-form > div > label{
+    font-family: helvetica;
+    color:black;
+    display: inline;
+    width: 135px;
+}
+.dataentry-form > div > input{
+    border:1px solid black;
+}
+.dataentry-form > div > textarea{
+    border:1px solid black;
+}
+.dataentry-form .form-group{
+    margin-bottom:15px;
+}
+.category-dropdown > button{
+        border:1px solid black;
+        width:200px;
+        margin-left:0px;
+    }
