@@ -2,68 +2,47 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Permission;
 use App\Role;
 
 trait HasRolesAndPermissions {
 
   /**
-   * @return mixed
-   */
-  public function roles() {
-    return $this->belongsToMany(Role::class,'x_users_roles');
-  }
-
-  /**
-   * @return mixed
-   */
-  public function permissions() {
-    return $this->belongsToMany(Permission::class,'x_users_permissions');
-  }
-
-  /**
-   * @param $roles (array) 
-   * summary: check whether the current user’s roles contain the given role in $roles
+   * @param $roleName 
+   * summary: Check whether $roles has user’s role or not
    * @return bool
    */
-  public function hasRole( ... $roles ) {
-    foreach ($roles as $role) {
-      if ($this->roles->contains('slug', $role))
-        return true;
-    }
-    return false;
+  public function hasRole($roleName) {
+    $role = Role::where('name', $roleName)->first();
+    return ($this->role_id === $role->id);
   }
 
   /**
-   * @param $permission
-   * Summary: Check if the user’s permissions contain the given permission
+   * @param $roleName
+   * summary: Change user’s role
    * @return bool
    */
-  protected function hasPermission($permission) {
-    return (bool) $this->permissions->where('slug', $permission->slug)->count();
-  }
-
-  /**
-   * @param $permission
-   * Summary: will check between two conditions: hasPermission and  hasPermissionThroughRole 
-   * @return bool
-   */
-  public function hasPermissionTo($permission) {
-    return $this->hasPermissionThroughRole($permission) || 
-           $this->hasPermission($permission);
+  public function changeRole($roleName) {
+    $role = Role::where('name', $roleName)->first();
+    $this->role_id = $role->id;
   }
 
   /**
    *@param $permission
-   *Summary: checks if the permission’s role is attached to the user or not.
+   *Summary: checks if the permission’s role is attached to the user role or not.
    *@return bool
    */
-  public function hasPermissionThroughRole($permission) {
-    foreach ($permission->roles as $role){
-      if($this->roles->contains($role))
-        return true;
-    }
-    return false;
+  public function hasPermissionTo($permission) {
+
+    $permissions = DB::table('x_roles_permissions')
+                      ->rightJoin('x_permissions', 'x_permissions.id', '=', 'x_roles_permissions.permission_id')
+                      ->where('x_roles_permissions.role_id', $this->role_id)
+                      ->select('name')
+                      ->get();
+
+    return (bool) ($permissions->where('name', $permission)->count()); 
   }
 
   /**
@@ -72,54 +51,56 @@ trait HasRolesAndPermissions {
    * @return bool
    */
   protected function getAllPermissions(array $permissions) {
-    return Permission::whereIn('slug',$permissions)->get();
+    return Permission::whereIn('name', $permissions)->get();
   }
 
-  /**
-   * @param $permissions
-   * Summary: get all permissions from the database based on the array.
-   * @return this
-   */
-   public function givePermissionsTo(... $permissions) {
-    $permissions = $this->getAllPermissions($permissions);
-    dd($permissions);
-    if($permissions === null)
-      return $this;
 
-    $this->permissions()->saveMany($permissions);
-    return $this;
-  }
+  // TODO: enable and change code in case later decide to give specific permissions to user
+  // regardless of role
+  // /**
+  //  * @param $permissions
+  //  * Summary: get all permissions from the database based on the array.
+  //  * @return this
+  //  */
+  // public function givePermissionsTo(... $permissions) {
+  //   $permissions = $this->getAllPermissions($permissions);
+  //   if($permissions === null)
+  //     return $this;
 
-  /**
-   * @param mixed ...$permissions
-   * Summary: delete permissions
-   * @return $this
-   */
-  public function deletePermissions(... $permissions ) {
-    $permissions = $this->getAllPermissions($permissions);
-    $this->permissions()->detach($permissions);
-    return $this;
-  }
+  //   $this->permissions()->saveMany($permissions);
+  //   return $this;
+  // }
 
-  /**
-   * @param $permissions
-   * Summary: removes all permissions for a user and then reassign the permissions provided for a user.
-   * return $this
-   */
-  public function refreshPermissions( ... $permissions ) {
-    $this->permissions()->detach();
-    return $this->givePermissionsTo($permissions);
-  }
+  // /**
+  //  * @param mixed ...$permissions
+  //  * Summary: delete permissions
+  //  * @return $this
+  //  */
+  // public function deletePermissions(... $permissions ) {
+  //   $permissions = $this->getAllPermissions($permissions);
+  //   $this->permissions()->detach($permissions);
+  //   return $this;
+  // }
 
-  /**
-   * @param $permissions
-   * Summary: removes all permissions for a user
-   * return $this
-   */
-  public function withdrawPermissionsTo( ... $permissions ) {
-    $permissions = $this->getAllPermissions($permissions);
-    $this->permissions()->detach($permissions);
-    return $this;
-  }
+  // /**
+  //  * @param $permissions
+  //  * Summary: removes all permissions for a user and then reassign the permissions provided for a user.
+  //  * return $this
+  //  */
+  // public function refreshPermissions( ... $permissions ) {
+  //   $this->permissions()->detach();
+  //   return $this->givePermissionsTo($permissions);
+  // }
+
+  // /**
+  //  * @param $permissions
+  //  * Summary: removes all permissions for a user
+  //  * return $this
+  //  */
+  // public function withdrawPermissionsTo( ... $permissions ) {
+  //   $permissions = $this->getAllPermissions($permissions);
+  //   $this->permissions()->detach($permissions);
+  //   return $this;
+  // }
 
 }

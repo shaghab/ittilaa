@@ -34,7 +34,7 @@ class NotificationSeeder extends Seeder
                 'source_url' => $faker->url,
                 'approved_by' => $faker->name,
                 'approval_date' => $faker->date,
-                'approval_status' => $faker->randomElement(array('IN_PROCESS', 'APPROVED', 'REJECTED'))
+                'approval_status' => 'IN_PROCESS', //$faker->randomElement(array('IN_PROCESS', 'APPROVED', 'REJECTED'))
             ]);
         }
 

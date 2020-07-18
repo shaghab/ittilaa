@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
+
 use Closure;
 
-class RoleMiddleware
+class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
@@ -13,13 +15,13 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role, $permission = null)
+    public function handle($request, Closure $next, $permission)
     {
-        if(!$request->user()->hasRole($role)) {
-            abort(404);
+        if ($request->user() === null) {
+            return redirect(RouteServiceProvider::LOGIN);
         }
 
-        if($permission !== null && !$request->user()->can($permission)) {
+        if(!$request->user()->hasPermissionTo($permission)) {
             abort(404);
         }
 

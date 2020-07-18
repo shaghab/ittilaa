@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'PagesController@Home');
 
-Auth::routes();
-Route::get('/home', 'PagesController@Home')->name('home')->middleware('auth');
-Route::get('/admin', 'PagesController@Admin')->name('admin')->middleware('auth');
-Route::get('/data_entry', 'PagesController@DataForm')->name('data_entry')->middleware('auth');
+Route::get('/', 'UsersController@index');
+Route::get('/home', 'UsersController@index');
+Route::get('/login', 'UsersController@login');
+Route::get('/register', 'UsersController@register');
+Route::get('/logout', 'UsersController@logout');
+
+Route::post('/login_user', 'UsersController@loginUser');
+Route::post('/register_user', 'UsersController@registerUser');
+
+Route::get('/admin', 'UsersController@admin');
+Route::get('/data_entry', 'UsersController@dataForm');
 

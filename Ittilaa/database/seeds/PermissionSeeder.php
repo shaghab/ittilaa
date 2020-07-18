@@ -15,23 +15,19 @@ class PermissionSeeder extends Seeder
     {
         // permissions
 		$approve_notifications = new Permission();
-		$approve_notifications->slug = 'approve-notifications';
-		$approve_notifications->name = 'Approve Notifications';
+		$approve_notifications->name = 'approve-notifications';
 		$approve_notifications->save();
 
 		$create_notifications = new Permission();
-		$create_notifications->slug = 'create-notifications';
-		$create_notifications->name = 'Create Notifications';
+		$create_notifications->name = 'create-notifications';
 		$create_notifications->save();
 
         $give_feedback = new Permission();
-		$give_feedback->slug = 'give-feedback';
-		$give_feedback->name = 'Give Feedback';
+		$give_feedback->name = 'give-feedback';
 		$give_feedback->save();
 
 		$view_notifications = new Permission();
-		$view_notifications->slug = 'view-notifications';
-		$view_notifications->name = 'View Notifications';
+		$view_notifications->name = 'view-notifications';
 		$view_notifications->save();
 
     }

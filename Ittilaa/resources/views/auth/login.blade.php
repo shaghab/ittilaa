@@ -6,44 +6,46 @@
       <h3>Login to your Account</h3>
    </div>
    <div class="row">
-      <form action="{{route('login')}}" class="col-md-3 login-form">
-          <div class="form-group">
-             <label for="email">User ID:</label>
+      <form method="POST" action="{{ url('/login_user') }}" class="col-md-3 login-form" enctype="multipart/form-data">
+         {{ csrf_field() }}
 
-             <input id="email" type="email" placeholder="Enter your user ID" class="form-control @error('email') is_invalid @enderror" required autocomplete="email" autofocus>
+         <div class="form-group">
+            <label for="name">User ID:</label>
 
-             @error('email')
-             <span class="invalid-feedback" role="alert">
+            <input id="name" name="name" type="username" placeholder="Enter your user ID" class="form-control @error('name') is_invalid @enderror" required autocomplete="name" autofocus>
+
+            @error('name')
+            <span class="invalid-feedback" role="alert">
                <strong>{{ $message }}</strong>
-             </span>
-             @enderror
-           </div>
+            </span>
+            @enderror
+         </div>
 
-          <div class="form-group">
-             <label for="pwd">Password:</label>
+         <div class="form-group">
+            <label for="password">Password:</label>
 
-             <input id="password" type="password" placeholder="Enter your password" class="form-control @error('password') is_invalid @enderror" required autocomplete="current-password">
+            <input id="password" name="password" type="password" placeholder="Enter your password" class="form-control @error('password') is_invalid @enderror" required autocomplete="current-password">
 
-             @error('password')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-             @enderror
-          </div>
+            @error('password')
+            <span class="invalid-feedback" role="alert">
+               <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+         </div>
 
-          <div class="form-group form-check">
-             <label class="form-check-label">
-             <input id="remember" name="remember" value="{{ old('remember') ? 'checked' : ''}}" class="form-check-input" type="checkbox"> Remember me
-             </label>
-          </div>
+         <div class="form-group form-check">
+            <label class="form-check-label">
+               <input id="remember" name="remember" value="{{ old('remember') ? 'checked' : ''}}" class="form-check-input" type="checkbox"> Remember me
+            </label>
+         </div>
 
-          <div class="form-group">
+         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-main">Login</button>
 
             @if (Route::has('password.request'))
-              <a href="{{route('password.request')}}" class="forgot-pwd">{{__('Forgot Password?')}}</a>
+               <a href="{{route('password.request')}}" class="forgot-pwd">{{__('Forgot Password?')}}</a>
             @endif
-          </div>
+         </div>
       </form> 
    </div>
 </div>

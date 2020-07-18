@@ -15,23 +15,19 @@ class RoleSeeder extends Seeder
     {
         // roles
         $guest_role = new Role();
-		$guest_role->slug = 'guest';
-		$guest_role->name = 'Guest';
+		$guest_role->name = 'guest';
 		$guest_role->save();
 
 		$member_role = new Role();
-		$member_role->slug = 'member';
-		$member_role->name = 'Member';
+		$member_role->name = 'member';
 		$member_role->save();
 
         $operator_role = new Role();
-		$operator_role->slug = 'data-operator';
-		$operator_role->name = 'Data Operator';
+		$operator_role->name = 'data-operator';
 		$operator_role->save();
 
 		$admin_role = new Role();
-		$admin_role->slug = 'admin';
-		$admin_role->name = 'Admin';
+		$admin_role->name = 'admin';
 		$admin_role->save();
     }
 }
