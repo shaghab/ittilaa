@@ -6,7 +6,7 @@
 /* Header */
 .header-hr{
     width:100%;
-    height:20px;
+    height:50px;
     border-bottom: 1px solid black;
     text-align: center;
     margin-bottom:20px;
@@ -18,6 +18,27 @@
     padding: 0 10px;
     float:left;
     margin-left: 15px;
+    margin-top:20px;
+}
+
+.header-links{
+    float:right;
+    margin-right:20px;
+}
+
+.header-links > li > a{
+    color:black;
+    border:1px solid black;
+}
+
+.header-links > li > a:hover{
+    background-color:#77c0b1;
+    text-decoration: none;
+    color:white;
+}
+
+.header-links > li > a > i{
+    margin-right:5px;
 }
 
 /* Home Page Heading */
