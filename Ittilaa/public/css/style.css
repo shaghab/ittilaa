@@ -252,6 +252,10 @@
     float:right;
     font-family:helvetica;
 }
+.login-register > p > a{
+    color:black;
+    border:1px solid black;
+}
 
 /* Admin Page */
 .sidenav {

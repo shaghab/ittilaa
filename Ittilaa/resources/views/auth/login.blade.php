@@ -6,7 +6,7 @@
       <h3>Login to your Account</h3>
    </div>
    <div class="row">
-      <form method="POST" action="{{ url('/login_user') }}" class="col-md-3 login-form" enctype="multipart/form-data">
+      <form method="POST" action="{{ url('/login_user') }}" class="col-sm-3 login-form" enctype="multipart/form-data">
          {{ csrf_field() }}
 
          <div class="form-group">
@@ -20,7 +20,6 @@
             </span>
             @enderror
          </div>
-
          <div class="form-group">
             <label for="password">Password:</label>
 
@@ -32,13 +31,11 @@
             </span>
             @enderror
          </div>
-
          <div class="form-group form-check">
             <label class="form-check-label">
                <input id="remember" name="remember" value="{{ old('remember') ? 'checked' : ''}}" class="form-check-input" type="checkbox"> Remember me
             </label>
          </div>
-
          <div class="form-group">
             <button type="submit" class="btn btn-primary btn-main">Login</button>
 
@@ -47,14 +44,10 @@
             @endif
          </div>
       </form> 
+      <div class="row login-register">
+         <p>Don't have an account yet?  <a href="<?= url('/register'); ?>" class="btn btn-default">Create an Account</a></p>
+      </div>
    </div>
-
 <div>
-   <label >
-      <a href="<?= url('/register'); ?>">Sign Up</a>
-   </label>
-</div>
-
-</div>
 
 @endsection
