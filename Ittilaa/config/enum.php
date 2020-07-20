@@ -2,15 +2,15 @@
 
 return [
     'notification_categories' => [
-        'NOTICE',
-        'JOB',
-        'TENDER',
-        'NEWS',
-        'POLICY',
+        'notice'    => 'NOTICE',
+        'job'       => 'JOB',
+        'tender'    => 'TENDER',
+        'news'      => 'NEWS',
+        'policy'    => 'POLICY',
     ],
 
     'approval_status' => [
-        'pending' => 'PENDING',
+        'pending'  => 'PENDING',
         'approved' => 'APPROVED',
         'rejected' => 'REJECTED',
     ],
