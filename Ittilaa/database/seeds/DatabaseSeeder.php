@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
-        //$this->call(NotificationSeeder::class);
+
+        $this->call(RegionSeeder::class);
+        $this->call(MinistrySeeder::class);
+        $this->call(DivisionSeeder::class);
+        
+        $this->call(NotificationSeeder::class);
     }
 }

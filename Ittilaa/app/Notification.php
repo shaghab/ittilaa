@@ -9,28 +9,29 @@ class Notification extends Model
     //The table associated with the model.
     protected $table = 'x_notifications';
 
-    
-
     // The attributes that are mass assignable.
     protected $fillable = [
         'title',
         'category',
-        'notice_path',
-        'notice_format',
+        'thumbnail_link',
+        'notice_link',
+        'notice_doc_type',
         'description',
-        'region',
-        'publishing_authority',
-        'publish_date',
+        'region_id',
+        'region_name',
+        'division_id',
+        'division_name',
+        'ministry_id',
+        'ministry_name',
+        'signing_authority',
         'notifier',
         'notifier_designation',
+        'publish_date',
         'source_url',
-    ];
-
-    // The attributes that should be hidden for arrays.
-    protected $hidden = [
-        'approved_by',
+        'operator_id',
+        'creation_date',
+        'approver_id',
         'approval_date',
+        'approval_status',
     ];
-
-
 }

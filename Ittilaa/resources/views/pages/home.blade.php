@@ -61,123 +61,46 @@
               <h6>MOST RECENT</h6>
        </div>
 </div>
-<div class="row notifs">
-       <div class="col-md-10 notifs-row">
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-       </div>
-</div>
-<div class="row notifs">
-       <div class="col-md-10 notifs-row">
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-          <div class="card col-md-2 notifs-card">
-              <img class="card-img-top" src="../images/Card test2.png" alt="Card image">
-              <div class="card-body">
-                 <p class="card-text">1st January 2020</p>
-                 <h6 class="card-title">Notification Title</h6>
-              </div>
-              <div class="card-img-overlay notifs-img-overlay">
-                 <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">Category</a> 
-              </div>
-          </div>
-       </div>
-</div>
+
+@if ($count == 0)
+   <div><p>No results found.</p></div>
+@else
+
+   @for ($index = 0, $row = 0; $row < $rowCount; $row++)
+   <div class="row notifs">
+      <div class="col-md-10 notifs-row">
+
+         @for ($col = 0; $col < $perRow && $index < $count; $col++, $index++)
+         <?php $notification = $notifications[$index]; ?>
+
+         <div class="card col-md-2 notifs-card">
+            <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Card image">
+            <div class="card-body">
+               <p class="card-text">{{ $notification->publish_date }}</p>
+               <h6 class="card-title">{{ $notification->title }}</h6>
+            </div>
+            <div class="card-img-overlay notifs-img-overlay">
+               <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
+            </div>
+         </div>
+         @endfor
+
+      </div>
+   </div>
+   @endfor
+@endif
+
 <div class="row">
-       <div class="col-md-3">
-          <ul class="pagination custom-pagination">
+      <div class="col-md-3">
+            {{ $notifications->onEachSide(1)->links() }}
+
+            {{-- <ul class="pagination custom-pagination">
              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
              <li class="page-item"><a class="page-link" href="#">1</a></li>
              <li class="page-item"><a class="page-link" href="#">2</a></li>
              <li class="page-item"><a class="page-link" href="#">3</a></li>
              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul> 
+         </ul>  --}}
       </div>
 </div>
      

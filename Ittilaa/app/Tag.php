@@ -1,0 +1,20 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Tag extends Model
+{
+    //The table associated with the model.
+    protected $table = 'x_tags';
+
+    public function notifications() { 
+        return $this->belongsToMany(Notification::class,'x_notifications_tags');
+    }
+
+    public static function GetId($tagName) {
+        $tag = Tag::where('name',$tagName)->first();   
+        return $tag->id;
+    }
+}
