@@ -29,7 +29,9 @@ trait QueriesNotifications {
 	}
 
 	public function GetNotificationsWithTags(array $tags){
-		// add x_notifications_tags table and then add code here to query it
+		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags);
+		dd($result);
+		return $result;
 	}
 
 	public function GetJobs(){

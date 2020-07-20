@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesPermissionsTable extends Migration
+class CreateNotificationsTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateRolesPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('x_roles_permissions', function (Blueprint $table) {
+        Schema::create('x_notifications_tags', function (Blueprint $table) {
             $table->id();
 
             //FOREIGN KEY CONSTRAINTS
-            $table->foreignId('role_id')->constrained('x_roles')->onDelete('cascade');
-            $table->foreignId('permission_id')->constrained('x_permissions')->onDelete('cascade');
+            $table->foreignId('notification_id')->constrained('x_notifications')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('x_tags')->onDelete('cascade');
 
             //SETTING THE UNIQUE KEYS (PRIMARY IDENTIFYING KEYS)
-            $table->unique(['role_id','permission_id']);
+            $table->unique(['notification_id','tag_id']);
         });
     }
 
@@ -32,6 +32,6 @@ class CreateRolesPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('x_roles_permissions');
+        Schema::dropIfExists('x_notifications_tags');
     }
 }
