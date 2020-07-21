@@ -2337,6 +2337,7 @@ return array(
     'Monolog\\Utils' => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'NotificationSeeder' => $baseDir . '/database/seeds/NotificationSeeder.php',
+    'TagSeeder' => $baseDir . '/database/seeds/TagSeeder.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',

@@ -185,7 +185,9 @@ class NotificationsController extends Controller
         }
 
         // TODO: add datetime picker
-        $data['publish_date'] = Carbon::now();
+        $datetime = new DateTime(); 
+        $datetime->setDate('2020', '06', '25');
+        $data['publish_date'] = $datetime;
 
         $region = $this->getRegion($fields['region']);
         $data['region_id'] = $region->id;

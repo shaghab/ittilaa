@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionSeeder::class);
         $this->call(MinistrySeeder::class);
         $this->call(DivisionSeeder::class);
+        $this->call(TagSeeder::class);
         
         $this->call(NotificationSeeder::class);
     }
