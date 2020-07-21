@@ -27,10 +27,12 @@ Route::get('/admin', 'NotificationsController@pending_index')->name('admin');
 Route::get('/admin/pending', 'NotificationsController@pending_index')->name('pending');
 Route::get('/admin/approved', 'NotificationsController@approved_index')->name('approved');
 Route::get('/admin/rejected', 'NotificationsController@rejected_index')->name('rejected');
-Route::get('/data_entry', 'UsersController@dataForm')->name('data_entry');
+Route::get('/data_entry', 'NotificationsController@create')->name('data_entry');
 
 Route::get('/admin/pending/approve/{notification}', 'NotificationsController@approve')->name('approve_notification');
 Route::get('/admin/pending/reject/{notification}', 'NotificationsController@reject')->name('reject_notification');
 Route::get('/notification/{notification}', 'NotificationsController@show')->name('show_notification');
 
+Route::get('/data_entry/get_divisions/{ministry}', 'NotificationsController@get_divisions')->name('get_divisions');
+Route::post('/data_entry/save', 'NotificationsController@store')->name('save_notificaton');
 

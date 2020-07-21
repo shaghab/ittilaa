@@ -34,6 +34,30 @@ trait QueriesNotifications {
 		return $result;
 	}
 
+	public function getRegions(){
+		return Region::all();
+	}
+
+	public function getRegion($id){
+		return Region::find($id);
+	}
+
+	public function getMinistries(){
+		return Ministry::all();
+	}
+
+	public function getMinistry($id){
+		return Ministry::find($id);
+	}
+
+	public function getDivisions(){
+		return Division::all();
+	}
+
+	public function getDivision($id){
+		return Division::find($id);
+	}
+
 	public function GetJobs(){
 		return Notification::latest()->where('cateogry', config('enum.notification_categories.job'));
 	}
