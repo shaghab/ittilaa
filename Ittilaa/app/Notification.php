@@ -34,4 +34,8 @@ class Notification extends Model
         'approval_date',
         'approval_status',
     ];
+
+   public function tags() { 
+      return $this->belongsToMany(Tag::class,'x_notifications_tags');
+   }
 }

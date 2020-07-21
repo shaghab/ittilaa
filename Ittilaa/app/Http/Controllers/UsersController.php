@@ -33,17 +33,6 @@ class UsersController extends Controller
     }
 
     public function login(){
-
-    // Get URLs
-    $urlPrevious = url()->previous();
-    $urlBase = url()->to('/');
-
-    // Set the previous url that we came from to redirect to after successful login but only if is internal
-    if (($urlPrevious != $urlBase . RouteServiceProvider::LOGIN) && 
-        (substr($urlPrevious, 0, strlen($urlBase)) === $urlBase)) {
-        session()->put('url.intended', $urlPrevious);
-    }
-
         return view('auth.login');
     }  
 
@@ -74,10 +63,10 @@ class UsersController extends Controller
                                         RouteServiceProvider::LOGIN, RouteServiceProvider::HOME];
 
             $url = session()->get('url.intended');
-            if (Arr::has($invalidPostLoginRoutes,$url))
+            if (Arr::has($invalidPostLoginRoutes, $url)) {
                 return redirect()->intended('/');
+            }
 
-            // otherwise, redirect to userr home page
             return $this->directToDashboard();
         }
 

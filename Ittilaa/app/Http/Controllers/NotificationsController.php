@@ -7,9 +7,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Notification;
+use App\Traits\QueriesNotifications;
 
 class NotificationsController extends Controller
 {
+    use QueriesNotifications;
+
     /**
      * Instantiate a new controller instance.
      *
@@ -36,7 +39,7 @@ class NotificationsController extends Controller
         $perRow = 5;
         $rowCount = ceil($perPage / $perRow);
 
-        $notifications = Notification::latest()->where('approval_status', config('enum.approval_status.approved'))->paginate($perPage);
+        $notifications = $this->GetApprovedNotifications()->paginate($perPage);
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -58,7 +61,7 @@ class NotificationsController extends Controller
         $perRow = 1;
         $rowCount = ceil($perPage / $perRow);
 
-        $notifications = Notification::latest()->where('approval_status', config('enum.approval_status.pending'))->paginate($perPage);
+        $notifications = $this->GetPendingNotifications()->paginate($perPage);
 
         return view('pages.admin', ['notifications' => $notifications, 
                                     'tab' => 'pending',
@@ -79,7 +82,7 @@ class NotificationsController extends Controller
         $perRow = 1;
         $rowCount = ceil($perPage / $perRow);
         
-        $notifications = Notification::latest()->where('approval_status', config('enum.approval_status.approved'))->paginate($perPage);
+        $notifications = $this->GetApprovedNotifications()->paginate($perPage);
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.admin', ['notifications' => $notifications, 
@@ -101,7 +104,7 @@ class NotificationsController extends Controller
         $perRow = 1;
         $rowCount = ceil($perPage / $perRow);
 
-        $notifications = Notification::latest()->where('approval_status', config('enum.approval_status.rejected'))->paginate($perPage);
+        $notifications = $this->GetRejectedNotifications()->paginate($perPage);
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.admin', ['notifications' => $notifications, 
@@ -163,8 +166,8 @@ class NotificationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
-        return view('pages.notification/{id}');
+        $notification = Notification::find($id);
+        return view('pages.notification', ['notification' => $notification]);
     }
 
     /**

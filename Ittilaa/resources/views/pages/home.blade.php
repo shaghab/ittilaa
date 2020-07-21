@@ -80,7 +80,7 @@
                <h6 class="card-title">{{ $notification->title }}</h6>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
-               <a href="#" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
+               <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
             </div>
          </div>
          @endfor

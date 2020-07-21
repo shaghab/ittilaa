@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.signing')
 
 @section('content')
 <div class="row">
