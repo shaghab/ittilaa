@@ -12,6 +12,6 @@
        </li>
    </ul>
     <span>
-        <img src="../images/Ittilaa Logo_001.png">
+        <img src="../images/Ittilaa Logo_001.png" alt="Ittilaa Logo">
     </span>
 </div>
