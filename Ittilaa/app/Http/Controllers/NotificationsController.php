@@ -166,8 +166,8 @@ class NotificationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        //
-        return view('pages.notification/{id}');
+        $notification = Notification::find($id);
+        return view('pages.notification', ['notification' => $notification]);
     }
 
     /**

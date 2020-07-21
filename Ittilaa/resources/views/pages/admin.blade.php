@@ -55,7 +55,9 @@
          <div class="row admin-notifs">
             <div class="card admin-card col-md-12">
                <div class="col-md-2">
-                  <a href=#><img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Card image"></a>
+                  <a href="{{ route('show_notification', ['notification' => $notification->id]) }}">
+                     <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Card image">
+                  </a>
                </div>
                <div class="card-body admin-card-body col-md-9">
                   <h4 class="card-title">{{ $notification->title }}</h4>

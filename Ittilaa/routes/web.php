@@ -31,5 +31,6 @@ Route::get('/data_entry', 'UsersController@dataForm')->name('data_entry');
 
 Route::get('/admin/pending/approve/{notification}', 'NotificationsController@approve')->name('approve_notification');
 Route::get('/admin/pending/reject/{notification}', 'NotificationsController@reject')->name('reject_notification');
+Route::get('/notification/{notification}', 'NotificationsController@show')->name('show_notification');
 
 
