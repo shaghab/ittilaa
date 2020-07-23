@@ -13,4 +13,8 @@ class Region extends Model
         $region = Region::where('name',$name)->first();
         return $region->id;
     }
+
+    public static function getRegions() {
+        return Region::select('name')->get();
+    }
 }

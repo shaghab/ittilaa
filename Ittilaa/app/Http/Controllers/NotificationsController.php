@@ -33,28 +33,6 @@ class NotificationsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        // TODO: save these in pagination settings later
-        $perPage = 10;
-        $perRow = 5;
-        $rowCount = ceil($perPage / $perRow);
-
-        $notifications = $this->GetApprovedNotifications()->paginate($perPage);
-        $count = $notifications ? $notifications->count() : 0;
-
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'tab'       => 'index',
-                                    'count'     => $count,
-                                    'perPage'   => $perPage,
-                                    'perRow'    => $perRow,
-                                    'rowCount' => $rowCount ]);
-    }
-
-    /**
      * Display a listing of the pending resource waiting for approval.
      *
      * @return \Illuminate\Http\Response

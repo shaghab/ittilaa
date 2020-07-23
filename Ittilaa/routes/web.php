@@ -13,26 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', 'UsersController@login')->name('login');
-Route::get('/register', 'UsersController@register')->name('register');
-Route::get('/logout', 'UsersController@logout')->name('logout');
+Route::get('/', 'HomeController@index');
+Route::post('/search_region', 'HomeController@searchRegion'); //->name('search_region');
+Route::post('/search_department', 'HomeController@searchDepartment');
+Route::post('/search_category', 'HomeController@searchCategory');
 
-Route::post('/login_user', 'UsersController@loginUser');
-Route::post('/register_user', 'UsersController@registerUser');
+// Route::get('/search/{department}', 'HomeController@search_by_department')->name('search_department');
+// Route::get('/search/{category}', 'HomeController@search_by_category')->name('search_category');
 
-Route::get('/', 'NotificationsController@index');
-// Route::get('/home', 'NotificationsController@index');
+// Route::get('/login', 'UsersController@login')->name('login');
+// Route::get('/register', 'UsersController@register')->name('register');
+// Route::get('/logout', 'UsersController@logout')->name('logout');
 
-Route::get('/admin', 'NotificationsController@pending_index')->name('admin');
-Route::get('/admin/pending', 'NotificationsController@pending_index')->name('pending');
-Route::get('/admin/approved', 'NotificationsController@approved_index')->name('approved');
-Route::get('/admin/rejected', 'NotificationsController@rejected_index')->name('rejected');
-Route::get('/data_entry', 'NotificationsController@create')->name('data_entry');
+// Route::post('/login_user', 'UsersController@loginUser');
+// Route::post('/register_user', 'UsersController@registerUser');
 
-Route::get('/admin/pending/approve/{notification}', 'NotificationsController@approve')->name('approve_notification');
-Route::get('/admin/pending/reject/{notification}', 'NotificationsController@reject')->name('reject_notification');
-Route::get('/notification/{notification}', 'NotificationsController@show')->name('show_notification');
 
-Route::get('/data_entry/get_divisions/{ministry}', 'NotificationsController@get_divisions')->name('get_divisions');
-Route::post('/data_entry/save', 'NotificationsController@store')->name('save_notificaton');
+Route::get('/dashboard', 'DashboardController@import')->name('dashboard');
+Route::get('/dashboard/import', 'DashboardController@import')->name('import_csv');
+// Route::get('/dashboard/pending', 'DashboardController@pending_index')->name('pending');
+// Route::get('/dashboard/approved', 'DashboardController@approved_index')->name('approved');
+// Route::get('/dashboard/rejected', 'DashboardController@rejected_index')->name('rejected');
+// Route::get('/dashboard/data_entry', 'DashboardController@create')->name('data_entry');
 

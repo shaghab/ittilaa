@@ -15,19 +15,19 @@ class Notification extends Model
         'category',
         'thumbnail_link',
         'notice_link',
+        'notice_doc_type',
         'description',
         'region_id',
         'region_name',
-        'issuer_id',
-        'issuing_authority',
-        'designation',
-        'unit_name',
-        'unit_type',
+        'division_id',
+        'division_name',
+        'ministry_id',
+        'ministry_name',
+        'signing_authority',
+        'notifier',
+        'notifier_designation',
         'publish_date',
         'source_url',
-        'caption1',
-        'caption2',
-        'caption3',
         'operator_id',
         'creation_date',
         'approver_id',
@@ -35,8 +35,7 @@ class Notification extends Model
         'approval_status',
     ];
 
-    public function tags() { 
-        return $this->belongsToMany(Tag::class,'x_notifications_tags');
-    }
-
+   public function tags() { 
+      return $this->belongsToMany(Tag::class,'x_notifications_tags');
+   }
 }

@@ -65,6 +65,27 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'data' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/data'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
+        'n_documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/notifications/documents'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
+        'n_thumbnails' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/notifications/thumbnails'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

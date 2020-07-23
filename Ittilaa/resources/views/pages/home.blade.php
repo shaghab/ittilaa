@@ -18,48 +18,79 @@
   </form>
 </div>
 <div class="row">
-       <div class="col-md-5 filters">
-              <div class="dropdown d-inline-block">
-                     <label>Filters:</label>
-                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            Region<span class="caret"></span>
-                     </button>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">Region1</a></li>
-                        <li><a href="#">Region2</a></li>
-                        <li><a href="#">Region3</a></li>
-                     </ul>
-                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            Ministry<span class="caret"></span>
-                     </button>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">Ministry1</a></li>
-                        <li><a href="#">Ministry2</a></li>
-                        <li><a href="#">Ministry3</a></li>
-                     </ul>
-                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            Department<span class="caret"></span>
-                     </button>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">Department1</a></li>
-                        <li><a href="#">Department2</a></li>
-                        <li><a href="#">Department3</a></li>
-                     </ul>
-                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                            Category<span class="caret"></span>
-                     </button>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">Category1</a></li>
-                        <li><a href="#">Category2</a></li>
-                        <li><a href="#">Category3</a></li>
-                     </ul>
-              </div>
-       </div>
+   <div class="col-md-5 filters">
+      <div class="dropdown d-inline-block">
+         <label>Filters:</label>
+         <form method="POST" action="{{ url('/search_region') }}" enctype="multipart/form-data" >
+         {{ csrf_field() }}
+         
+            <div class="dropdown d-inline-block region-dropdown">
+               <select id="region" name="region" class="form-control col-sm-8" onchange="this.form.submit()">
+                  <div class="dropdown-menu col-sm-8">
+                     <option class="dropdown-item" value="">Region</option>
+
+                     @foreach ($regions as $region)
+                        <option class="dropdown-item" value="{{ $region->name }}">{{ $region->name }}</option>
+                     @endforeach
+                  </div>
+               </select>
+
+               @if ($errors->has('region'))
+                  <span class="help-block">
+                     <strong>{{ $errors->first('region') }}</strong>
+                  </span>
+               @endif
+            </div>
+         </form> 
+         <form method="POST" action="{{ url('/search_department') }}" enctype="multipart/form-data" >
+            {{ csrf_field() }}
+
+            <div class="dropdown d-inline-block region-dropdown">
+               <select id="department" name="department" class="form-control col-sm-8" onchange="this.form.submit()">
+                  <div class="dropdown-menu col-sm-8">
+                     <option class="dropdown-item" value="">Department</option>
+
+                     @foreach ($departments as $department)
+                        <option class="dropdown-item" value="{{ $department->unit_name }}">{{ $department->unit_name }}</option>
+                     @endforeach
+                  </div>
+               </select>
+
+               @if ($errors->has('department'))
+                  <span class="help-block">
+                     <strong>{{ $errors->first('department') }}</strong>
+                  </span>
+               @endif
+            </div> 
+         </form>
+         <form method="POST" action="{{ url('/search_category') }}" enctype="multipart/form-data" >
+            {{ csrf_field() }}
+            
+            <div class="dropdown d-inline-block region-dropdown">
+               <select name="category" class="form-control col-sm-8" onchange="this.form.submit()">
+                  <div class="dropdown-menu col-sm-8">
+                     <option class="dropdown-item" value="">Category</option>
+
+                     @foreach ($categories as $category)
+                        <option class="dropdown-item" value="{{ $category }}">{{ $category }}</option>
+                     @endforeach
+                  </div>
+               </select>
+
+               @if ($errors->has('category'))
+                  <span class="help-block">
+                     <strong>{{ $errors->first('category') }}</strong>
+                  </span>
+               @endif
+            </div>
+         </form>
+      </div>
+   </div>
 </div>
 <div class="row">
-       <div class="col-md-10 section-header">
-              <h6>MOST RECENT</h6>
-       </div>
+   <div class="col-md-10 section-header">
+      <h6>MOST RECENT</h6>
+   </div>
 </div>
 
 @if ($count == 0)

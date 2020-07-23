@@ -35,14 +35,5 @@ class UserSeeder extends Seeder
         $user->role_id = $admin_role->id;
         $user->save();
 
-        // add operator account
-        // TODO: change email address at least
-		$operator = new User();
-		$operator->name = 'operator';
-		$operator->email = 'test@test.com';
-        $operator->password = Hash::make('secrettt');
-        $operator->role_id = $operator_role->id;
-		$operator->save();
-
     }
 }

@@ -2,11 +2,11 @@
 
 return [
     'notification_categories' => [
-        'notice'    => 'NOTICE',
-        'job'       => 'JOB',
-        'tender'    => 'TENDER',
-        'news'      => 'NEWS',
-        'policy'    => 'POLICY',
+        'NOTICE',
+        'JOB',
+        'TENDER',
+        'NEWS',
+        'POLICY',
     ],
 
     'approval_status' => [
