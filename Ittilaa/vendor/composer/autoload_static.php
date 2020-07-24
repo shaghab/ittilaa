@@ -486,10 +486,11 @@ class ComposerStaticInitf60f19664760ab08416742925c05e5a6
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
-        'App\\Division' => __DIR__ . '/../..' . '/app/Division.php',
+        'App\\DataImportFile' => __DIR__ . '/../..' . '/app/DataImportFile.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\NotificationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationsController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -503,7 +504,6 @@ class ComposerStaticInitf60f19664760ab08416742925c05e5a6
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\IssuingAuthority' => __DIR__ . '/../..' . '/app/IssuingAuthority.php',
-        'App\\Ministry' => __DIR__ . '/../..' . '/app/Ministry.php',
         'App\\Notification' => __DIR__ . '/../..' . '/app/Notification.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
         'App\\Policies\\NotificationPolicy' => __DIR__ . '/../..' . '/app/Policies/NotificationPolicy.php',

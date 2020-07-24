@@ -7,10 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
-    'App\\Division' => $baseDir . '/app/Division.php',
+    'App\\DataImportFile' => $baseDir . '/app/DataImportFile.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
+    'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\NotificationsController' => $baseDir . '/app/Http/Controllers/NotificationsController.php',
     'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
@@ -24,7 +25,6 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\IssuingAuthority' => $baseDir . '/app/IssuingAuthority.php',
-    'App\\Ministry' => $baseDir . '/app/Ministry.php',
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Permission' => $baseDir . '/app/Permission.php',
     'App\\Policies\\NotificationPolicy' => $baseDir . '/app/Policies/NotificationPolicy.php',
