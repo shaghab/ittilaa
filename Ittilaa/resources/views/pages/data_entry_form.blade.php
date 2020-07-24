@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.dashboard')
 @section('content')
 
 <div class="row">
@@ -87,42 +87,34 @@
                     </select>
                 </div> 
             </div>
-                {{-- <div class="form-group row">
-                <label class="col-sm-4">Ministry:</label>
-                <div class="dropdown d-inline-block ministry-dropdown">
-                    <select name="region_id" class="form-control col-sm-8">
-                        <div class="dropdown-menu col-sm-8">
-                            @foreach ($ministries as $ministry)
-                                <option class="dropdown-item" value="{{ $ministry->id }}">{{ $ministry->name }}</option>
-                            @endforeach
-                        </div>
-                    </select>
-                </div> 
-            </div> --}}
 
-            <div class="form-group row">
-                <label class="col-sm-4">Division:</label>
-                <div class="dropdown d-inline-block division-dropdown">
-                    <select name="division" class="form-control col-sm-8">
-                        <div class="dropdown-menu col-sm-8">
-                            @foreach ($divisions as $division)
-                                <option class="dropdown-item" value="{{ $division->id }}">{{ $division->name }}</option>
-                            @endforeach
-                        </div>
-                    </select>
-                </div> 
+           <div class="form-group row">
+                <label class="col-sm-4">Issuing Authority:</label>
+                <input type="text" name="issuing_authority" class="form-control col-sm-8">
             </div>
             <div class="form-group row">
-                <label class="col-sm-4">Signing Authority:</label>
-                <input type="text" name="signing_authority" class="form-control col-sm-8">
+                <label class="col-sm-4">Designation:</label>
+                <input type="text" name="designation" class="form-control col-sm-8">
             </div>
             <div class="form-group row">
-                <label class="col-sm-4">Source Name:</label>
-                <input type="text" name="notifier" class="form-control col-sm-8">
+                <label class="col-sm-4">Unit:</label>
+                <input type="text" name="unit_name" class="form-control col-sm-8">
             </div>
             <div class="form-group row">
-                <label class="col-sm-4">Source Designation:</label>
-                <input type="text" name="notifier_designation" class="form-control col-sm-8">
+                <label class="col-sm-4">Unit type:</label>
+                <input type="text" name="unit_type" class="form-control col-sm-8">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Caption 1:</label>
+                <input type="text" name="caption1" class="form-control col-sm-8">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Caption 2:</label>
+                <input type="text" name="caption2" class="form-control col-sm-8">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Caption 3:</label>
+                <input type="text" name="caption3" class="form-control col-sm-8">
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Enter URL:</label>

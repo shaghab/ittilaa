@@ -1,52 +1,16 @@
 
-@extends('layouts.default')
+@extends('layouts.dashboard')
 
 @section('content')
 
 <!-- add HTML related to login here -->
 <div class="container-fluid row">
-   <div class="col-md-3">
-      <div class="sidenav">
-         <a href="{{ route('pending') }}">Pending Notifications</a>
-         <a href="{{ route('approved') }}">Approved Notifications</a>
-         <a href="{{ route('rejected') }}">Rejected Notifications</a>
-         <a href="{{ route('data_entry') }}">Data Entry View</a>
-      </div>
-   </div>
    <div class="col-md-8">
       <div class="row page-heading">
-         <h3>
-            @switch($tab)
-               @case('pending')
-                  Pending Notifications
-                  @break
-               @case('approved')
-                  Approved Notifications
-                  @break
-               @case('rejected')
-                  Rejected Notifications
-                  @break
-               @default
-                  Pending Notifications
-            @endswitch
-         </h3>
+         <h3> {{ $title }} </h3>
       </div>
       @if ($count == 0)
-         <div><p>
-            @switch($tab)
-               @case('pending')
-                  No pending notifications.
-                  @break
-               @case('approved')
-                  No approved notifications.
-                  @break
-               @case('rejected')
-                  No rejected notifications.
-                  @break
-               @default
-                  No pending notifications.
-            @endswitch
-         </p></div>
+         <div><p>No results found.</p></div>
       @else
 
          @for ($index = 0; $index < $count; $index++)
@@ -73,7 +37,7 @@
                   </p>
                   <p class="card-text">Department: {{ $notification->division_name }}</p>
 
-                  @if ($tab == 'pending')
+                  @if ($approvingNotifications)
                      <a href="{{ route('approve_notification', ['notification' => $notification->id]) }}" class="btn btn-success btn-accept">Approve</a>
                      <a href="{{ route('reject_notification', ['notification' => $notification->id]) }}" class="btn btn-danger btn-reject">Reject</a>
                   @endif

@@ -21,7 +21,7 @@
    <div class="col-md-5 filters">
       <div class="dropdown d-inline-block">
          <label>Filters:</label>
-         <form method="POST" action="{{ url('/search_region') }}" enctype="multipart/form-data" >
+         <form method="POST" action="{{ route('search_region') }}" enctype="multipart/form-data" >
          {{ csrf_field() }}
          
             <div class="dropdown d-inline-block region-dropdown">
@@ -42,7 +42,7 @@
                @endif
             </div>
          </form> 
-         <form method="POST" action="{{ url('/search_department') }}" enctype="multipart/form-data" >
+         <form method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
 
             <div class="dropdown d-inline-block region-dropdown">
@@ -63,7 +63,7 @@
                @endif
             </div> 
          </form>
-         <form method="POST" action="{{ url('/search_category') }}" enctype="multipart/form-data" >
+         <form method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
             
             <div class="dropdown d-inline-block region-dropdown">

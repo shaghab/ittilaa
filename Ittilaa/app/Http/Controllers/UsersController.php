@@ -41,7 +41,7 @@ class UsersController extends Controller
     }
 
     public function admin(){
-        return view('pages.admin');
+        return view('pages.import_csv');
     }
 
     public function dataForm(){
@@ -93,12 +93,12 @@ class UsersController extends Controller
             // check if it is admin, login to admin page
             // $admin_role = Role::where('name', 'admin')->first();
             if (auth()->user()->hasRole('admin')){
-                return redirect()->intended("/admin");
+                return redirect()->intended("/dashboard");
             }
             
             // check if it is data operator, login to data entry form page
             // $operator_role = Role::where('name', 'data-operator')->first();
-            if (auth()->user()->hasRole('data-operator')){
+            if (auth()->user()->hasRole('/dashboard/data-operator')){
                 return redirect()->intended("/data_entry");
             }
 

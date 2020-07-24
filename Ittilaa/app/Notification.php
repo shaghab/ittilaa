@@ -18,18 +18,17 @@ class Notification extends Model
         'description',
         'region_id',
         'region_name',
+        'publish_date',
         'issuer_id',
         'issuing_authority',
         'designation',
         'unit_name',
         'unit_type',
-        'publish_date',
         'source_url',
         'caption1',
         'caption2',
         'caption3',
         'operator_id',
-        'creation_date',
         'approver_id',
         'approval_date',
         'approval_status',
@@ -37,6 +36,10 @@ class Notification extends Model
 
     public function tags() { 
         return $this->belongsToMany(Tag::class,'x_notifications_tags');
+    }
+
+    public function getTags(){
+        return $this->tags()::where('notification_id', $this->id);
     }
 
 }
