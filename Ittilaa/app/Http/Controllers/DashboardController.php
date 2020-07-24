@@ -17,13 +17,61 @@ class DashboardController extends Controller
     	$this->middleware('permission:approve-notifications', ['only' => ['import']]);
     }
 
+    public function import(){
+    	return view('pages.import_csv', ['title' => 'Import CSV File']);
+    }
+
+    public function batchStore(Request $request){
+
+        if($request->hasFile('csv_file'))
+        {
+            $file = $request->file('csv_file');
+            dd($file);
+
+            $extension = $file->getClientOriginalExtension();
+            dd($extension);
+
+			if ($extension == 'csv') {
+
+			}
+
+			Storage::disk('data')->put(time(). $cover->getFilename().'.'.$extension, File::get($file));
+
+            $storedFile = $file->move('notifications/documents', $originalname);
+            $data['notice_link'] = 'notifications/documents/' . $originalname;
+            $filePath = $storedFile->getRealPath();
+            $data['notice_doc_type'] = pathinfo($filePath)['extension'];
+        }
+    }
+
     /**
-     * Dashboard index page.
+     * Display a listing of the pending resource waiting for approval.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        return $this->import();
+    public function pending_index() {
+    	//TODO: add data to pass
+		return view('pages.admin', ['title' => 'Pending Notifications']);
+    }
+
+    /**
+     * Display a listing of the approved resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function approved_index() {
+    	//TODO: add data to pass
+        return view('pages.admin', ['title' => 'Approved Notifications']);
+    }
+
+    /**
+     * Display a listing of the rejected resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function rejected_index() {
+    	//TODO: add data to pass
+    	return view('pages.admin', ['title' => 'Pending Notifications']);
     }
 
     /**
@@ -32,55 +80,8 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-
-        $categories = config('enum.notification_categories');
-        $regions = $this->getRegions();
-        return view('pages.data_entry_form', [  'categories' => $categories,
-                                                'regions' => $regions, ]);
-    }
-
-    /**
-     * Shows the form for bulk importing new resources from csv file.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function import(){
-    	return view('pages.import_csv', ['title' => 'Import CSV File', 'file_imported' => false]);
-    }
-
-    /**
-     * Display a listing of the pending resource waiting for approval.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function pendingIndex() {
     	//TODO: add data to pass
-		// return view('pages.admin', ['title' => 'Pending Notifications',
-  //                                   'approvingNotifications' => true,]);
+        return view('pages.data_entry_form');
     }
-
-    /**
-     * Display a listing of the approved resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function approvedIndex() {
-    	//TODO: add data to pass
-        // return view('pages.admin', ['title' => 'Approved Notifications',
-  //                                   'approvingNotifications' => false,]);
-    }
-
-    /**
-     * Display a listing of the rejected resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function rejectedIndex() {
-    	//TODO: add data to pass
-    	// return view('pages.admin', ['title' => 'Pending Notifications']),
-  //                                   'approvingNotifications' => false,]);
-    }
-
-
 
 }

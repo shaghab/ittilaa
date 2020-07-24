@@ -6,7 +6,7 @@
 <body>
 <div class="container-fluid">
     <header>
-        @include('includes.admin_header')
+        @include('includes.header')
     </header>
     <div class="container-fluid">
       <div class="container-fluid row">

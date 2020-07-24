@@ -8,8 +8,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 use App\Notification;
 use App\Tag;
@@ -25,7 +23,7 @@ class NotificationsController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('permission:create-notifications', ['only' => ['store', 'bulk_import', 'update']]);
+        $this->middleware('permission:create-notifications', ['only' => ['create', 'edit', 'store', 'update']]);
         $this->middleware('permission:approve-notifications', ['only' => [  'pending_index', 
                                                                             'approved_index', 
                                                                             'rejected_index', 
@@ -35,47 +33,87 @@ class NotificationsController extends Controller
     }
 
     /**
-     * Parse csv file to choose attributes.
+     * Display a listing of the pending resource waiting for approval.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function parseFile(Request $request) {
+    public function pending_index() {
+        // TODO: save these in pagination settings later
+        $perPage = 4;
+        $perRow = 1;
+        $rowCount = ceil($perPage / $perRow);
 
-        if ($request->hasFile('csv_file')) {
+        $notifications = $this->GetPendingNotifications()->paginate($perPage);
 
-            $path = $request->file('csv_file')->getRealPath();
-            $rawData = array_map('str_getcsv', file($path));
-            $rowCount = count($rawData);
-
-            if ($rowCount >= 2){
-
-                $csv_fields = array_slice($rawData, 0, 1);
-                $fields = array_map('trim', $csv_fields[0]);
-                
-                $row = array_slice($rawData, 1, 1);
-                $data = array_map('trim', $row[0]);
-
-                $csv_data[0] = $fields;
-                $csv_data[1] = $data;
-            }
-        }
-
-        return view('pages.import_csv', ['title' => 'Import CSV File', 
-                                         'file_imported' => true,
-                                         'csv_file' => $request['csv_file'],
-                                         'csv_data' => $csv_data]);
+        return view('pages.admin', ['notifications' => $notifications, 
+                                    'tab' => 'pending',
+                                    'count' => $notifications->count(),
+                                    'perPage' => $perPage,
+                                    'perRow' => $perRow,
+                                    'rowCount' => $rowCount]);
     }
 
     /**
-     * Bulk import resources in storage.
+     * Display a listing of the approved resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function processImport(Request $request) {
+    public function approved_index() {
+        // TODO: save these in pagination settings later
+        $perPage = 4;
+        $perRow = 1;
+        $rowCount = ceil($perPage / $perRow);
+        
+        $notifications = $this->GetApprovedNotifications()->paginate($perPage);
+        $count = $notifications ? $notifications->count() : 0;
 
+        return view('pages.admin', ['notifications' => $notifications, 
+                                    'tab' => 'approved',
+                                    'count' => $count,
+                                    'perPage' => $perPage,
+                                    'perRow' => $perRow,
+                                    'rowCount' => $rowCount]);
+    }
 
+    /**
+     * Display a listing of the rejected resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function rejected_index() {
+        // TODO: save these in pagination settings later
+        $perPage = 4;
+        $perRow = 1;
+        $rowCount = ceil($perPage / $perRow);
+
+        $notifications = $this->GetRejectedNotifications()->paginate($perPage);
+        $count = $notifications ? $notifications->count() : 0;
+
+        return view('pages.admin', ['notifications' => $notifications, 
+                                    'tab' => 'rejected',
+                                    'count' => $count,
+                                    'perPage' => $perPage,
+                                    'perRow' => $perRow,
+                                    'rowCount' => $rowCount]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+
+        $categories = config('enum.notification_categories');
+        $regions = $this->getRegions();
+        $ministries = $this->getMinistries();
+        $divisions = $this->getDivisions();
+
+        return view('pages.data_entry_form', [  'categories' => $categories,
+                                                'regions' => $regions,
+                                                'ministries' => $ministries,
+                                                'divisions' => $divisions
+                                            ]);
     }
 
     /**
@@ -85,35 +123,26 @@ class NotificationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        // dd($data);
         
         $fields = $request->validate([
             'title' => 'required',
             'category' => 'required',
             'description' => 'required',
-            'notice_file' => 'required',
             'thumbnail_file' => 'required',
+            'notice_file' => 'required',
             'region' => 'required',
-            'issuing_authority' => 'nullable',
-            'designation' => 'nullable',
-            'unit_name' => 'nullable',
-            'unit_type' => 'nullable',
-            'caption1' => 'nullable',
-            'caption2' => 'nullable',
-            'caption3' => 'nullable',
-            //'publish_date' => 'required',
-            'source_url' => 'nullable', ]);
+            'division' => 'required',
+            'signing_authority' => 'nullable',
+            'notifier' => 'nullable',
+            'notifier_designation' => 'nullable',
+            'source_url' => 'nullable',
+        ]);
 
-        $data = [   
-            'title' => $request->title,
-            'category' => $request->category,
-            'description' => $request->description, 
-            'issuing_authority'=> $request->issuing_authority,
-            'designation' => $request->designation,
-            'unit_name' => $request->unit_name,
-            'unit_type' => $request->unit_type,
-            'caption1' => $request->caption1,
-            'caption2' => $request->caption2,
-            'caption3' => $request->caption3, ];
+        $data = [   'title' => $request->title,
+                    'category' => $request->category,
+                    'description' => $request->description, 
+                ];
 
         if($request->hasFile('notice_file'))
         {
@@ -142,8 +171,22 @@ class NotificationsController extends Controller
         $data['region_id'] = $region->id;
         $data['region_name'] = $region->name;
 
+        $division = $this->getDivision($fields['division']);
+        $data['division_id'] = $division->id;
+        $data['division_name'] = $division->name;;
+        $data['ministry_id'] = $division->ministry_id;
+
+        $ministry = $this->getMinistry($division->ministry_id);
+        $data['ministry_name'] = $ministry->name;
+
+        $data['signing_authority'] = $fields['signing_authority'];
+        $data['notifier'] = $fields['notifier'];
+        $data['notifier_designation'] = $fields['notifier_designation'];
+        $data['source_url'] = $fields['source_url'];
+
         $data['operator_id'] = auth()->user()->id;
         $data['approval_status'] = config('enum.approval_status.pending');
+        $data['creation_date'] = Carbon::now();
 
         $notification = Notification::create($data);
 
@@ -161,9 +204,10 @@ class NotificationsController extends Controller
 
                 $notification->tags()->attach($tag);
             }
-        }
+    }
 
-        return redirect()->route('data_entry');
+        // TODO: send to proper link
+        return $this->create();
     }
 
     /**

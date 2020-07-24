@@ -6,7 +6,7 @@
       <h3>Login to your Account</h3>
    </div>
    <div class="row">
-      <form method="POST" action="{{ route('login_user') }}" class="col-sm-3 login-form" enctype="multipart/form-data">
+      <form method="POST" action="{{ url('/login_user') }}" class="col-sm-3 login-form" enctype="multipart/form-data">
          {{ csrf_field() }}
 
          <div class="form-group">

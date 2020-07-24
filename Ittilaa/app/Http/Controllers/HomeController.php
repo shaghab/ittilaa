@@ -92,6 +92,7 @@ class HomeController extends Controller
                                     'perPage'       => $perPage,
                                     'perRow'        => $perRow,
                                     'rowCount'      => $rowCount ]);
+
     }
 
     public function searchDepartment(Request $request) {

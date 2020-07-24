@@ -123,25 +123,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'notification_fields' => [
-        'title',
-        'category',
-        'thumbnail_link',
-        'notice_link',
-        'description',
-        'region_name',
-        'issuing_authority',
-        'designation',
-        'unit_name',
-        'unit_type',
-        'publish_date',
-        'source_url',
-        'caption1',
-        'caption2',
-        'caption3',
-        'tags',
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

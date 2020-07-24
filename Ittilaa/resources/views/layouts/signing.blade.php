@@ -6,7 +6,7 @@
     <body>
     <div class="container-fluid">
         <header>
-            @include('includes.admin_header')
+            @include('includes.logo')
         </header>
         <div class="container-fluid">
             @yield('content')
