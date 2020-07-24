@@ -29,7 +29,6 @@ class Notification extends Model
         'caption2',
         'caption3',
         'operator_id',
-        'creation_date',
         'approver_id',
         'approval_date',
         'approval_status',

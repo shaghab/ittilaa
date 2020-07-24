@@ -1,0 +1,2 @@
+For laravel roles and permissions:
+    http://www.larashout.com/laravel-roles-and-permissions

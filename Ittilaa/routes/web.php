@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/notification/{notification}', 'NotificationsController@show')->name('show_notification');
+
 Route::post('/search_region', 'HomeController@searchRegion'); //->name('search_region');
 Route::post('/search_department', 'HomeController@searchDepartment');
 Route::post('/search_category', 'HomeController@searchCategory');
