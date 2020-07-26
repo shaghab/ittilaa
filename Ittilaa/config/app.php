@@ -124,6 +124,7 @@ return [
     'cipher' => 'AES-256-CBC',
 
     'notification_fields' => [
+        'short_title',
         'title',
         'category',
         'thumbnail_link',

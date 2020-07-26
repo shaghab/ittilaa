@@ -5,12 +5,14 @@
     <div class="col-md-5 page-heading">
         <h3>Add a new Notification</h3>
     </div>
+    @if(session('success'))
+        <h4>{{session('success')}}</h1>
+    @endif
     <div class="row">
         <form method="POST" action="{{ route('save_notificaton') }}" class="col-md-5 form-inline dataentry-form" enctype="multipart/form-data" >
             {{ csrf_field() }}
             <div class="form-group row">
                 <label class="col-sm-4">Category:</label>
-                <div class="dropdown d-inline-block category-dropdown">
                 {{-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Choose a Category
                     </button>
@@ -19,32 +21,45 @@
                         <a class="dropdown-item" href="#">Link 2</a>
                         <a class="dropdown-item" href="#">Link 3</a>
                     </div> --}}
+                <div class="dropdown d-inline-block category-dropdown">
                     <select name="category" class="form-control col-sm-8">
-                        @php
-                            $count = $categories ? count($categories) : 0;
-                            [$keys, $values] = Arr::divide($categories);
-                        @endphp
-
-                        <option class="dropdown-item" value="">Choose a Category</option>
                         <div class="dropdown-menu col-sm-8">
-                            @for ($index = 0; $index < $count; $index++)
-                                <option class="dropdown-item" value="{{ $values[$index] }}">{{ $keys[$index] }}</option>
-                            @endfor
+                            <option class="dropdown-item" value="">Category</option>
+
+                            @foreach ($categories as $category)
+                                <option class="dropdown-item" value="{{ $category }}">{{ $category }}</option>
+                            @endforeach
                         </div>
-                    </select>
-                </div> 
+                   </select>
+
+                   @if ($errors->has('category'))
+                      <span class="help-block">
+                         <strong>{{ $errors->first('category') }}</strong>
+                      </span>
+                   @endif
+                </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Title:</label>
                 <input type="text" name="title" class="form-control col-sm-8">
+                @if ($errors->has('title'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('title') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Tags:</label>
                 <input type="text" name="tags" class="form-control col-sm-8"/>
+                @if ($errors->has('tags'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('tags') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Publishing Date:</label>
-                <input type="datetime" name="publish_date" class="form-control col-sm-5">
+                <input type="text" name="publish_date" class="form-control col-sm-5">
 
                 {{-- <div class='input-group date' id='datetimepicker1'>
                     <input type="text" class="form-control col-sm-5">
@@ -52,6 +67,12 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div> --}}
+
+                @if ($errors->has('publish_date'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('publish_date') }}</strong>
+                    </span>
+                @endif
             </div>
             {{-- <script type="text/javascript">
                 $(function () {
@@ -62,43 +83,87 @@
             <div class="form-group row">
                 <label class="col-sm-4">Document:</label>
                 <input type="file" name="notice_file" class="form-control col-sm-8">
+
+                @if ($errors->has('notice_file'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('notice_file') }}</strong>
+                    </span>
+                @endif
             </div>
 
             {{-- TODO: Change to pdf to image control  --}}
             <div class="form-group row">
                 <label class="col-sm-4">Thumbnail:</label>
                 <input type="file" name="thumbnail_file" class="form-control col-sm-8">
+
+                @if ($errors->has('thumbnail_file'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('thumbnail_file') }}</strong>
+                    </span>
+                @endif                
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4">Description:</label>
                 <textarea name="description" class="form-control col-sm-8" rows="5"></textarea>
+
+                @if ($errors->has('description'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                @endif
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4">Region:</label>
                 <div class="dropdown d-inline-block region-dropdown">
-                    <select name="region" class="form-control col-sm-8">
+                    <select id="region" name="region" class="form-control col-sm-8">
                         <div class="dropdown-menu col-sm-8">
+                            <option class="dropdown-item" value="">Region</option>
+
                             @foreach ($regions as $region)
-                                <option class="dropdown-item" value="{{ $region->id }}">{{ $region->name }}</option>
+                                <option class="dropdown-item" value="{{ $region->name }}">{{ $region->name }}</option>
                             @endforeach
                         </div>
                     </select>
-                </div> 
+                </div>
+
+                @if ($errors->has('region'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('region') }}</strong>
+                    </span>
+               @endif
             </div>
 
            <div class="form-group row">
                 <label class="col-sm-4">Issuing Authority:</label>
                 <input type="text" name="issuing_authority" class="form-control col-sm-8">
+
+                @if ($errors->has('issuing_authority'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('issuing_authority') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Designation:</label>
                 <input type="text" name="designation" class="form-control col-sm-8">
+
+                @if ($errors->has('designation'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('designation') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Unit:</label>
                 <input type="text" name="unit_name" class="form-control col-sm-8">
+
+                @if ($errors->has('unit_name'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('unit_name') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Unit type:</label>

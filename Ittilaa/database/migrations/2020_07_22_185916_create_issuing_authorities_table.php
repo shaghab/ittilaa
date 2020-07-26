@@ -19,7 +19,7 @@ class CreateIssuingAuthoritiesTable extends Migration
             $table->string('name');
             $table->string('designation');
             $table->string('unit_name');
-            $table->string('unit_type');
+            $table->string('unit_type')->nullable();
 
             $table->timestamps();
 

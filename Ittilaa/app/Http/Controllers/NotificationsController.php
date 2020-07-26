@@ -125,24 +125,16 @@ class NotificationsController extends Controller
                 }
                 $data['region_id'] = $region->id;
 
-                // needs to adapt to this setting
-                // if($request->hasFile('notice_file'))
-                // {
-                //     $file = $request->file('notice_file');
-                //     $originalname = $file->getClientOriginalName();
-                //     $storedFile = $file->move('notifications/documents', $originalname);
-                //     $data['notice_link'] = 'notifications/documents/' . $originalname;
-                //     $filePath = $storedFile->getRealPath();
-                //     $data['notice_doc_type'] = pathinfo($filePath)['extension'];
-                // }
+                if (!empty($data['notice_link'])) {
+                    $fileName = '/notifications/documents/' . $data['notice_link'];
+                    $data['notice_link'] = $fileName;
+                    $data['notice_doc_type'] = pathinfo($fileName)['extension'];
+                }
 
-                // if($request->hasFile('thumbnail_file'))
-                // {
-                //     $file = $request->file('thumbnail_file');
-                //     $originalname = $file->getClientOriginalName();
-                //     $storedFile = $file->move('notifications/thumbnails', $originalname);
-                //     $data['thumbnail_link'] = 'notifications/thumbnails/' . $originalname;
-                // }
+                if (!empty($data['thumbnail_link'])) {
+                    $fileName = '/notifications/documents/' . $data['thumbnail_link'];
+                    $data['thumbnail_link'] = $fileName; 
+                }
 
                 $dateFormat = 'd/m/Y H:i:s';
                 $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
@@ -181,7 +173,6 @@ class NotificationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        
         $fields = $request->validate([
             'title' => 'required',
             'category' => 'required',
@@ -202,7 +193,8 @@ class NotificationsController extends Controller
         $data = [   
             'title' => $request->title,
             'category' => $request->category,
-            'description' => $request->description, 
+            'description' => $request->description,
+            'publish_date' => $request->publish_date,
             'issuing_authority'=> $request->issuing_authority,
             'designation' => $request->designation,
             'unit_name' => $request->unit_name,
@@ -250,7 +242,7 @@ class NotificationsController extends Controller
         }
         $data['issuer_id'] = $authority->id;
 
-        $regionName = $data['region_name'];
+        $regionName = $fields['region'];
             $region = Region::where('name', $regionName)->first();
             if (!$region) {
                 $region = Region::create(['name' => $regionName]);
@@ -260,24 +252,18 @@ class NotificationsController extends Controller
         $data['region_name'] = $region->name;
 
         $data['operator_id'] = auth()->user()->id;
+        $data['approver_id'] = auth()->user()->id;
         $data['approval_status'] = config('enum.approval_status.pending');
 
         $notification = Notification::create($data);
-
         if($notification) {        
             $tagNames = explode(',',$request->get('tags'));
 
-            $tags = [];
-            $index = 0;
             foreach($tagNames as $tagName)  {
                 $tag = Tag::where('name', $tagName)->first();
                 if(!$tag) {
                     $tag = Tag::create(['name' => $tagName]);
                 }
-                $tags[$index++] = $tag;
-            }
-
-            if (count($tags) > 0) {
                 $notification->tags()->attach($tag);
             }
         }
@@ -296,56 +282,42 @@ class NotificationsController extends Controller
         return view('pages.notification', ['notification' => $notification]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //TODO: not correct
-        $notification = Notification::find($id);
-        return view('pages.data_entry_form', ['notification' => $notification]);
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, $id) {
+    //     $notification = Notification::find($id);
+    //     if ($notification != null) {
+    //         $data = $request->validate([
+    //             'title' => 'required',
+    //             'category' => 'required',
+    //             'thumbnail_link' => 'required',
+    //             'notice_link' => 'required',
+    //             'description' => 'required',
+    //             'region_id' => 'required',
+    //             'region_name' => 'required',
+    //             'division_id' => 'required',
+    //             'division_name' => 'required',
+    //             'ministry_id' => 'required',
+    //             'ministry_name' => 'required',
+    //             'signing_authority' => 'required',
+    //             'notifier' => 'required',
+    //             'notifier_designation' => 'required',
+    //             'publish_date' => 'required',
+    //             'source_url' => 'required',
+    //         ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        $notification = Notification::find($id);
-        if ($notification != null) {
-            $data = $request->validate([
-                'title' => 'required',
-                'category' => 'required',
-                'thumbnail_link' => 'required',
-                'notice_link' => 'required',
-                'description' => 'required',
-                'region_id' => 'required',
-                'region_name' => 'required',
-                'division_id' => 'required',
-                'division_name' => 'required',
-                'ministry_id' => 'required',
-                'ministry_name' => 'required',
-                'signing_authority' => 'required',
-                'notifier' => 'required',
-                'notifier_designation' => 'required',
-                'publish_date' => 'required',
-                'source_url' => 'required',
-            ]);
+    //         $data['notice_doc_type'] = (Str::endsWith(Str::of($data['notice_link'])->lower(), 'pdf')) ? 'IMAGE' : 'PDF';
+    //         $notification->update($data);
 
-            $data['notice_doc_type'] = (Str::endsWith(Str::of($data['notice_link'])->lower(), 'pdf')) ? 'IMAGE' : 'PDF';
-            $notification->update($data);
-
-            // TODO: send to proper link
-            return $notification;
-        }
-
-        return redirect()->route('products.index')->with('success','Notification updated');
-    }
+    //         // TODO: send to proper link
+    //         return $notification;
+    //     }
+    // }
 
     /**
      * Show the form to approve the specified resource.

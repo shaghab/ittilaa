@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Region;
+
 class DashboardController extends Controller 
 {
 	/**
@@ -14,7 +16,7 @@ class DashboardController extends Controller
      * @return void
      */
     public function __construct() {
-    	$this->middleware('permission:approve-notifications', ['only' => ['import']]);
+    	$this->middleware('permission:approve-notifications', ['only' => ['import', 'create']]);
     }
 
     /**
@@ -34,9 +36,20 @@ class DashboardController extends Controller
     public function create() {
 
         $categories = config('enum.notification_categories');
-        $regions = $this->getRegions();
+        $regions = Region::getRegions();
         return view('pages.data_entry_form', [  'categories' => $categories,
                                                 'regions' => $regions, ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id) {
+        // //TODO: not implemented
+        // return view('pages.data_entry_form', ['notification' => $notification]);
     }
 
     /**

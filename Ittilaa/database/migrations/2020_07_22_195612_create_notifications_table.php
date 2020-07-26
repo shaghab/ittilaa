@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->id();
 
             $table->string('title');
+            $table->string('short_title')->nullable();
             $table->string('category');
             $table->string('thumbnail_link');
             $table->string('notice_link');
@@ -38,8 +39,8 @@ class CreateNotificationsTable extends Migration
             $table->string('caption3')->nullable();
 
             $table->foreignId('operator_id')->constrained('x_users');
-            $table->foreignId('approver_id')->constrained('x_users');
-            $table->dateTime('approval_date')->default(Carbon::now());
+            $table->foreignId('approver_id')->constrained('x_users')->nullable();
+            $table->dateTime('approval_date')->default(Carbon::now())->nullable();
             $table->string('approval_status')->default('approved');
 
             $table->timestamps();

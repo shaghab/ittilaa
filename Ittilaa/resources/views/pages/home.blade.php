@@ -45,7 +45,7 @@
          <form method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
 
-            <div class="dropdown d-inline-block region-dropdown">
+            <div class="dropdown d-inline-block department-dropdown">
                <select id="department" name="department" class="form-control col-sm-8" onchange="this.form.submit()">
                   <div class="dropdown-menu col-sm-8">
                      <option class="dropdown-item" value="">Department</option>
@@ -66,7 +66,7 @@
          <form method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
             
-            <div class="dropdown d-inline-block region-dropdown">
+            <div class="dropdown d-inline-block category-dropdown">
                <select name="category" class="form-control col-sm-8" onchange="this.form.submit()">
                   <div class="dropdown-menu col-sm-8">
                      <option class="dropdown-item" value="">Category</option>
@@ -108,7 +108,11 @@
             <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Card image">
             <div class="card-body">
                <p class="card-text">{{ $notification->publish_date }}</p>
-               <h6 class="card-title">{{ $notification->title }}</h6>
+               <h6 class="card-title">{{ 
+                ($notification->short_title != NULL) ? 
+                        $notification->short_title : 
+                        $notification->title }}
+               </h6>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
                <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
