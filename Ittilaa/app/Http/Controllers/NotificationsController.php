@@ -126,13 +126,13 @@ class NotificationsController extends Controller
                 $data['region_id'] = $region->id;
 
                 if (!empty($data['notice_link'])) {
-                    $fileName = '/notifications/documents/' . $data['notice_link'];
+                    $fileName = 'notifications/documents/' . $data['notice_link'];
                     $data['notice_link'] = $fileName;
                     $data['notice_doc_type'] = pathinfo($fileName)['extension'];
                 }
 
                 if (!empty($data['thumbnail_link'])) {
-                    $fileName = '/notifications/documents/' . $data['thumbnail_link'];
+                    $fileName = 'notifications/thumbnails/' . $data['thumbnail_link'];
                     $data['thumbnail_link'] = $fileName; 
                 }
 
