@@ -9,6 +9,13 @@ class IssuingAuthority extends Model
     //
     protected $table = 'x_issuing_authorities';
 
+    protected $fillable = [
+    	'name',
+    	'designation',
+    	'unit_name',
+    	'unit_type',
+    ];
+
     public static function getAuthorizerDesignations() {
         return IssuingAuthority::select('designation')->distinct();
     }

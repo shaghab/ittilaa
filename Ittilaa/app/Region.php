@@ -9,6 +9,10 @@ class Region extends Model
     //The table associated with the model.
     protected $table = 'x_regions';
 
+    protected $fillable = [
+    	'name',
+    ];
+
     public static function GetId($name) {
         $region = Region::where('name',$name)->first();
         return $region->id;

@@ -4,6 +4,12 @@
 <div class="row page-heading">
    <h3> {{ $title }} </h3>
 </div>
+
+@if(session('success'))
+   <h4>{{session('success')}}</h1>
+@endif
+
+@if (!$file_imported)
 <div class="container-fluid">
    <div class="row">
       <form method="POST" action="{{ route('parse_csv') }}" enctype="multipart/form-data" class="col-md-8 form-inline">
@@ -12,7 +18,7 @@
          <div class="form-group row{{ $errors->has('csv_file') ? ' has-error' : '' }}">
             <label>Select File:</label>
             <label>
-               <input id="csv_file" name="csv_file" type="file" @if ($file_imported) value="{{$csv_file}}" @endif required>
+               <input id="csv_file" name="csv_file" type="file" accept=".csv" required>
             </label>
 
             @if ($errors->has('csv_file'))
@@ -24,7 +30,7 @@
 
          <div class="form-group row">
             <label>
-               <input type="checkbox" name="includes_header" checked> File contains header row?
+               <input type="checkbox" name="has_header" checked> File contains header row?
             </label>
          </div>
 
@@ -36,8 +42,7 @@
    </div>
 </div>
 
-@if ($file_imported)
-<br>
+@else
 <div class="container-fluid">
 
    <div class="row">
@@ -47,6 +52,18 @@
    <div class="row">
       <form class="col-md-12 form-inline" method="POST" action="{{ route('import_data') }}">
          {{ csrf_field() }}
+
+         @if (count($errors) > 0)
+            <div class="alert alert-danger">
+               <ul>
+                  @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                  @endforeach
+               </ul>
+            </div>
+         @endif
+
+         <input type="hidden" name="import_file_id" value="{{ $csv_data_file->id }}" />
 
          <div style="overflow-x:scroll;">
 

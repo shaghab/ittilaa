@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Notification extends Model
 {
@@ -39,7 +40,13 @@ class Notification extends Model
     }
 
     public function getTags(){
-        return $this->tags()::where('notification_id', $this->id);
+        $tags = DB::table('x_tags')
+                    ->leftJoin('x_notifications_tags', 'notification_id', '=', $this->id)
+                    ->get();
+
+                    dd($tags);
+
+        return $tags;
     }
 
 }

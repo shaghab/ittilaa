@@ -11,7 +11,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use App\DataImportFile;
+use App\IssuingAuthority;
 use App\Notification;
+use App\Region;
 use App\Tag;
 use App\Traits\QueriesNotifications;
 
@@ -25,13 +28,8 @@ class NotificationsController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('permission:create-notifications', ['only' => ['store', 'bulk_import', 'update']]);
-        $this->middleware('permission:approve-notifications', ['only' => [  'pending_index', 
-                                                                            'approved_index', 
-                                                                            'rejected_index', 
-                                                                            'approve', 
-                                                                            'reject',
-                                                                            'destroy']]);
+        $this->middleware('permission:create-notifications', ['only' => ['store', 'parseFile', 'processImport', 'update']]);
+        $this->middleware('permission:approve-notifications', ['only' => [  'approve', 'reject', 'destroy']]);
     }
 
     /**
@@ -45,26 +43,31 @@ class NotificationsController extends Controller
         if ($request->hasFile('csv_file')) {
 
             $path = $request->file('csv_file')->getRealPath();
-            $rawData = array_map('str_getcsv', file($path));
-            $rowCount = count($rawData);
+            $data = [];
 
-            if ($rowCount >= 2){
-
-                $csv_fields = array_slice($rawData, 0, 1);
-                $fields = array_map('trim', $csv_fields[0]);
-                
-                $row = array_slice($rawData, 1, 1);
-                $data = array_map('trim', $row[0]);
-
-                $csv_data[0] = $fields;
-                $csv_data[1] = $data;
+            $rowIndex = 0;
+            if (($handle = fopen($path, "r")) !== FALSE) {
+                while(($row = fgetcsv($handle, 0, ",")) !== FALSE) {
+                    $data[$rowIndex++] = array_map('trim', $row);
+                }
             }
+
+            $csv_data[0] = $data[0];
+            $csv_data[1] = $data[1];
+
+            $csv_data_file = DataImportFile::create([
+                'file_name' => $request->file('csv_file')->getClientOriginalName(),
+                'has_header_row' => $request->has('has_header'),
+                'file_data' => json_encode($data)
+            ]);
         }
 
-        return view('pages.import_csv', ['title' => 'Import CSV File', 
-                                         'file_imported' => true,
-                                         'csv_file' => $request['csv_file'],
-                                         'csv_data' => $csv_data]);
+        return view('pages.import_csv', [
+                                        'title' => 'Import CSV File', 
+                                        'file_imported' => true,
+                                        'csv_data' => $csv_data,
+                                        'csv_data_file' => $csv_data_file,
+                                        ]);
     }
 
     /**
@@ -75,7 +78,100 @@ class NotificationsController extends Controller
      */
     public function processImport(Request $request) {
 
+        $import_file_id = $request->import_file_id;
+        $import_file = DataImportFile::find($import_file_id);
+        $import_data = json_decode($import_file->file_data, true);
 
+        if ($import_file->has_header_row) {
+            unset($import_data[0]);
+        }
+
+        $dbFields = config('app.notification_fields');
+        $notifications = [];
+
+        foreach ($import_data as $row) {
+            $data = [];
+
+            foreach ($dbFields as $index => $field) {
+                $data[$field] = $row[$request->fields[$index]];
+            }
+
+            if (count(array_filter($data)) == 0) {
+                continue;
+            }
+
+            try {
+
+                $authorityExisitsConditions = ['name' => $data['issuing_authority'],
+                                                'designation' => $data['designation'],
+                                                'unit_name' => $data['unit_name']];
+                $authority = IssuingAuthority::where($authorityExisitsConditions)->first();
+                if (!$authority) {
+                    $authority = IssuingAuthority::create(['name' => $data['issuing_authority'],
+                                                            'designation' => $data['designation'],
+                                                            'unit_name' => $data['unit_name'],
+                                                            'unit_type'=> $data['unit_type']]);
+                }
+                $data['issuer_id'] = $authority->id;
+                $data['unit_type'] = $authority->unit_type;
+
+                $tagNames = explode(";", $data['tags']);
+                unset($data['tags']);
+
+                $regionName = $data['region_name'];
+                $region = Region::where('name', $regionName)->first();
+                if (!$region) {
+                    $region = Region::create(['name' => $regionName]);
+                }
+                $data['region_id'] = $region->id;
+
+                // needs to adapt to this setting
+                // if($request->hasFile('notice_file'))
+                // {
+                //     $file = $request->file('notice_file');
+                //     $originalname = $file->getClientOriginalName();
+                //     $storedFile = $file->move('notifications/documents', $originalname);
+                //     $data['notice_link'] = 'notifications/documents/' . $originalname;
+                //     $filePath = $storedFile->getRealPath();
+                //     $data['notice_doc_type'] = pathinfo($filePath)['extension'];
+                // }
+
+                // if($request->hasFile('thumbnail_file'))
+                // {
+                //     $file = $request->file('thumbnail_file');
+                //     $originalname = $file->getClientOriginalName();
+                //     $storedFile = $file->move('notifications/thumbnails', $originalname);
+                //     $data['thumbnail_link'] = 'notifications/thumbnails/' . $originalname;
+                // }
+
+                $dateFormat = 'd/m/Y H:i:s';
+                $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
+                if (!$publishDate) {
+                    $dateFormat = 'd/m/Y';
+                    $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
+                }
+                $data['publish_date'] = $publishDate;
+
+                $data['operator_id'] = auth()->user()->id;
+                $data['approver_id'] = auth()->user()->id;
+                $data['approval_status'] = config('enum.approval_status.approved');
+                $data['approval_date'] = Carbon::now();
+
+                $notification = Notification::create($data);
+                if($notification) {
+                    foreach($tagNames as $tagName)  {
+                        $tag = Tag::where('name', $tagName)->first();
+                        if(!$tag) {
+                            $tag = Tag::create(['name' => $tagName]);
+                        }
+                        $notification->tags()->attach($tag);
+                    }
+                }
+            } catch (Exception $e) {
+                report($e);
+            }
+        } 
+        return redirect()->route('import_csv', [ 'title' => 'Import CSV File', 'file_imported' => false, ])->withSuccess('File imported successfully!');
     }
 
     /**
@@ -100,7 +196,7 @@ class NotificationsController extends Controller
             'caption1' => 'nullable',
             'caption2' => 'nullable',
             'caption3' => 'nullable',
-            //'publish_date' => 'required',
+            'publish_date' => 'required',
             'source_url' => 'nullable', ]);
 
         $data = [   
@@ -133,12 +229,33 @@ class NotificationsController extends Controller
             $data['thumbnail_link'] = 'notifications/thumbnails/' . $originalname;
         }
 
-        // TODO: add datetime picker
-        $datetime = new DateTime(); 
-        $datetime->setDate('2020', '06', '25');
-        $data['publish_date'] = $datetime;
+        // TODO: later add control for DateTime picking
+        $dateFormat = 'd/m/Y H:i:s';
+        $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
+        if (!$publishDate) {
+            $dateFormat = 'd/m/Y';
+            $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
+        }
+        $data['publish_date'] = $publishDate;
 
-        $region = $this->getRegion($fields['region']);
+        $authorityExisitsConditions = ['name' => $data['issuing_authority'],
+                                        'designation' => $data['designation'],
+                                        'unit_name' => $data['unit_name']];
+        $authority = IssuingAuthority::where($authorityExisitsConditions)->first();
+        if (!$authority) {
+            $authority = IssuingAuthority::create(['name' => $data['issuing_authority'],
+                                                    'designation' => $data['designation'],
+                                                    'unit_name' => $data['unit_name'],
+                                                    'unit_type'=> $data['unit_type']]);
+        }
+        $data['issuer_id'] = $authority->id;
+
+        $regionName = $data['region_name'];
+            $region = Region::where('name', $regionName)->first();
+            if (!$region) {
+                $region = Region::create(['name' => $regionName]);
+            }
+        
         $data['region_id'] = $region->id;
         $data['region_name'] = $region->name;
 
@@ -150,20 +267,22 @@ class NotificationsController extends Controller
         if($notification) {        
             $tagNames = explode(',',$request->get('tags'));
 
+            $tags = [];
+            $index = 0;
             foreach($tagNames as $tagName)  {
                 $tag = Tag::where('name', $tagName)->first();
-                
                 if(!$tag) {
-                    $tag = new Tag();
-                    $tag->name = $tagName;
-                    $tag->save();
+                    $tag = Tag::create(['name' => $tagName]);
                 }
+                $tags[$index++] = $tag;
+            }
 
+            if (count($tags) > 0) {
                 $notification->tags()->attach($tag);
             }
         }
 
-        return redirect()->route('data_entry');
+        return redirect()->route('data_entry')->withSuccess('Data saved successfully!');
     }
 
     /**

@@ -13,13 +13,13 @@
          <h6>{{ $notification->region_name }}</h6>
          <p>Publishing Date: {{ $notification->publish_date }}<p>
 
-         <p>Tags: Tag1, Tag2, Tag3, Tag4, Tag5 
-            <!-- @php
+         <p>Tags: Tag1; Tag2; Tag3; Tag4; Tag5; 
+            {{-- @php
                $tags = $notification->getTags();
             @endphp
             @foreach ($tags as $tag)
-               <a href=#>{{ $tag->name }}</a>
-            @endforeach -->
+               <a href=#>{{ $tag->name }};</a>
+            @endforeach --}}
          </p>
 
          <p class="p-black">{{ $notification->description }}</p>

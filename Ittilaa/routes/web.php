@@ -25,8 +25,8 @@ Route::get('/login', 'UsersController@login')->name('login');
 Route::get('/register', 'UsersController@register')->name('register');
 Route::get('/logout', 'UsersController@logout')->name('logout');
 
-Route::post('/login_user', 'UsersController@loginUser');
-Route::post('/register_user', 'UsersController@registerUser');
+Route::post('/login_user', 'UsersController@loginUser')->name('login_user');
+Route::post('/register_user', 'UsersController@registerUser')->name('register_user');
 
 // Admin dashboard
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

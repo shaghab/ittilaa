@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\DB;
 
 use App\Notification;
 use App\Tag;
-use App\Ministry;
-use App\Division;
 use App\Region;
 
 trait QueriesNotifications {
@@ -20,7 +18,7 @@ trait QueriesNotifications {
     public function getNotificationInRegion($region) {
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('region_name', $region);
+			return $notifications->where('region_name', $region)->get();
 		}
 
 		return $notifications;
@@ -29,14 +27,14 @@ trait QueriesNotifications {
     public function getNotificationFromUnit($unit) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('unit_name', $unit);
+			return $notifications->where('unit_name', $unit)->get();
 		}
 
 		return $notifications;
     }
 
-	public function GetNotificationsWithTags(array $tags){
-		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags);
+	public function getNotificationsWithTags(array $tags){
+		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags)->get();
 		dd($result);
 		return $result;
 	}
@@ -44,52 +42,52 @@ trait QueriesNotifications {
 	public function getNotificationOfCategory($category) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('category', $category);
+			return $notifications->where('category', $category)->get();
 		}
 
 		return $notifications;
     }
 
-	public function GetJobs(){
+	public function getJobs(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.JOB'));
+			return $notifications->where('cateogry', config('enum.notification_categories.JOB'))->get();
 		}
 
 		return $notifications;
 	}
 
-	public function GetNotices(){
+	public function getNotices(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NOTICE'));
+			return $notifications->where('cateogry', config('enum.notification_categories.NOTICE'))->get();
 		}
 
 		return $notifications;
 	}
 
-	public function GetTenders(){
+	public function getTenders(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.TENDER'));
+			return $notifications->where('cateogry', config('enum.notification_categories.TENDER'))->get();
 		}
 
 		return $notifications;
 	}
 
-	public function GetPolicies(){
+	public function getPolicies(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.POLICY'));
+			return $notifications->where('cateogry', config('enum.notification_categories.POLICY'))->get();
 		}
 
 		return $notifications;
 	}
 
-	public function GetNews(){
+	public function getNews(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NEWS'));
+			return $notifications->where('cateogry', config('enum.notification_categories.NEWS'))->get();
 		}
 
 		return $notifications;

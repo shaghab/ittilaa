@@ -9,6 +9,10 @@ class Tag extends Model
     //The table associated with the model.
     protected $table = 'x_tags';
 
+    protected $fillable = [
+    	'name', 
+    ];
+
     public function notifications() { 
         return $this->belongsToMany(Notification::class,'x_notifications_tags');
     }
