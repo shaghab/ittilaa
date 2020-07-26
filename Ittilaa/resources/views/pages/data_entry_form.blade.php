@@ -49,6 +49,15 @@
                 @endif
             </div>
             <div class="form-group row">
+                <label class="col-sm-4">Short Title:</label>
+                <input type="text" name="short_title" class="form-control col-sm-8">
+                @if ($errors->has('short_title'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('short_title') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-4">Tags:</label>
                 <input type="text" name="tags" class="form-control col-sm-8"/>
                 @if ($errors->has('tags'))

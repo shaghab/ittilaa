@@ -175,6 +175,7 @@ class NotificationsController extends Controller
     public function store(Request $request) {
         $fields = $request->validate([
             'title' => 'required',
+            'short_title' => 'nullable',
             'category' => 'required',
             'description' => 'required',
             'notice_file' => 'required',
@@ -192,6 +193,7 @@ class NotificationsController extends Controller
 
         $data = [   
             'title' => $request->title,
+            'short_title' => $request->short_title,
             'category' => $request->category,
             'description' => $request->description,
             'publish_date' => $request->publish_date,

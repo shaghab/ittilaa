@@ -12,6 +12,7 @@ class Notification extends Model
 
     // The attributes that are mass assignable.
     protected $fillable = [
+        'short_title',
         'title',
         'category',
         'thumbnail_link',
