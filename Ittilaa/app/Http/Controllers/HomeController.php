@@ -48,8 +48,8 @@ class HomeController extends Controller
         $categories = config('enum.notification_categories');
 
         // TODO: save these in pagination settings later
-        $perPage = 10;
-        $perRow = 5;
+        $perPage = 8;
+        $perRow = 4;
         $rowCount = 2;
         
         $notifications = $this->getNotifications()->paginate($perPage);
@@ -76,8 +76,8 @@ class HomeController extends Controller
         $categories = config('enum.notification_categories');
 
         // TODO: save these in pagination settings later
-        $perPage = 10;
-        $perRow = 5;
+        $perPage = 8;
+        $perRow = 4;
         $rowCount = 2;
 
         $notifications = $this->getNotificationInRegion($fields['region'])->paginate($perPage);
@@ -104,8 +104,8 @@ class HomeController extends Controller
         $categories = config('enum.notification_categories');
 
         // TODO: save these in pagination settings later
-        $perPage = 10;
-        $perRow = 5;
+        $perPage = 8;
+        $perRow = 4;
         $rowCount = 2;
 
         $notifications = $this->getNotificationFromUnit($fields['department'])->paginate($perPage);
@@ -132,8 +132,8 @@ class HomeController extends Controller
         $categories = config('enum.notification_categories');
 
         // TODO: save these in pagination settings later
-        $perPage = 10;
-        $perRow = 5;
+        $perPage = 8;
+        $perRow = 4;
         $rowCount = 2;
 
         $notifications = $this->getNotificationOfCategory($fields['category'])->paginate($perPage);

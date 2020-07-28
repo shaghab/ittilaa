@@ -118,20 +118,22 @@
 .filters{
     margin-top:20px;
 }
-.dropdown > button{
+.filters > div{
+    justify-content:left;
+    display:flex;
+}
+.dropdown > select{
     border:1px solid black;
     margin-left:10px;
-    width:120px;
+    width:179px;
 }
 .dropdown > label{
-    margin-right:30px;
+    margin-top:5px;
 }
 
 /* Home Page Notifications */
 .section-header{
     margin-top:30px;
-    margin-bottom:20px;
-    padding-left:0px;
 }
 .section-header > h6{
     Color:Black;
@@ -148,14 +150,23 @@
 .notifs-card{
     padding:0px;
     border:0px;
+    margin:15px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.notifs-card:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .notifs-card > img{
-    height:200px;
-    width:200px;
+    height:150px;
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:15px;
+    border:1px solid #cacaca;
 }
 .notifs-img-overlay{
-    width: 200px;
-    height:200px;
+    width: 100%;
+    height:100%;
 }
 .card-body{
     padding:0px;
@@ -163,17 +174,30 @@
 .card-body > p{
     font-size:14px;
     font-family: helvetica;
-    margin-bottom:5px;
+    margin-bottom:0px;
+    padding:10px;
 }
 .card-body > h6{
     color:black;
     font-family: helvetica;
     font-weight: bold;
+    font-size:14px;
+    height:33px;
+    padding:0px 10px;
+    margin-bottom:0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /* Home Page Pagination */
 .custom-pagination{
     margin-top:20px;
     justify-content: center;
+}
+.custom-pagination .page-item.active .page-link{
+    color:white;
+    border:1px solid black;
+    background-color: #77c0b1;
+    box-shadow:none;
 }
 .custom-pagination > li > a{
     color:black;

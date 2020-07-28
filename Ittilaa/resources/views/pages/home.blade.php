@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-  <form class="form-inline col-md-5">
+  <form class="form-inline col-sm-6">
      <div class="form-group search-container">
          <span class="fa fa-search form-control-icon"></span>
          <input type="text" class="form-control" placeholder="Find any public notification..." name="search">
@@ -18,15 +18,15 @@
   </form>
 </div>
 <div class="row">
-   <div class="col-md-5 filters">
-      <div class="dropdown d-inline-block">
-         <label>Filters:</label>
-         <form method="POST" action="{{ route('search_region') }}" enctype="multipart/form-data" >
+   <div class="col-sm-6 filters">
+      <div class="dropdown">
+         <label class="">Filters:</label>
+         <form class="" method="POST" action="{{ route('search_region') }}" enctype="multipart/form-data" >
          {{ csrf_field() }}
          
-            <div class="dropdown d-inline-block region-dropdown">
-               <select id="region" name="region" class="form-control col-sm-8" onchange="this.form.submit()">
-                  <div class="dropdown-menu col-sm-8">
+            <div class="dropdown region-dropdown">
+               <select id="region" name="region" class="form-control" onchange="this.form.submit()">
+                  <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Region</option>
 
                      @foreach ($regions as $region)
@@ -42,12 +42,12 @@
                @endif
             </div>
          </form> 
-         <form method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
+         <form class="" method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
 
-            <div class="dropdown d-inline-block department-dropdown">
-               <select id="department" name="department" class="form-control col-sm-8" onchange="this.form.submit()">
-                  <div class="dropdown-menu col-sm-8">
+            <div class="dropdown department-dropdown">
+               <select id="department" name="department" class="form-control" onchange="this.form.submit()">
+                  <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Department</option>
 
                      @foreach ($departments as $department)
@@ -63,12 +63,12 @@
                @endif
             </div> 
          </form>
-         <form method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
+         <form class="" method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
             {{ csrf_field() }}
             
-            <div class="dropdown d-inline-block category-dropdown">
-               <select name="category" class="form-control col-sm-8" onchange="this.form.submit()">
-                  <div class="dropdown-menu col-sm-8">
+            <div class="dropdown category-dropdown">
+               <select name="category" class="form-control" onchange="this.form.submit()">
+                  <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Category</option>
 
                      @foreach ($categories as $category)
@@ -88,7 +88,7 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-10 section-header">
+   <div class="col-sm-9 section-header">
       <h6>MOST RECENT</h6>
    </div>
 </div>
@@ -99,13 +99,13 @@
 
    @for ($index = 0, $row = 0; $row < $rowCount; $row++)
    <div class="row notifs">
-      <div class="col-md-10 notifs-row">
+      <div class="col-xs-8 notifs-row">
 
          @for ($col = 0; $col < $perRow && $index < $count; $col++, $index++)
          <?php $notification = $notifications[$index]; ?>
 
-         <div class="card col-md-2 notifs-card">
-            <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Card image">
+         <div class="card col-xs-7 col-sm-4 col-md-2 notifs-card">
+            <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Notification image">
             <div class="card-body">
                <p class="card-text">{{ $notification->publish_date }}</p>
                <h6 class="card-title">{{ 
@@ -113,6 +113,7 @@
                         $notification->short_title : 
                         $notification->title }}
                </h6>
+               <p class="card-text">Caption 3</p>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
                <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
