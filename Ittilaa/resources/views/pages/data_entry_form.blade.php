@@ -40,6 +40,15 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-4">Category Caption:</label>
+                <input type="text" name="d_cat_caption" class="form-control col-sm-8">
+                @if ($errors->has('d_cat_caption'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('d_cat_caption') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-4">Title:</label>
                 <input type="text" name="title" class="form-control col-sm-8">
                 @if ($errors->has('title'))
