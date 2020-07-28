@@ -14,28 +14,6 @@ class HomeController extends Controller
 {
     use QueriesNotifications;
 
-    // public array $authorizers;
-    // public array $departments;
-    // public array $regions;
-    // public array $categories;
-
-    // protected int $perPage;
-    // protected int $perRow;
-    // protected int $rowCount;
-
-    public function __construct() {
-
-        // $this->$authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        // $this->$departments = IssuingAuthority::getOrganizationUnits();
-        // $this->$regions = Region::getRegions();
-        // $this->$categories = config('enum.notification_categories');
-
-        // // TODO: save these in pagination settings later
-        // $this->$perPage = 10;
-        // $this->$perRow = 5;
-        // $this->$rowCount = 2;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -47,12 +25,7 @@ class HomeController extends Controller
         $regions = Region::getRegions();
         $categories = config('enum.notification_categories');
 
-        // TODO: save these in pagination settings later
-        $perPage = 8;
-        $perRow = 4;
-        $rowCount = 2;
-        
-        $notifications = $this->getNotifications()->paginate($perPage);
+        $notifications = $this->getNotifications()->paginate(config('pagination.home.records_per_page'));
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -60,10 +33,7 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'count'         => $count,
-                                    'perPage'       => $perPage,
-                                    'perRow'        => $perRow,
-                                    'rowCount'      => $rowCount ]);
+                                    'count'         => $count, ]);
     }
 
     public function searchRegion(Request $request) {
@@ -75,12 +45,8 @@ class HomeController extends Controller
         $regions = Region::getRegions();
         $categories = config('enum.notification_categories');
 
-        // TODO: save these in pagination settings later
-        $perPage = 8;
-        $perRow = 4;
-        $rowCount = 2;
-
-        $notifications = $this->getNotificationInRegion($fields['region'])->paginate($perPage);
+        $notifications = $this->getNotificationInRegion($fields['region'])
+                                    ->paginate(config('pagination.home.records_per_page'));
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -88,10 +54,7 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'count'         => $count,
-                                    'perPage'       => $perPage,
-                                    'perRow'        => $perRow,
-                                    'rowCount'      => $rowCount ]);
+                                    'count'         => $count, ]);
     }
 
     public function searchDepartment(Request $request) {
@@ -103,12 +66,8 @@ class HomeController extends Controller
         $regions = Region::getRegions();
         $categories = config('enum.notification_categories');
 
-        // TODO: save these in pagination settings later
-        $perPage = 8;
-        $perRow = 4;
-        $rowCount = 2;
-
-        $notifications = $this->getNotificationFromUnit($fields['department'])->paginate($perPage);
+        $notifications = $this->getNotificationFromUnit($fields['department'])
+                                    ->paginate(config('pagination.home.records_per_page'));
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -116,10 +75,7 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'count'         => $count,
-                                    'perPage'       => $perPage,
-                                    'perRow'        => $perRow,
-                                    'rowCount'      => $rowCount ]);
+                                    'count'         => $count, ]);
     }
 
     public function searchCategory(Request $request){
@@ -131,12 +87,8 @@ class HomeController extends Controller
         $regions = Region::getRegions();
         $categories = config('enum.notification_categories');
 
-        // TODO: save these in pagination settings later
-        $perPage = 8;
-        $perRow = 4;
-        $rowCount = 2;
-
-        $notifications = $this->getNotificationOfCategory($fields['category'])->paginate($perPage);
+        $notifications = $this->getNotificationOfCategory($fields['category'])
+                                    ->paginate(config('pagination.home.records_per_page'));
         $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -144,10 +96,7 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'count'         => $count,
-                                    'perPage'       => $perPage,
-                                    'perRow'        => $perRow,
-                                    'rowCount'      => $rowCount ]);
+                                    'count'         => $count, ]);
     }
 
 }

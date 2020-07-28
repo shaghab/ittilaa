@@ -97,11 +97,11 @@
    <div><p>No results found.</p></div>
 @else
 
-   @for ($index = 0, $row = 0; $row < $rowCount; $row++)
+   @for ($index = 0, $row = 0; $row < config('pagination.home.number_of_rows'); $row++)
    <div class="row notifs">
       <div class="col-xs-8 notifs-row">
 
-         @for ($col = 0; $col < $perRow && $index < $count; $col++, $index++)
+         @for ($col = 0; $col < config('pagination.home.records_per_row') && $index < $count; $col++, $index++)
          <?php $notification = $notifications[$index]; ?>
 
          <div class="card col-xs-7 col-sm-4 col-md-2 notifs-card">
