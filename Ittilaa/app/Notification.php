@@ -15,6 +15,7 @@ class Notification extends Model
         'short_title',
         'title',
         'category',
+        'd_cat_caption',
         'thumbnail_link',
         'notice_link',
         'description',

@@ -20,6 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->string('title');
             $table->string('short_title')->nullable();
             $table->string('category');
+            $table->string('d_cat_caption');
             $table->string('thumbnail_link');
             $table->string('notice_link');
             $table->text('description');
