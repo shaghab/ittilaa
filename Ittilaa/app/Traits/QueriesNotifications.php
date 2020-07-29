@@ -18,7 +18,7 @@ trait QueriesNotifications {
     public function getNotificationInRegion($region) {
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('region_name', $region)->get();
+			return $notifications->where('region_name', $region);
 		}
 
 		return $notifications;
@@ -27,14 +27,14 @@ trait QueriesNotifications {
     public function getNotificationFromUnit($unit) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('unit_name', $unit)->get();
+			return $notifications->where('unit_name', $unit);
 		}
 
 		return $notifications;
     }
 
 	public function getNotificationsWithTags(array $tags){
-		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags)->get();
+		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags);
 		dd($result);
 		return $result;
 	}
@@ -42,7 +42,7 @@ trait QueriesNotifications {
 	public function getNotificationOfCategory($category) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('category', $category)->get();
+			return $notifications->where('category', $category);
 		}
 
 		return $notifications;
@@ -51,7 +51,7 @@ trait QueriesNotifications {
 	public function getJobs(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.JOB'))->get();
+			return $notifications->where('cateogry', config('enum.notification_categories.JOB'));
 		}
 
 		return $notifications;
@@ -60,7 +60,7 @@ trait QueriesNotifications {
 	public function getNotices(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NOTICE'))->get();
+			return $notifications->where('cateogry', config('enum.notification_categories.NOTICE'));
 		}
 
 		return $notifications;
@@ -69,7 +69,7 @@ trait QueriesNotifications {
 	public function getTenders(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.TENDER'))->get();
+			return $notifications->where('cateogry', config('enum.notification_categories.TENDER'));
 		}
 
 		return $notifications;
@@ -78,7 +78,7 @@ trait QueriesNotifications {
 	public function getPolicies(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.POLICY'))->get();
+			return $notifications->where('cateogry', config('enum.notification_categories.POLICY'));
 		}
 
 		return $notifications;
@@ -87,7 +87,7 @@ trait QueriesNotifications {
 	public function getNews(){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NEWS'))->get();
+			return $notifications->where('cateogry', config('enum.notification_categories.NEWS'));
 		}
 
 		return $notifications;

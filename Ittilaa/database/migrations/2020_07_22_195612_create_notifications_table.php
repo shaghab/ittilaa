@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
 
             $table->string('title');
             $table->string('short_title')->nullable();
+            $table->foreignId('category_id')->constrained('x_categories');
             $table->string('category');
             $table->string('d_cat_caption');
             $table->string('thumbnail_link');
@@ -29,7 +30,7 @@ class CreateNotificationsTable extends Migration
             $table->dateTime('publish_date');
             
             $table->foreignId('issuer_id')->constrained('x_issuing_authorities');
-            $table->string('issuing_authority');
+            $table->string('issuing_authority')->nullable();
             $table->string('designation');
             $table->string('unit_name');
             $table->string('unit_type')->nullable();

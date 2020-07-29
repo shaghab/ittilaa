@@ -16,7 +16,7 @@ class CreateIssuingAuthoritiesTable extends Migration
         Schema::create('x_issuing_authorities', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('designation');
             $table->string('unit_name');
             $table->string('unit_type')->nullable();
