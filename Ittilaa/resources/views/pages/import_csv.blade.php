@@ -73,7 +73,7 @@
                   @foreach ($csv_data[0] as $key => $value)
                      <td>
                         <select name="fields[{{ $key }}]">
-                           @foreach (config('app.notification_fields') as $db_field)
+                           @foreach (config('enum.notification_fields') as $db_field)
                               <option value="{{$loop->index}}" @if ($loop->index == $loop->parent->index) selected @endif>{{ $db_field }}</option>
                            @endforeach
                         </select>

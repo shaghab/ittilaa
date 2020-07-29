@@ -1,12 +1,25 @@
 <?php
 
 return [
-    'notification_categories' => [
-        'NOTICE',
-        'JOB',
-        'TENDER',
-        'NEWS',
-        'POLICY',
+    'notification_fields' => [
+        'short_title',
+        'title',
+        'category',
+        'd_cat_caption',
+        'thumbnail_link',
+        'notice_link',
+        'description',
+        'region_name',
+        'issuing_authority',
+        'designation',
+        'unit_name',
+        'unit_type',
+        'publish_date',
+        'source_url',
+        'caption1',
+        'caption2',
+        'caption3',
+        'tags',
     ],
 
     'approval_status' => [

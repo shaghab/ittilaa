@@ -86,7 +86,7 @@ class NotificationsController extends Controller
             unset($import_data[0]);
         }
 
-        $dbFields = config('app.notification_fields');
+        $dbFields = config('enum.notification_fields');
         $notifications = [];
 
         foreach ($import_data as $row) {
