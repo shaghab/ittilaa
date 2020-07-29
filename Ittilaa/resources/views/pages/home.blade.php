@@ -107,13 +107,11 @@
          <div class="card col-xs-7 col-sm-4 col-md-2 notifs-card">
             <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Notification image">
             <div class="card-body">
-               <p class="card-text">{{ $notification->publish_date }}</p>
-               <h6 class="card-title">{{ 
-                ($notification->short_title != NULL) ? 
-                        $notification->short_title : 
-                        $notification->title }}
+               <p class="card-text">{{ $notification->caption1 }}</p>
+               <h6 class="card-title">{{ $notification->short_title }}
                </h6>
-               <p class="card-text">Caption 3</p>
+               <p class="card-text">{{ $notification->caption2 }}</p>
+               <p class="card-text">{{ $notification->caption3 }}</p>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
                <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->category }}</a> 
