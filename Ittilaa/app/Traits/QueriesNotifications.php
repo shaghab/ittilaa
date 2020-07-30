@@ -15,10 +15,10 @@ trait QueriesNotifications {
                             ->orderBy('publish_date', 'desc');
     }
 
-    public function getNotificationInRegion($region) {
+    public function getNotificationInRegion($region_id) {
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('region_name', $region);
+			return $notifications->where('region_id', $region_id);
 		}
 
 		return $notifications;
@@ -39,50 +39,15 @@ trait QueriesNotifications {
 		return $result;
 	}
 
-	public function getNotificationOfCategory($category) {
+	public function getNotificationOfCategory($category_id) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('category', $category);
+			return $notifications->where('category_id', $category_id);
 		}
 
 		return $notifications;
     }
 
-	public function getJobs(){
-		$notifications = $this->getNotifications();
-		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.JOB'));
-		}
-
-		return $notifications;
-	}
-
-	public function getNotices(){
-		$notifications = $this->getNotifications();
-		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NOTICE'));
-		}
-
-		return $notifications;
-	}
-
-	public function getTenders(){
-		$notifications = $this->getNotifications();
-		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.TENDER'));
-		}
-
-		return $notifications;
-	}
-
-	public function getPolicies(){
-		$notifications = $this->getNotifications();
-		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.POLICY'));
-		}
-
-		return $notifications;
-	}
 
 	public function getNews(){
 		$notifications = $this->getNotifications();

@@ -115,7 +115,7 @@ class UsersController extends Controller
 		$user->name = $data['name'];
 		$user->email = $data['email'];
         $user->password = Hash::make($data['password']);
-        $user->role_id = Role::GetId('data-operator');
+        $user->role_id = Role::getId('data-operator');
 		$user->save();
 
         return $user;

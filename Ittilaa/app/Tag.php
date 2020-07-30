@@ -17,7 +17,7 @@ class Tag extends Model
         return $this->belongsToMany(Notification::class,'x_notifications_tags');
     }
 
-    public static function GetId($tagName) {
+    public static function getId($tagName) {
         $tag = Tag::where('name',$tagName)->first();   
         return $tag->id;
     }

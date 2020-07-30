@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Region;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
 
+        $this->call(CategorySeeder::class);
         $this->call(RegionSeeder::class);
     }
 }

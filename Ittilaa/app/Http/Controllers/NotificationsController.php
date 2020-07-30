@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use App\Category;
 use App\DataImportFile;
 use App\IssuingAuthority;
 use App\Notification;
@@ -102,6 +103,10 @@ class NotificationsController extends Controller
 
             try {
 
+                $category = Category::create($data['category'], $data['d_cat_caption']);
+                $data['category_id'] = $category->id;
+                $data['d_cat_caption'] = $category->caption;
+
                 $authorityExisitsConditions = ['name' => $data['issuing_authority'],
                                                 'designation' => $data['designation'],
                                                 'unit_name' => $data['unit_name']];
@@ -118,11 +123,7 @@ class NotificationsController extends Controller
                 $tagNames = explode(";", $data['tags']);
                 unset($data['tags']);
 
-                $regionName = $data['region_name'];
-                $region = Region::where('name', $regionName)->first();
-                if (!$region) {
-                    $region = Region::create(['name' => $regionName]);
-                }
+                $region = Region::create($data['region_name']);
                 $data['region_id'] = $region->id;
 
                 if (!empty($data['notice_link'])) {
@@ -206,6 +207,10 @@ class NotificationsController extends Controller
             'caption1' => $request->caption1,
             'caption2' => $request->caption2,
             'caption3' => $request->caption3, ];
+
+        $category= Category::create($data['category'], $data['d_cat_caption']);
+        $data['category_id'] = $category->id;
+        $data['d_cat_caption'] = $authority->d_cat_caption;
 
         if($request->hasFile('notice_file'))
         {

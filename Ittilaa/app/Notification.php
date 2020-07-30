@@ -14,6 +14,7 @@ class Notification extends Model
     protected $fillable = [
         'short_title',
         'title',
+        'category_id',
         'category',
         'd_cat_caption',
         'thumbnail_link',

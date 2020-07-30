@@ -13,7 +13,7 @@ class Role extends Model
       return $this->belongsToMany(Permission::class,'x_roles_permissions');
    }
 
-   public static function GetId($roleName) {
+   public static function getId($roleName) {
       $role = Role::where('name',$roleName)->first();   
       return $role->id;
    }

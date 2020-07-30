@@ -21,6 +21,14 @@ class IssuingAuthority extends Model
     }
 
     public static function getOrganizationUnits() {
-        return IssuingAuthority::select('unit_name')->distinct();
+        return IssuingAuthority::select('unit_name')->get();//->distinct();
+    }
+
+    public static function getIdsFromUnits($unit) {
+        return IssuingAuthority::where('unit_name',$name)->select(['id'])->get();
+    }
+
+    public static function getIdsFromDesignations($designation) {
+        return IssuingAuthority::where('designation',$designation)->select(['id'])->get();
     }
 }

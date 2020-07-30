@@ -13,12 +13,26 @@ class Region extends Model
     	'name',
     ];
 
-    public static function GetId($name) {
-        $region = Region::where('name',$name)->first();
-        return $region->id;
+    public static function getId($name) {
+        $region = Region::where('name', $name)->first();        
+        if ($region) {
+            return $region->id;
+        }
+
+        return -1;
     }
 
     public static function getRegions() {
-        return Region::select('name')->get();
+        return Region::all();
+    }
+
+    public static function create($name) {
+        $region_id = Region::getId($name);
+        // dd($region_id);
+        if ($region_id == -1) {
+            return Region::create(['name' => $name]);
+        }
+
+        return Region::find($region_id);
     }
 }

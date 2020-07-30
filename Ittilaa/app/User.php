@@ -32,7 +32,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function GetId($name) {
+    public static function getId($name) {
         $user = User::where('name', $name)->first();
         return $user->id;
     }
