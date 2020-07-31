@@ -16,19 +16,27 @@ class IssuingAuthority extends Model
     	'unit_type',
     ];
 
+    public static function getAuthorizersNames() {
+        return IssuingAuthority::distinct('name')->get();
+    }
+
     public static function getAuthorizerDesignations() {
-        return IssuingAuthority::select('designation')->distinct();
+        return IssuingAuthority::distinct('designation')->get();
     }
 
     public static function getOrganizationUnits() {
-        return IssuingAuthority::select('unit_name')->get();//->distinct();
+        return IssuingAuthority::select('unit_name')->distinct('unit_name')->get();
     }
 
-    public static function getIdsFromUnits($unit) {
-        return IssuingAuthority::where('unit_name',$name)->select(['id'])->get();
+    public static function getIdsFromName($names) {
+        return IssuingAuthority::where('name', $names)->select(['id'])->get();
     }
 
-    public static function getIdsFromDesignations($designation) {
-        return IssuingAuthority::where('designation',$designation)->select(['id'])->get();
+    public static function getIdsFromUnit($unit) {
+        return IssuingAuthority::where('unit_name',$unit)->select(['id'])->get();
+    }
+
+    public static function getIdsFromDesignation($designation) {
+        return IssuingAuthority::where('designation', $designation)->select(['id'])->get();
     }
 }

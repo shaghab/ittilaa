@@ -21,84 +21,79 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
+        $notifications = $this->getNotifications()->paginate(config('pagination.home.records_per_page'));
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
 
-        $notifications = $this->getNotifications()->paginate(config('pagination.home.records_per_page'));
-        $count = $notifications ? $notifications->count() : 0;
-
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
-                                    'departments'   => $departments,
-                                    'count'         => $count, ]);
+                                    'departments'   => $departments]);
     }
 
     public function searchRegion(Request $request) {
 
         $fields = $request->validate(['region_id' => 'required']);
+        $regionId = $fields['region_id'];
+        $notifications = $this->getNotificationInRegion($regionId)
+                                    ->paginate(config('pagination.home.records_per_page'));
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
 
-        $notifications = $this->getNotificationInRegion($fields['region_id'])
-                                    ->paginate(config('pagination.home.records_per_page'));
-        $count = $notifications ? $notifications->count() : 0;
-
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'regions'       => $regions,
+                                    'region_id'     => $regionId,
                                     'authorizers'   => $authorizers,
-                                    'departments'   => $departments,
-                                    'count'         => $count, ]);
+                                    'departments'   => $departments]);
     }
 
     public function searchDepartment(Request $request) {
 
         $fields = $request->validate(['department' => 'required']);
+        $unitName = $fields['department'];
+        $notifications = $this->getNotificationFromUnit($unitName)
+                                    ->paginate(config('pagination.home.records_per_page'));
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
 
-        $notifications = $this->getNotificationFromUnit($fields['department'])
-                                    ->paginate(config('pagination.home.records_per_page'));
-        $count = $notifications ? $notifications->count() : 0;
-
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'count'         => $count, ]);
+                                    'department'    => $unitName]);
     }
 
     public function searchCategory(Request $request){
 
         $fields = $request->validate(['category_id' => 'required']);
+        $categoryId = $fields['category_id'];
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
 
-        $notifications = $this->getNotificationOfCategory($fields['category_id'])
+        $notifications = $this->getNotificationOfCategory($categoryId)
                                     ->paginate(config('pagination.home.records_per_page'));
-        $count = $notifications ? $notifications->count() : 0;
 
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
-                                    'category_id'   => $fields['category_id'],
+                                    'category_id'   => $categoryId,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
-                                    'departments'   => $departments,
-                                    'count'         => $count, ]);
+                                    'departments'   => $departments]);
     }
 
 }

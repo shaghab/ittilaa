@@ -161,24 +161,23 @@
 <div class="col-xs-12 section-header">
    <h6>MOST RECENT</h6>
 </div>
-@if ($count == 0)
+@if ($notifications->count() == 0)
 <div>
    <p>No results found.</p>
 </div>
 @else 
-   @for ($index = 0, $row = 0; $row < config('pagination.home.number_of_rows'); $row++)
+   <p>{{ $notifications->count() }} of {{ $notifications->total() }} results.</p>
    <div class="container notifs">
       <div class="col-xs-9 notifs-row">
 
-         @for ($col = 0; $col < config('pagination.home.records_per_row') && $index < $count; $col++, $index++)
-         <?php $notification = $notifications[$index]; ?>
+         @for ($col = 0; $col < $notifications->count(); $col++)
+         <?php $notification = $notifications[$col]; ?>
 
          <div class="card col-xs-7 col-sm-4 col-md-2 notifs-card">
             <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Notification image">
             <div class="card-body">
                <p class="card-text caption1">{{ $notification->caption1 }}</p>
-               <h6 class="card-title">{{ $notification->short_title }}
-               </h6>
+               <h6 class="card-title">{{ $notification->short_title }}</h6>
                <p class="card-text caption2">{{ $notification->caption2 }}</p>
                <p class="card-text">{{ $notification->caption3 }}</p>
             </div>
@@ -190,7 +189,7 @@
 
       </div>
    </div>
-   @endfor
+   {{-- @endfor --}}
 @endif
 
 <div class="container">
