@@ -39,4 +39,20 @@ class IssuingAuthority extends Model
     public static function getIdsFromDesignation($designation) {
         return IssuingAuthority::where('designation', $designation)->select(['id'])->get();
     }
+
+    public static function createNew($data) {
+        $authorityExisitsConditions =  ['name' => $data['name'],
+                                        'designation' => $data['designation'],
+                                        'unit_name' => $data['unit_name']];
+                                        
+        $authority = IssuingAuthority::where($authorityExisitsConditions)->first();
+        if (!$authority) {
+            $authority = IssuingAuthority::create (['name' => $data['name'],
+                                                    'designation' => $data['designation'],
+                                                    'unit_name' => $data['unit_name'],
+                                                    'unit_type'=> $data['unit_type']]);
+        }
+
+        return $authority;
+    }
 }

@@ -26,9 +26,8 @@ class Region extends Model
         return Region::all();
     }
 
-    public static function create($name) {
+    public static function createNew($name) {
         $region_id = Region::getId($name);
-        // dd($region_id);
         if ($region_id == -1) {
             return Region::create(['name' => $name]);
         }

@@ -23,14 +23,17 @@ class Category extends Model
         
         switch ($catLevels) {
             case 1:
-                return Category::where('name', $cat[0])->first()->id;
+                $category = Category::where('name', $cat[0])->first();
+                return $category->id;
             case 2:
-                return Category::where('name', $cat[0])
-                                ->orWhere('level_1', $cat[1])
-                                ->first()->id;
+                $category = Category::where([
+                                            ['name', '=', $cat[0]], 
+                                            ['level_1', '=', $cat[1]]
+                                            ])->first();
+                return ($category) ? $category->id : -1;
         }
-
-        return null;
+                
+        return -1;
     }
 
     public static function getCategories() {
@@ -49,11 +52,19 @@ class Category extends Model
         return $categories;
     }
 
-    public static function create($name, $caption = "") {
-        $category = Category::find(Category::getId($name));
-        if (!$category) {
+    public static function createNew($name, $caption = "") {
+
+        // TODO: throw exception if $name is empty
+        if (empty($name)){
+            throw new Exception('category name is empty');
+        }
+
+        $id = Category::getId($name);
+        if ($id == -1) {
+        
             $cat = explode("/", $name);
             $catLevels = count($cat);
+
             switch ($catLevels) {
                 case 1:
                     if (empty($caption)) $caption = $cat[0];
@@ -66,6 +77,7 @@ class Category extends Model
                                              'caption' => $caption]);
             }
         }
-        return $category;
+
+        return Category::find($id);
     }
 }

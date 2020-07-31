@@ -103,27 +103,22 @@ class NotificationsController extends Controller
 
             try {
 
-                $category = Category::create($data['category'], $data['d_cat_caption']);
+                $category = Category::createNew($data['category'], $data['d_cat_caption']);
                 $data['category_id'] = $category->id;
                 $data['d_cat_caption'] = $category->caption;
 
-                $authorityExisitsConditions = ['name' => $data['issuing_authority'],
-                                                'designation' => $data['designation'],
-                                                'unit_name' => $data['unit_name']];
-                $authority = IssuingAuthority::where($authorityExisitsConditions)->first();
-                if (!$authority) {
-                    $authority = IssuingAuthority::create(['name' => $data['issuing_authority'],
+                $authority = IssuingAuthority::createNew  (['name' => $data['issuing_authority'],
                                                             'designation' => $data['designation'],
                                                             'unit_name' => $data['unit_name'],
                                                             'unit_type'=> $data['unit_type']]);
-                }
+
                 $data['issuer_id'] = $authority->id;
                 $data['unit_type'] = $authority->unit_type;
 
                 $tagNames = explode(";", $data['tags']);
                 unset($data['tags']);
 
-                $region = Region::create($data['region_name']);
+                $region = Region::createNew($data['region_name']);
                 $data['region_id'] = $region->id;
 
                 if (!empty($data['notice_link'])) {

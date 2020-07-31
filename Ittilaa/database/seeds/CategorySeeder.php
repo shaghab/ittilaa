@@ -33,17 +33,5 @@ class CategorySeeder extends Seeder
         $category->name = 'Tender';
         $category->caption = 'Tender';
         $category->save();
-
-        $category = new Category();
-        $category->name = 'Tender';
-        $category->level_1 = 'EOL';
-        $category->caption = 'EOL';
-        $category->save();
-
-        $category = new Category();
-        $category->name = 'Tender';
-        $category->level_1 = 'RFP';
-        $category->caption = 'RFP';
-        $category->save();
     }
 }
