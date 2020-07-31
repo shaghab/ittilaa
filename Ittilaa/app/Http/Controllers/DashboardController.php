@@ -16,7 +16,7 @@ class DashboardController extends Controller
      * @return void
      */
     public function __construct() {
-    	$this->middleware('permission:approve-notifications', ['only' => ['import', 'create']]);
+    	$this->middleware('permission:approve-notifications'); //, ['only' => ['import', 'create']]);
     }
 
     /**

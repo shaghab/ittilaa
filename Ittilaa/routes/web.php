@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/notification/{notification}', 'NotificationsController@show')->name('show_notification');
 
 Route::post('/search/region', 'HomeController@searchRegion')->name('search_region');
