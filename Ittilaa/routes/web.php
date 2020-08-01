@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/notification:{notification}', 'NotificationsController@show')->name('show_notification');
+Route::get('/notification{notification}', 'HomeController@show')->name('show_notification');
 
 Route::post('/search/region', 'HomeController@searchRegion')->name('search_region');
 Route::post('/search/department', 'HomeController@searchDepartment')->name('search_department');
 Route::post('/search/category', 'HomeController@searchCategory')->name('search_category');
-Route::get('/search/tag:{tag}', 'HomeController@searchTag')->name('search_tag');
+Route::get('/search/tag{tag}', 'HomeController@searchTag')->name('search_tag');
 
 // User login and authorization
 Route::get('/login', 'UsersController@login')->name('login');

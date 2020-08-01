@@ -35,6 +35,17 @@ class HomeController extends Controller
                                     'departments'   => $departments]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) {
+        $notification = Notification::find($id);
+        return view('pages.notification', ['notification' => $notification]);
+    }
+
     public function searchRegion(Request $request) {
 
         $fields = $request->validate(['region_id' => 'required']);

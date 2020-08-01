@@ -263,17 +263,6 @@ class NotificationsController extends Controller
         return redirect()->route('data_entry')->withSuccess('Data saved successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        $notification = Notification::find($id);
-        return view('pages.notification', ['notification' => $notification]);
-    }
-
     // /**
     //  * Update the specified resource in storage.
     //  *
