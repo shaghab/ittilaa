@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Category;
 use App\Region;
 
 class DashboardController extends Controller 
@@ -35,7 +36,7 @@ class DashboardController extends Controller
      */
     public function create() {
 
-        $categories = config('enum.notification_categories');
+        $categories = Category::getCategories();
         $regions = Region::getRegions();
         return view('pages.data_entry_form', [  'categories' => $categories,
                                                 'regions' => $regions, ]);

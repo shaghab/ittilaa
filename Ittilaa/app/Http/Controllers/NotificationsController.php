@@ -111,11 +111,10 @@ class NotificationsController extends Controller
                                                             'designation' => $data['designation'],
                                                             'unit_name' => $data['unit_name'],
                                                             'unit_type'=> $data['unit_type']]);
-
                 $data['issuer_id'] = $authority->id;
                 $data['unit_type'] = $authority->unit_type;
 
-                $tagNames = explode(";", $data['tags']);
+                $tagNames = $data['tags'];
                 unset($data['tags']);
 
                 $region = Region::createNew($data['region_name']);
@@ -147,18 +146,14 @@ class NotificationsController extends Controller
 
                 $notification = Notification::create($data);
                 if($notification) {
-                    foreach($tagNames as $tagName)  {
-                        $tag = Tag::where('name', $tagName)->first();
-                        if(!$tag) {
-                            $tag = Tag::create(['name' => $tagName]);
-                        }
-                        $notification->tags()->attach($tag);
-                    }
+                    $notification->addTags($tagNames);
                 }
+                
             } catch (Exception $e) {
                 report($e);
             }
-        } 
+        }
+
         return redirect()->route('import_csv', [ 'title' => 'Import CSV File', 'file_imported' => false, ])->withSuccess('File imported successfully!');
     }
 
@@ -186,12 +181,12 @@ class NotificationsController extends Controller
             'caption2' => 'nullable',
             'caption3' => 'nullable',
             'publish_date' => 'required',
-            'source_url' => 'nullable', ]);
+            'source_url' => 'nullable',
+            'tags' => 'nullable' ]);
 
         $data = [   
             'title' => $request->title,
             'short_title' => $request->short_title,
-            'category' => $request->category,
             'd_cat_caption' => $request->d_cat_caption,
             'description' => $request->description,
             'publish_date' => $request->publish_date,
@@ -203,9 +198,12 @@ class NotificationsController extends Controller
             'caption2' => $request->caption2,
             'caption3' => $request->caption3, ];
 
-        $category= Category::create($data['category'], $data['d_cat_caption']);
+        // TODO: either add a control to add new category or make select editable
+        // $category = Category::createNew($data['category'], $data['d_cat_caption']);
+        $category = Category::find($fields['category'])->first();
         $data['category_id'] = $category->id;
-        $data['d_cat_caption'] = $authority->d_cat_caption;
+        $data['category'] = $category->name;
+        $data['d_cat_caption'] = $category->caption;
 
         if($request->hasFile('notice_file'))
         {
@@ -234,24 +232,17 @@ class NotificationsController extends Controller
         }
         $data['publish_date'] = $publishDate;
 
-        $authorityExisitsConditions = ['name' => $data['issuing_authority'],
-                                        'designation' => $data['designation'],
-                                        'unit_name' => $data['unit_name']];
-        $authority = IssuingAuthority::where($authorityExisitsConditions)->first();
-        if (!$authority) {
-            $authority = IssuingAuthority::create(['name' => $data['issuing_authority'],
-                                                    'designation' => $data['designation'],
-                                                    'unit_name' => $data['unit_name'],
-                                                    'unit_type'=> $data['unit_type']]);
-        }
+        // TODO: add a control to add new issuing authority also make these fields selectable
+        $authority = IssuingAuthority::createNew  (['name' => $data['issuing_authority'],
+                                            'designation' => $data['designation'],
+                                            'unit_name' => $data['unit_name'],
+                                            'unit_type'=> $data['unit_type']]);
         $data['issuer_id'] = $authority->id;
 
+        // TODO: either add a control to add new region or make select editable
         $regionName = $fields['region'];
-            $region = Region::where('name', $regionName)->first();
-            if (!$region) {
-                $region = Region::create(['name' => $regionName]);
-            }
-        
+        $region = Region::createNew($regionName);
+        // $region = Region::find($regionId)->first();
         $data['region_id'] = $region->id;
         $data['region_name'] = $region->name;
 
@@ -259,17 +250,14 @@ class NotificationsController extends Controller
         $data['approver_id'] = auth()->user()->id;
         $data['approval_status'] = config('enum.approval_status.pending');
 
-        $notification = Notification::create($data);
-        if($notification) {        
-            $tagNames = explode(',',$request->get('tags'));
+        // get business rules to extract captions (different categories will have different captions)
+        if (empty($data['caption2'])) {
+            $data['caption2'] = $data['publish_date'];
+        }
 
-            foreach($tagNames as $tagName)  {
-                $tag = Tag::where('name', $tagName)->first();
-                if(!$tag) {
-                    $tag = Tag::create(['name' => $tagName]);
-                }
-                $notification->tags()->attach($tag);
-            }
+        $notification = Notification::create($data);
+        if($notification) {
+            $notification->addTags($fields['tags']);
         }
 
         return redirect()->route('data_entry')->withSuccess('Data saved successfully!');

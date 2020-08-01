@@ -43,13 +43,35 @@ class Notification extends Model
     }
 
     public function getTags(){
-        $tags = DB::table('x_tags')
-                    ->leftJoin('x_notifications_tags', 'notification_id', '=', $this->id)
-                    ->get();
-
-                    dd($tags);
-
+        $tags = DB::table('x_notifications_tags')
+                  ->leftJoin('x_tags', 'x_tags.id', '=', 'x_notifications_tags.tag_id')
+                  ->where('notification_id', $this->id)
+                  ->get();
         return $tags;
+    }
+
+    public function addTags($tags){
+
+        if (empty(trim($tags))){
+            return null;
+        }
+
+        $tagNames = explode(';', $tags);
+        $tagNames = array_map('trim', $tagNames);
+ 
+        for($index = 0; $index < count($tagNames); $index++)  {
+
+            $tagName = $tagNames[$index];
+            if (!empty($tagName)) {
+ 
+                $tag = Tag::whereRaw("LOWER(name) = '" . strtolower($tagName) . "'")->first();
+                if(!$tag) {
+                    $tag = Tag::create(['name' => $tagName]);
+                }
+
+                $this->tags()->attach($tag);
+            }
+        }
     }
 
 }

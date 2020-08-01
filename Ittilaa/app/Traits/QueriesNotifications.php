@@ -33,10 +33,14 @@ trait QueriesNotifications {
 		return $notifications;
     }
 
-	public function getNotificationsWithTags(array $tags){
-		$result = DB::table('x_notifications_tags')->whereIn('tag_id', $tags);
-		dd($result);
-		return $result;
+	public function getNotificationsWithTag($tag_id){
+        $notifications = $this->getNotifications();
+		if ($notifications->count()) {
+			$ids = DB::table('x_notifications_tags')->where('tag_id', $tag_id)->pluck('notification_id');
+			return $notifications->whereIn('id', $ids);
+		}
+
+		return $notifications;
 	}
 
 	public function getNotificationOfCategory($category_id) {

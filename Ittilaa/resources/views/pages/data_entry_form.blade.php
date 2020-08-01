@@ -27,7 +27,9 @@
                             <option class="dropdown-item" value="">Category</option>
 
                             @foreach ($categories as $category)
-                                <option class="dropdown-item" value="{{ $category }}">{{ $category }}</option>
+                                <option class="dropdown-item" value="{{ $category['id'] }}">
+                                    {{ $category['name'] }}
+                                </option>
                             @endforeach
                         </div>
                    </select>

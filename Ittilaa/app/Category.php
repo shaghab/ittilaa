@@ -24,7 +24,7 @@ class Category extends Model
         switch ($catLevels) {
             case 1:
                 $category = Category::where('name', $cat[0])->first();
-                return $category->id;
+                return ($category) ? $category->id : -1;
             case 2:
                 $category = Category::where([
                                             ['name', '=', $cat[0]], 
