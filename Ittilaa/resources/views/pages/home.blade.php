@@ -161,12 +161,12 @@
 <div class="col-xs-12 section-header">
    <h6>MOST RECENT</h6>
 </div>
-@if ($notifications->count() == 0)
-<div>
-   <p>No results found.</p>
+<div class="section-results">
+   @if ($notifications->count() == 0)
+      <p>No results found.</p>
+   @else 
+      <p>showing {{ $notifications->count() }} of {{ $notifications->total() }} results</p>
 </div>
-@else 
-   <p>{{ $notifications->count() }} of {{ $notifications->total() }} results.</p>
    <div class="container notifs">
       <div class="col-xs-9 notifs-row">
 

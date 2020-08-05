@@ -1,13 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="container-fluid row">
-   <div class="col-md-10 notifs-page">
-      <div class="col-md-7">
+<div class="container notifs-container">
+   <div class="col notifs-page d-inline d-lg-flex">
+      <div class="col-lg-7">
          <embed class="notif-embed" src="{{ asset($notification->notice_link) }}" height="100%" width="100%">
       </div>
 
-      <div class="col-md-5 notif-details">
+      <div class="col-lg-5 notif-details">
          <label>Notification</label>
          <h6>{{ $notification->title }}</h6>
          <h6>{{ $notification->region_name }}</h6>
@@ -18,7 +18,7 @@
                $tags = $notification->getTags();
             @endphp
             @foreach ($tags as $tag)
-               <a href="{{ route('search_tag', ['tag' => $tag->id]) }}">{{ $tag->name }};</a>
+               <a href="{{ route('search_tag', ['tag' => $tag->id]) }}" class="notifs-tag">{{ $tag->name }};</a>
             @endforeach
          </p>
 

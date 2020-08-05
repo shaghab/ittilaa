@@ -12,7 +12,7 @@
     margin-bottom:50px;
 }
 
-.header-hr > span > img{
+.header-hr > span > a > img{
     background-color: white;
     padding: 0 10px;
     float:left;
@@ -222,13 +222,18 @@
 .section-header{
     margin-top:50px;
 }
+.section-header > h6{
+    Color:Black;
+    font-family: helvetica;
+    font-weight: bold;
+    text-align:center;
+}
+.section-results > p{
+    text-align: center;
+    font-size: 12px;
+    font-family: helvetica;
+}
 @media screen and (max-width: 600px){
-  .section-header > h6{
-      Color:Black;
-      font-family: helvetica;
-      font-weight: bold;
-      text-align:center;
-  }
   .notifs-card{
       padding:0px;
       border:0px;
@@ -238,12 +243,6 @@
   }
 }
 @media screen and (min-width: 600px){
-    .section-header > h6{
-        Color:Black;
-        font-family: helvetica;
-        font-weight: bold;
-        text-align:center;
-    }
     .notifs-card{
         padding:0px;
         border:0px;
@@ -476,14 +475,28 @@
 
 /* Notification Page */
 
+.notifs-container{
+    display:flex;
+    justify-content: center;
+}
 .notifs-page{
     display:inherit;
     margin-bottom:50px;
 }
-.notif-embed{
-    margin-top:30px;
-    margin-bottom:50px;
-    border:1px solid black;
+@media screen and (max-width: 800px){
+    .notif-embed{
+        margin-top:30px;
+        margin-bottom:20px;
+        height:100vw;
+        border:1px solid black;
+    }
+}
+@media screen and (min-width: 800px){
+    .notif-embed{
+        margin-top:30px;
+        margin-bottom:50px;
+        border:1px solid black;
+    }
 }
 .notif-details{
     margin-top:30px;
@@ -523,6 +536,20 @@
 }
 .notif-details > a > i{
     margin-right:5px;
+}
+.notifs-tag{
+    color:#62a799;
+    background-color:white;
+    border:1px solid #77c0b1;
+    border-radius: 4px;
+    font-size: 12px;
+    padding:5px;
+    font-weight:bold;
+}
+.notifs-tag:hover{
+    background-color: #eeeeee;
+    color:#62a799;
+    text-decoration: none;
 }
 
 /* Data Entry Page */
