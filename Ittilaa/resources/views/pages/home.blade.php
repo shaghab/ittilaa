@@ -182,7 +182,7 @@
                <p class="card-text">{{ $notification->caption3 }}</p>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
-               <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm btn-main stretched-link">{{ $notification->d_cat_caption }}</a> 
+            <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="{{$notification->category_banner_style}}">{{ $notification->d_cat_caption }}</a> 
             </div>
          </div>
          @endfor

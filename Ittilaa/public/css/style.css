@@ -583,3 +583,23 @@
         width:200px;
         margin-left:0px;
     }
+.tender-btn{
+    width:120px;
+    background-color:#77c0b1;
+    background-image:none;
+}
+.notification-btn{
+    width:120px;
+    background-color:#77c0b1;
+    background-image:none;
+}
+.job-btn{
+    width:120px;
+    background-color:#77c0b1;
+    background-image:none;
+}
+.policy-btn{
+    width:120px;
+    background-color:#77c0b1;
+    background-image:none;
+}

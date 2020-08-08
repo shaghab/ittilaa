@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('level_1')->nullable();
             $table->string('caption');
+            $table->string('css_style');
             $table->timestamps();
         });
     }

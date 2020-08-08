@@ -106,6 +106,7 @@ class NotificationsController extends Controller
                 $category = Category::createNew($data['category'], $data['d_cat_caption']);
                 $data['category_id'] = $category->id;
                 $data['d_cat_caption'] = $category->caption;
+                $data['category_banner_style'] = $category->css_style;
 
                 $authority = IssuingAuthority::createNew  (['name' => $data['issuing_authority'],
                                                             'designation' => $data['designation'],
@@ -204,6 +205,7 @@ class NotificationsController extends Controller
         $data['category_id'] = $category->id;
         $data['category'] = $category->name;
         $data['d_cat_caption'] = $category->caption;
+        $data['category_banner_style'] = $category->css_style;
 
         if($request->hasFile('notice_file'))
         {

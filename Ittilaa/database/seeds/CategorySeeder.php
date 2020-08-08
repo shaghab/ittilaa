@@ -14,24 +14,10 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
-        $category = new Category();
-        $category->name = 'Notification';
-        $category->caption = 'Notification';
-        $category->save();
-
-        $category = new Category();
-        $category->name = 'Job';
-        $category->caption = 'Notification';
-        $category->save();
-
-        $category = new Category();
-        $category->name = 'Policy';
-        $category->caption = 'Policy';
-        $category->save();
-
-        $category = new Category();
-        $category->name = 'Tender';
-        $category->caption = 'Tender';
-        $category->save();
+        $style = 'btn btn-primary btn-sm notification-btn stretched-link';
+        Category::createNew('Notification', 'Notification', 'notification-btn');
+        Category::createNew('Job', 'Job', 'job-btn');
+        Category::createNew('Tender', 'Tender', 'tender-btn');
+        Category::createNew('Policy', 'Policy', 'policy-btn');
     }
 }

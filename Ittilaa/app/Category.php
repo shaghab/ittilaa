@@ -13,7 +13,8 @@ class Category extends Model
     protected $fillable = [
         'name',
         'level_1',
-        'caption'
+        'caption',
+        'css_style',
     ];
 
     public static function getId($name) {
@@ -52,11 +53,15 @@ class Category extends Model
         return $categories;
     }
 
-    public static function createNew($name, $caption = "") {
+    public static function createNew($name, $caption = "", $style = "") {
 
         // TODO: throw exception if $name is empty
         if (empty($name)){
             throw new Exception('category name is empty');
+        }
+
+        if (empty($style)){
+            $style = 'btn btn-primary btn-sm notification-btn stretched-link';
         }
 
         $id = Category::getId($name);
@@ -69,12 +74,19 @@ class Category extends Model
                 case 1:
                     if (empty($caption)) $caption = $cat[0];
                     return Category::create(['name' => $cat[0],
-                                             'caption' => $caption]);
+                                             'caption' => $caption,
+                                             'css_style' => $style]);
                 case 2:
                     if (empty($caption)) $caption = $cat[1];
+                    $existingCat = Category::where('name', $cat[0])->first();
+                    if ($existingCat){
+                        $style = $existingCat->css_style;
+                    }
+
                     return Category::create(['name' => $cat[0],
                                              'level_1' => $cat[1],
-                                             'caption' => $caption]);
+                                             'caption' => $caption,
+                                             'css_style' => $style]);
             }
         }
 

@@ -22,6 +22,7 @@ class CreateNotificationsTable extends Migration
             $table->foreignId('category_id')->constrained('x_categories');
             $table->string('category');
             $table->string('d_cat_caption');
+            $table->string('category_banner_style');
             $table->string('thumbnail_link')->unique();
             $table->string('notice_link')->unique();
             $table->text('description');

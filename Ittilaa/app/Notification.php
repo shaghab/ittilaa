@@ -17,6 +17,7 @@ class Notification extends Model
         'category_id',
         'category',
         'd_cat_caption',
+        'category_banner_style',
         'thumbnail_link',
         'notice_link',
         'description',
