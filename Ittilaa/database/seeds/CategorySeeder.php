@@ -18,6 +18,7 @@ class CategorySeeder extends Seeder
         Category::createNew('Notification', 'Notification', 'notification-btn');
         Category::createNew('Job', 'Job', 'job-btn');
         Category::createNew('Tender', 'Tender', 'tender-btn');
-        Category::createNew('Policy', 'Policy', 'policy-btn');
+        Category::createNew('Process', 'Process', 'process-btn');
+        Category::createNew('Regulation', 'Regulation', 'regulation-btn');
     }
 }
