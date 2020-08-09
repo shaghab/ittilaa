@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notification;
 use App\Tag;
 use App\Region;
+use App\Category;
 
 trait QueriesNotifications {
 
@@ -46,6 +47,12 @@ trait QueriesNotifications {
 	public function getNotificationOfCategory($category_id) {
         $notifications = $this->getNotifications();
 		if ($notifications->count()) {
+			$cat = Category::find($category_id);
+			if (empty($cat->level_1)){
+				$cat_ids = Category::where('name', $cat->name)->get('id');
+				return $notifications->whereIn('category_id', $cat_ids);
+			}
+
 			return $notifications->where('category_id', $category_id);
 		}
 
