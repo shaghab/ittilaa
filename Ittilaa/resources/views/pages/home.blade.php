@@ -194,7 +194,6 @@
                <p class="card-text caption1">{{ $notification->caption1 }}</p>
                <h6 class="card-title">{{ $notification->short_title }}</h6>
                <p class="card-text caption2">{{ $notification->caption2 }}</p>
-               <p class="card-text">{{ $notification->caption3 }}</p>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
             <a href="{{ route('show_notification', ['notification' => $notification->id]) }}" class="btn btn-primary btn-sm {{$notification->category_banner_style}} stretched-link">{{ $notification->d_cat_caption }}</a> 
@@ -204,20 +203,11 @@
 
       </div>
    </div>
-   {{-- @endfor --}}
 @endif
 
 <div class="container">
       <div class="col-xs-12">
             {{ $notifications->onEachSide(1)->links() }}
-
-            {{-- <ul class="pagination custom-pagination">
-             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-             <li class="page-item"><a class="page-link" href="#">1</a></li>
-             <li class="page-item"><a class="page-link" href="#">2</a></li>
-             <li class="page-item"><a class="page-link" href="#">3</a></li>
-             <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>  --}}
       </div>
 </div>
      
