@@ -307,6 +307,176 @@
     margin-bottom:0px;
     padding:10px;
 }
+.notification-btn{
+    width:120px;
+    background-color:#77c0b1;
+    background-image:none;
+    color:white;
+    border:1px solid transparent;
+    border-radius:4px;
+    padding:5px;
+    margin-left:5px;
+    text-align:center;
+    display:inline-block;
+}
+.notification-btn:hover{
+   opacity:0.8;
+   text-decoration:none;
+   color:white;
+   background-color:#77c0b1;
+   border:none;
+}
+.notification-btn:focus{
+    background-color:#77c0b1;
+    background-image:none;
+    border-color:#77c0b1;
+}
+.notification-btn:active{
+    background-color:#62a799 !important;
+    background-image:none;
+    border-color:#62a799;
+}
+.notification-btn:focus-within{
+    background-color:#77c0b1;
+    background-image:none;
+    border:0px;
+}
+.tender-btn{
+    width:120px;
+    background-color:#73a6db;
+    background-image:none;
+    color:white;
+    border:1px solid transparent;
+    border-radius:4px;
+    padding:5px;
+    margin-left:5px;
+    text-align:center;
+    display:inline-block;
+}
+.tender-btn:hover{
+   opacity:0.8;
+   text-decoration:none;
+   color:white;
+   background-color:#73a6db;
+   border:none;
+}
+.tender-btn:focus{
+    background-color:#73a6db;
+    background-image:none;
+    border-color:#73a6db;
+}
+.tender-btn:active{
+    background-color:#4377ae !important;
+    background-image:none;
+    border-color:#4377ae;
+}
+.tender-btn:focus-within{
+    background-color:#73a6db;
+    background-image:none;
+    border:0px;
+}
+.job-btn{
+    width:120px;
+    background-color:#f28160;
+    background-image:none;
+    color:white;
+    border:1px solid transparent;
+    border-radius:4px;
+    padding:5px;
+    margin-left:5px;
+    text-align:center;
+    display:inline-block;
+}
+.job-btn:hover{
+   opacity:0.8;
+   text-decoration:none;
+   color:white;
+   background-color:#f28160;
+   border:none;
+}
+.job-btn:focus{
+    background-color:#f28160;
+    background-image:none;
+    border-color:#f28160;
+}
+.job-btn:active{
+    background-color:#b86443 !important;
+    background-image:none;
+    border-color:#b86443;
+}
+.job-btn:focus-within{
+    background-color:#f28160;
+    background-image:none;
+    border:0px;
+}
+.process-btn{
+    width:120px;
+    background-color:#77b177;
+    background-image:none;
+    color:white;
+    border:1px solid transparent;
+    border-radius:4px;
+    padding:5px;
+    margin-left:5px;
+    text-align:center;
+    display:inline-block;
+}
+.process-btn:hover{
+   opacity:0.8;
+   text-decoration:none;
+   color:white;
+   background-color:#77b177;
+   border:none;
+}
+.process-btn:focus{
+    background-color:#77b177;
+    background-image:none;
+    border-color:#77b177;
+}
+.process-btn:active{
+    background-color:#548854 !important;
+    background-image:none;
+    border-color:#548854;
+}
+.process-btn:focus-within{
+    background-color:#77b177;
+    background-image:none;
+    border:0px;
+}
+.regulation-btn{
+    width:120px;
+    background-color:#9a94cb;
+    background-image:none;
+    color:white;
+    border:1px solid transparent;
+    border-radius:4px;
+    padding:5px;
+    margin-left:5px;
+    text-align:center;
+    display:inline-block;
+}
+.regulation-btn:hover{
+   opacity:0.8;
+   text-decoration:none;
+   color:white;
+   background-color:#9a94cb;
+   border:none;
+}
+.regulation-btn:focus{
+    background-color:#9a94cb;
+    background-image:none;
+    border-color:#9a94cb;
+}
+.regulation-btn:active{
+    background-color:#7e77b4 !important;
+    background-image:none;
+    border-color:#7e77b4;
+}
+.regulation-btn:focus-within{
+    background-color:#9a94cb;
+    background-image:none;
+    border:0px;
+}
 /* Home Page Pagination */
 .custom-pagination{
     margin-top:20px;
@@ -583,23 +753,3 @@
         width:200px;
         margin-left:0px;
     }
-.tender-btn{
-    width:120px;
-    background-color:#77c0b1;
-    background-image:none;
-}
-.notification-btn{
-    width:120px;
-    background-color:#77c0b1;
-    background-image:none;
-}
-.job-btn{
-    width:120px;
-    background-color:#77c0b1;
-    background-image:none;
-}
-.policy-btn{
-    width:120px;
-    background-color:#77c0b1;
-    background-image:none;
-}
