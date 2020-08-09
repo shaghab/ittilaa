@@ -9,17 +9,32 @@
 </div>
 
 <div class="container-fluid search">
-  <form class="form-inline col-lg-12 d-none d-lg-flex">
+  <form class="form-inline col-lg-12 d-none d-lg-flex" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
+   {{ csrf_field() }}
+
      <div class="form-group search-container">
          {{-- <span class="fa fa-search form-control-icon"></span> --}}
-         <input type="text" class="form-control" placeholder="Find any public notification..." name="search">
+         <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." >
          <button type="submit" class="btn btn-primary search-btn"><i class="fa fa-search"></i>Search</button>
+
+         @if ($errors->has('search_text'))
+         <span class="help-block">
+            <strong>{{ $errors->first('search_text') }}</strong>
+         </span>
+         @endif
      </div>
   </form>
-  <form class="form-inline col-xs-12 d-flex d-lg-none">
+  <form class="form-inline col-xs-12 d-flex d-lg-none" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
+   {{ csrf_field() }}
    <div class="form-group search-container col">
-       <input type="text" class="form-control" placeholder="Find any public notification..." name="search">
+       <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." name="search">
        <button type="submit" class="btn btn-primary search-btn"><i class="fa fa-search"></i></button>
+
+       @if ($errors->has('search_text'))
+       <span class="help-block">
+          <strong>{{ $errors->first('search_text') }}</strong>
+       </span>
+       @endif
 </form>
 </div>
 <div class="container filters-container">

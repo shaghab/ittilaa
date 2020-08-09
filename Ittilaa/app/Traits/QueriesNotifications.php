@@ -60,10 +60,12 @@ trait QueriesNotifications {
     }
 
 
-	public function getNews(){
+	public function search($search_text){
 		$notifications = $this->getNotifications();
 		if ($notifications->count()) {
-			return $notifications->where('cateogry', config('enum.notification_categories.NEWS'));
+			$tag_ids = Tag::where('name','LIKE','%'.$search_text.'%')->get('id');
+			$ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
+			return $notifications->whereIn('id', $ids);
 		}
 
 		return $notifications;

@@ -90,18 +90,35 @@ class HomeController extends Controller
 
         $fields = $request->validate(['category_id' => 'required']);
         $categoryId = $fields['category_id'];
+        $notifications = $this->getNotificationOfCategory($categoryId)
+                                    ->paginate(config('pagination.home.records_per_page'));
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
 
-        $notifications = $this->getNotificationOfCategory($categoryId)
-                                    ->paginate(config('pagination.home.records_per_page'));
-
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'category_id'   => $categoryId,
+                                    'regions'       => $regions,
+                                    'authorizers'   => $authorizers,
+                                    'departments'   => $departments]);
+    }
+
+    public function searchNotifications(Request $request){
+        $fields = $request->validate(['search_text' => 'required']);
+        $search_text = $fields['search_text'];
+        $notifications = $this->search($search_text)
+                                    ->paginate(config('pagination.home.records_per_page'));
+
+        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
+        $departments = IssuingAuthority::getOrganizationUnits();
+        $regions = Region::getRegions();
+        $categories = Category::getCategories();
+
+        return view('pages.home', [ 'notifications' => $notifications, 
+                                    'categories'    => $categories,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments]);
