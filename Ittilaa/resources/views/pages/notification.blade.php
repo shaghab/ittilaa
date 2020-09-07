@@ -8,10 +8,13 @@
       </div>
 
       <div class="col-lg-5 notif-details">
-         <label>Notification</label>
+         <label>{{ $notification->d_cat_caption }}</label>
          <h6>{{ $notification->title }}</h6>
          <h6>{{ $notification->region_name }}</h6>
          <p>Publishing Date: {{ $notification->publish_date }}<p>
+         @if (!empty($notification->caption1))
+            <p>{{ $notification->caption1 }}<p>
+         @endif
 
          <p>Tags: 
             @php

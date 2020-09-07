@@ -38,12 +38,12 @@ class Category extends Model
     }
 
     public static function getCategories() {
-        $all = Category::all();
+        $all = Category::all()->sortBy('name');
 
         $categories = [];
         foreach($all as $cat ){
             if (!empty($cat->level_1)) {
-                $categories[$cat->id] = ['id' => $cat->id, 'name' => $cat->name . "/" . $cat->level_1];
+                $categories[$cat->id] = ['id' => $cat->id, 'name' => "---> " . $cat->level_1];
             }
             else {
                 $categories[$cat->id] = ['id' => $cat->id, 'name' => $cat->name];
