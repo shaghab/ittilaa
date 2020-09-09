@@ -189,7 +189,7 @@
          <?php $notification = $notifications[$col]; ?>
 
          <div class="card col-xs-7 col-sm-4 col-md-2 notifs-card">
-            <img class="card-img-top" src="{{ asset($notification->thumbnail_link) }}" alt="Notification image">
+            <img class="card-img-top" src="{{ asset('storage/'. $notification->thumbnail_link) }}" alt="Notification image">
             <div class="card-body">
                <p class="card-text caption1">{{ $notification->caption1 }}</p>
                <h6 class="card-title">{{ $notification->short_title }}</h6>

@@ -121,24 +121,21 @@ class NotificationsController extends Controller
                 $region = Region::createNew($data['region_name']);
                 $data['region_id'] = $region->id;
 
+                $path = 'notifications/';
                 if (!empty($data['notice_link'])) {
-                    $fileName = 'notifications/documents/' . $data['notice_link'];
+                    $fileName = $path .$category->name . '/documents/' . $data['notice_link'];
                     $data['notice_link'] = $fileName;
                     $data['notice_doc_type'] = pathinfo($fileName)['extension'];
                 }
 
                 if (!empty($data['thumbnail_link'])) {
-                    $fileName = 'notifications/thumbnails/' . $data['thumbnail_link'];
+                    $fileName = $path . $category->name . '/thumbnails/' . $data['thumbnail_link'];
                     $data['thumbnail_link'] = $fileName; 
                 }
 
                 $dateFormat = 'd/m/Y H:i:s';
-                $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
-                if (!$publishDate) {
-                    $dateFormat = 'd/m/Y';
-                    $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
-                }
-                $data['publish_date'] = $publishDate;
+                $publishDate = date($dateFormat, strtotime($data['publish_date']));
+                $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
 
                 $data['operator_id'] = auth()->user()->id;
                 $data['approver_id'] = auth()->user()->id;
@@ -226,13 +223,8 @@ class NotificationsController extends Controller
         }
 
         // TODO: later add control for DateTime picking
-        $dateFormat = 'd/m/Y H:i:s';
-        $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
-        if (!$publishDate) {
-            $dateFormat = 'd/m/Y';
-            $publishDate = date_create_from_format($dateFormat, $data['publish_date']);
-        }
-        $data['publish_date'] = $publishDate;
+        $publishDate = strtotime($data['publish_date']);
+        $data['publish_date'] = date('d/m/Y', $publishDate);
 
         // TODO: add a control to add new issuing authority also make these fields selectable
         $authority = IssuingAuthority::createNew  (['name' => $data['issuing_authority'],

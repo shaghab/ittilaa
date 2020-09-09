@@ -4,7 +4,7 @@
 <div class="container notifs-container">
    <div class="col notifs-page d-inline d-lg-flex">
       <div class="col-lg-7">
-         <embed class="notif-embed" src="{{ asset($notification->notice_link) }}" height="100%" width="100%">
+         <embed class="notif-embed" src="{{ asset('storage/'. $notification->notice_link) }}" height="100%" width="100%">
       </div>
 
       <div class="col-lg-5 notif-details">
