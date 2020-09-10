@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- you can change app name in .env file. Also, you can change page title to something else -->
-<title>{{config('app.name', 'ITTILAA')}}</title>
+<title>{{config('app.name', 'Ittila')}}</title>
 
 <!-- Latest compiled and minified CSS (Bootstrap link) -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">

@@ -1,8 +1,31 @@
-<!-- website home page -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@extends('layouts.default')
-@section('content')
+    <title>{{config('app.name', 'Ittila')}}</title>
 
+    <!-- Latest compiled and minified CSS (Bootstrap link) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{{asset('css/app.css')}}" >
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" >
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+      <div class="header-hr">
+        <span>
+           <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_001.png" alt="Ittilaa Logo"></a>
+        </span>
+      </div>
+    </header>
+    <div class="container-fluid">
+
+<!-- start of content -->
 <div class="container page-heading">
        <h3 class="text-center">CONVENIENT ACCESS TO GOVERNMENT NOTICES AND POLICIES</h3>
        <p>Don't miss out on the notices and policies that are important to you. Use Ittilaa to explore verified Government notifications.</p>
@@ -210,7 +233,12 @@
             {{ $notifications->onEachSide(1)->links() }}
       </div>
 </div>
-     
 
-
-@endsection
+<!-- end of content -->
+    </div>
+    <footer class="container-fluid">
+        @include('includes.footer')
+    </footer>
+</div>
+</body>
+</html>
