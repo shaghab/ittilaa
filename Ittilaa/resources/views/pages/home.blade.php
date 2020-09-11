@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{config('app.name', 'Ittila')}}</title>
-
     <!-- Latest compiled and minified CSS (Bootstrap link) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,19 +15,26 @@
 </head>
 <body>
 <div class="container-fluid">
-    <header>
+    {{-- <header>
       <div class="header-hr">
         <span>
            <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_001.png" alt="Ittilaa Logo"></a>
         </span>
       </div>
-    </header>
+    </header> --}}
     <div class="container-fluid">
 
 <!-- start of content -->
-<div class="container page-heading">
+<div class="container-fluid page-heading page-banner">
+   <header>
+      <div class="header-hr">
+        <span>
+           <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_002.png" alt="Ittilaa Logo"></a>
+        </span>
+      </div>
+    </header>
        <h3 class="text-center">CONVENIENT ACCESS TO GOVERNMENT NOTICES AND POLICIES</h3>
-       <p>Don't miss out on the notices and policies that are important to you. Use Ittilaa to explore verified Government notifications.</p>
+       <p>Don't miss out on the notices and policies that are important to you. Use Ittila to explore verified Government notifications.</p>
 </div>
 
 <div class="container-fluid search">

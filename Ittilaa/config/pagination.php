@@ -3,7 +3,7 @@
 return [
 
 	'home' => [
-		'records_per_page' => 12,
+		'records_per_page' => 10,
 	],
 
 	'dashboard' => [

@@ -7,16 +7,15 @@
           <div class="col-md-1"></div>
           <div class="col-md-4 col-lg-5">
              <img class="footer-logo" src="../images/ICT Logo_001.png" alt="ICT Logo">
-             <p>Ittilaa about text. Ittilaa about text. Ittilaa about text. 
-                 Ittilaa about text. Ittilaa about text. Ittilaa about text. 
-                 Ittilaa about text. Ittilaa about text. Ittilaa about text.
-                 Ittilaa about text. Ittilaa about text. Ittilaa about text. </p>
+             <p>We are impact driven technology consulting with citizen-first approach.
+                 We aim to strengthen communities using tools and solutions that are
+                inclusive and empowering. </p>
           </div>
           <div class="d-none d-lg-block col-lg-1"></div>
           <div class="col-md-3 col-lg-2">
               <h6>Contact Us</h6>
               <p>0092-51-1234567</p>
-              <p>ICT4Good@email.com</p>
+              <p>support@ict4good.com</p>
           </div>
           <div class="col-md-3 col-lg-2 sm-icons">
               <h6>Follow Us</h6>
