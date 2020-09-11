@@ -12,8 +12,8 @@
          <h6>{{ $notification->title }}</h6>
          <h6>{{ $notification->region_name }}</h6>
          <p>Publishing Date: {{ $notification->publish_date }}<p>
-         @if (!empty($notification->caption1))
-            <p>{{ $notification->caption1 }}<p>
+         @if (!empty($notification->caption3))
+            <p>{{ $notification->caption3 }}<p>
          @endif
 
          <p>Tags: 
