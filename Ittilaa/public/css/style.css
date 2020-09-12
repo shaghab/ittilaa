@@ -2,6 +2,18 @@
     font-family:HelveticaBold;
     src:url("../fonts/HelveticaNeueLTCom-Blk_0.ttf");
 }
+@font-face{
+    font-family:RobotoBold;
+    src:url("../fonts/ROBOTO-BOLD.ttf");
+}
+@font-face{
+    font-family:Roboto;
+    src:url("../fonts/ROBOTO-REGULAR.ttf");
+}
+@font-face{
+    font-family:RobotoMedium;
+    src:url("../fonts/ROBOTO-MEDIUM.ttf");
+}
 
 /* Header */
 .header-hr{
@@ -62,7 +74,7 @@
   }
   .page-heading > p{
       text-align: center;
-      font-family: helvetica;
+      font-family: Roboto;
       color:white;
       font-size:14px;
       padding:0px 10px;
@@ -77,7 +89,7 @@
     }
     .page-heading > p{
         text-align: center;
-        font-family: helvetica;
+        font-family: Roboto;
         color:white;
     }
   }
@@ -118,9 +130,11 @@
         padding-left:35px;
         padding-right:35px;
         margin-right:10px;
+        font-family:Roboto;
     }
     .search-btn{
         width:auto;
+        font-family:Roboto;
         background-color:#77c0b1;
         background-image: linear-gradient(135deg, #73a6db,#77c0b1);
     }
@@ -130,9 +144,11 @@
         width:482px !important;
         border: 1px solid black;
         margin-right:10px;
+        font-family:Roboto;
     }
     .search-btn{
         width:120px;
+        font-family:Roboto;
         background-color:#77c0b1;
         background-image: linear-gradient(135deg, #73a6db,#77c0b1);
     }
@@ -163,6 +179,7 @@
 }
 .btn-main{
     width:120px;
+    font-family:Roboto;
     background-color:#77c0b1;
     background-image:none;
 }
@@ -192,6 +209,9 @@
 .filters{
     margin-top:20px;
 }
+.dropdown > select > option{
+    font-family:Roboto;
+}
 @media screen and (max-width: 600px){
     .filters-container{
         padding:0px;
@@ -203,6 +223,7 @@
         border:1px solid black;
         margin-bottom:15px;
         min-width:235px;
+        font-family:Roboto;
     }
     .filters > div{
       justify-content:center;
@@ -212,6 +233,7 @@
       text-align:center;
       font-weight:bold;
       color:black;
+      font-family:Roboto;
   }
 }
 @media screen and (min-width: 600px){
@@ -219,6 +241,7 @@
         border:1px solid black;
         margin-left:10px;
         width:179px;
+        font-family:Roboto;
     }
     .filters > div{
         justify-content:center;
@@ -228,6 +251,7 @@
   }
 .dropdown > label{
     margin-top:5px;
+    font-family:Roboto;
 }
 
 /* Home Page Notifications */
@@ -236,14 +260,13 @@
 }
 .section-header > h6{
     Color:Black;
-    font-family: helvetica;
-    font-weight: bold;
+    font-family: RobotoBold;
     text-align:center;
 }
 .section-results > p{
     text-align: center;
     font-size: 12px;
-    font-family: helvetica;
+    font-family: Roboto;
 }
 @media screen and (max-width: 600px){
   .notifs-card{
@@ -298,8 +321,7 @@
 } */
 .card-body > h6{
     color:black;
-    font-family: helvetica;
-    font-weight: bold;
+    font-family: RobotoBold;
     font-size:12px;
     height:42px;
     padding:0px 10px;
@@ -309,19 +331,20 @@
 }
 .caption1{
     font-size:12px;
-    font-family: helvetica;
+    font-family: Roboto;
     margin-bottom:0px;
     padding:10px 10px 5px 10px;
 }
 .caption2{
     font-size:12px;
-    font-family: helvetica;
+    font-family: Roboto;
     margin-bottom:0px;
     padding:10px;
 }
 .notification-btn{
-    width:90px;
+    width:95px;
     height:25px;
+    font-family:Roboto;
     background-color:#77c0b1;
     background-image:none;
     color:white;
@@ -358,6 +381,7 @@
 .tender-btn{
     width:90px;
     height:25px;
+    font-family:Roboto;
     background-color:#73a6db;
     background-image:none;
     color:white;
@@ -394,6 +418,7 @@
 .job-btn{
     width:90px;
     height:25px;
+    font-family:Roboto;
     background-color:#f28160;
     background-image:none;
     color:white;
@@ -430,6 +455,7 @@
 .process-btn{
     width:90px;
     height:25px;
+    font-family:Roboto;
     background-color:#77b177;
     background-image:none;
     color:white;
@@ -466,6 +492,7 @@
 .regulation-btn{
     width:90px;
     height:25px;
+    font-family:Roboto;
     background-color:#9a94cb;
     background-image:none;
     color:white;
@@ -550,17 +577,28 @@
     }
   }
 .footer-content > div >p{
-    font-family: helvetica;
+    font-family: Roboto;
     color:black;
+    font-size:14px;
 }
 .footer-content > div >h6{
-    font-family: helvetica;
+    font-family: RobotoBold;
     color:black;
-    font-weight:bold;
 }
 .footer-logo{
     height: 50px;
     width: 150px;
+}
+.footer-title{
+    font-family: RobotoMedium !important;
+    color:#495057 !important;
+    margin-bottom:-2px;
+    margin-left:-20px;
+}
+.footer-title > span{
+    margin-right:5px;
+    color:#77c0b1;
+    width:14px;
 }
 .sm-icons > a{
     color:#77c0b1;
@@ -580,10 +618,11 @@
     text-align: center;
 }
 .footer-copyright > p{
-    font-family: helvetica;
+    font-family: Roboto;
     color:black;
     font-size: 12px;
     margin-top:30px;
+    padding: 0px 10px;
 }
 
 /* Login Page */
@@ -592,12 +631,12 @@
     margin-bottom:60px;
 }
 .login-form > div > label{
-    font-family:helvetica;
+    font-family:Roboto;
     color:black;
 }
 .forgot-pwd{
     float:right;
-    font-family:helvetica;
+    font-family:Roboto;
 }
 .login-register > p > a{
     color:black;
@@ -647,22 +686,23 @@
       padding:15px;
   }
   .admin-card-body > h4{
-    font-family: helvetica;
+    font-family: RobotoBold;
     color:black;
-    font-weight: bold;
     font-size:18px;
 }
 .admin-card-body > p{
-    font-family: helvetica;
+    font-family: Roboto;
     color:black;
 }
 .btn-accept{
     background-image: none;
     width:100px;
+    font-family:Roboto;
 }
 .btn-reject{
     background-image: none;
     width:100px;
+    font-family:Roboto;
 }
 
 /* Notification Page */
@@ -694,7 +734,7 @@
     margin-top:30px;
 }
 .notif-details > label{
-    font-family: helvetica;
+    font-family: Roboto;
     color:white;
     font-size:14px;
     background-color: #62a799;
@@ -703,16 +743,15 @@
     padding-right:15px;
 }
 .notif-details > h6{
-    font-family: helvetica;
+    font-family: RobotoBold;
     color:black;
-    font-weight:bold;
 }
 .notif-details > p{
-    font-family: helvetica;
+    font-family: Roboto;
     font-size:14px;
 }
 .p-black{
-    font-family: helvetica;
+    font-family: Roboto;
     font-size:14px;
     color:black;
     margin-top:-10px;
@@ -720,14 +759,18 @@
 .notif-details > a{
     color:black;
     border:1px solid black;
+    font-family: Roboto;
 }
 .notif-details > a:hover{
     background-color:#77c0b1;
     text-decoration: none;
     color:white;
 }
-.notif-details > a > i{
+.notif-details > a > span{
     margin-right:5px;
+}
+.notif-details > a > span:hover{
+    color:white;
 }
 .notifs-tag{
     color:#62a799;
@@ -756,7 +799,7 @@
     width:500px;
 }
 .dataentry-form > div > label{
-    font-family: helvetica;
+    font-family: Roboto;
     color:black;
     display: inline;
     width: 135px;
