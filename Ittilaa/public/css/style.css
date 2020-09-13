@@ -16,6 +16,19 @@
 }
 
 /* Header */
+.blkheader-hr{
+    width:100%;
+    height:50px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin-bottom:50px; 
+}
+.blkheader-hr > span > a > img{
+    padding: 0px;
+    float:left;
+    margin-left: 15px;
+    margin-top:20px;
+}
 .header-hr{
     width:100%;
     height:50px;
@@ -56,7 +69,7 @@
 /* Home Page Heading */
 .page-banner{
     background-image: url("../images/Banner_002.png");
-    background-color:green;
+    background-color:#77c0b1;
     height:240px;
     background-position: center;
     background-repeat: no-repeat;
