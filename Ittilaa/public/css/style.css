@@ -1,19 +1,8 @@
-@font-face{
-    font-family:HelveticaBold;
-    src:url("../fonts/HelveticaNeueLTCom-Blk_0.ttf");
-}
-@font-face{
-    font-family:RobotoBold;
-    src:url("../fonts/ROBOTO-BOLD.ttf");
-}
-@font-face{
+
+/* @font-face{
     font-family:Roboto;
     src:url("../fonts/ROBOTO-REGULAR.ttf");
-}
-@font-face{
-    font-family:RobotoMedium;
-    src:url("../fonts/ROBOTO-MEDIUM.ttf");
-}
+} */
 
 /* Header */
 .blkheader-hr{
@@ -273,7 +262,8 @@
 }
 .section-header > h6{
     Color:Black;
-    font-family: RobotoBold;
+    font-family: Roboto;
+    font-weight:Bold;
     text-align:center;
 }
 .section-results > p{
@@ -334,7 +324,8 @@
 } */
 .card-body > h6{
     color:black;
-    font-family: RobotoBold;
+    font-family: Roboto;
+    font-weight:Bold;
     font-size:12px;
     height:42px;
     padding:0px 10px;
@@ -595,7 +586,8 @@
     font-size:14px;
 }
 .footer-content > div >h6{
-    font-family: RobotoBold;
+    font-family: Roboto;
+    font-weight:Bold;
     color:black;
 }
 .footer-logo{
@@ -603,8 +595,8 @@
     width: 150px;
 }
 .footer-title{
-    font-family: RobotoMedium !important;
     color:#495057 !important;
+    font-weight:Bold;
     margin-bottom:-2px;
     margin-left:-20px;
 }
@@ -699,7 +691,8 @@
       padding:15px;
   }
   .admin-card-body > h4{
-    font-family: RobotoBold;
+    font-family: Roboto;
+    font-weight:Bold;
     color:black;
     font-size:18px;
 }
@@ -756,7 +749,8 @@
     padding-right:15px;
 }
 .notif-details > h6{
-    font-family: RobotoBold;
+    font-family: Roboto;
+    font-weight:Bold;
     color:black;
 }
 .notif-details > p{
