@@ -48,64 +48,6 @@ class HomeController extends Controller
         return view('pages.notification', ['notification' => $notification]);
     }
 
-    public function search(Request $request){
-
-        $filters = array();
-
-        $notifications = $this->getNotifications();
-
-        if ($notifications->count() && $request->has('search_text')) {
-            $search_text = $request->input('search_text');
-            $filters['search_text'] = $search_text;
-
-            $tag_ids = Tag::where('name','LIKE','%'.$search_text.'%')->get('id');
-            $ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
-
-            $notifications = $notifications->whereIn('id', $ids);
-
-        }
-
-        if ($notifications->count() && $request->has('region_id')) {
-            $region_id = $request->input('region_id');
-            $filters['region_id'] = $region_id;
-            $notifications = $notifications->where('region_id', $region_id);
-        }
-
-        if ($notifications->count() && $request->has('unit_name')) {
-            $unit_name = $request->input('unit_name');
-            $filters['unit_name'] = $unit_name;
-            $notifications = $notifications->where('unit_name', $unit_name);
-        }
-
-        if ($notifications->count() && $request->has('category_id')) {
-            $category_id = $request->input('category_id');
-            $filters['category_id'] = $category_id;
-            $cat = Category::find($category_id);
-
-            if (empty($cat->level_1)) {
-                $cat_ids = Category::where('name', $cat->name)->get('id');
-                $notifications = $notifications->whereIn('category_id', $cat_ids);
-            }
-            else {
-                $notifications = $notifications->where('category_id', $category_id);
-            }
-        }
-
-        $notifications = $notifications->paginate(config('pagination.home.records_per_page'));
-        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        $departments = IssuingAuthority::getOrganizationUnits();
-        $regions = Region::getRegions();
-        $categories = Category::getCategories();
-
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'categories'    => $categories,
-                                    'regions'       => $regions,
-                                    'authorizers'   => $authorizers,
-                                    'departments'   => $departments,
-                                    'search_text'   => $search_text]);
-
-    }
-
     public function searchRegion(Request $request) {
 
         $fields = $request->validate(['region_id' => 'required']);
