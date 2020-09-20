@@ -25,7 +25,7 @@ class IssuingAuthority extends Model
     }
 
     public static function getOrganizationUnits() {
-        return IssuingAuthority::select('unit_name')->distinct('unit_name')->get();
+        return IssuingAuthority::select('unit_name')->distinct('unit_name')->orderBy('unit_name', 'asc')->get();
     }
 
     public static function getIdsFromName($names) {

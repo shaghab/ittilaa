@@ -38,7 +38,7 @@ class Category extends Model
     }
 
     public static function getCategories() {
-        $all = Category::all()->sortBy('name');
+        $all = Category::orderBy('name', 'asc')->get();
 
         $categories = [];
         foreach($all as $cat ){

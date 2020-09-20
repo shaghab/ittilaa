@@ -23,7 +23,7 @@ class Region extends Model
     }
 
     public static function getRegions() {
-        return Region::all();
+        return Region::orderBy('name', 'asc')->get();
     }
 
     public static function createNew($name) {
