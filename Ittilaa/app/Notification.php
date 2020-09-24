@@ -39,6 +39,30 @@ class Notification extends Model
         'approval_status',
     ];
 
+    protected $casts = [
+        'publish_date' => 'dateTime',
+    ];
+
+    public function getPublishDate(string $format) {
+        return $this['publish_date']->format($format);
+    }
+
+    public function getSigningAuthority(){
+        $designation = $this['designation'];
+        $authority = $this['issuing_authority'];
+
+        if (empty($designation) && empty($authority)) {
+            return "";
+        }
+        if (empty($designation)){
+            return $authority;
+        }
+        if (empty($authority)){
+            return $designation;
+        }
+        return $designation. ' - ' .$authority;
+    }
+
     public function tags() { 
         return $this->belongsToMany(Tag::class,'x_notifications_tags');
     }

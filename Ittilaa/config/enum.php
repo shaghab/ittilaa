@@ -43,6 +43,10 @@ return [
         'guest'      => 'guest'
     ],
 
+    'formats' => [
+        'time' => 'j M, Y h:i A',
+    ],
+
 // TODO: do something with routes, they are all over the place
     'routes' => [
         'index',

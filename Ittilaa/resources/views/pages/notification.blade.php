@@ -11,7 +11,9 @@
          <label>{{ $notification->d_cat_caption }}</label>
          <h6>{{ $notification->title }}</h6>
          <h6>{{ $notification->region_name }}</h6>
-         <p>Publishing Date: {{ $notification->publish_date }}<p>
+         <p>Publishing Date: 
+            {{ $notification->getPublishDate(config('enum.formats.time')) }}
+         <p>
          @if (!empty($notification->caption3))
             <p>{{ $notification->caption3 }}<p>
          @endif
@@ -27,8 +29,11 @@
 
          <p class="p-black">{{ $notification->description }}</p>
          <br>
-         <p class="p-black"><b>Signing Authority:</b></p>
-         <p class="p-black">{{ $notification->designation }} @if (!empty($notification->issuing_authority)) {{ ' - ' }} @endif {{ $notification->issuing_authority }}</p> 
+         
+         @if (!empty($notification->getSigningAuthority()))
+            <p class="p-black"><b>Signing Authority:</b></p>
+            <p class="p-black">{{ $notification->getSigningAuthority() }}</p> 
+         @endif
          <p class="p-black"><b>Department:</b></p>
          <p class="p-black">{{ $notification->unit_name }}</p>
          <a href="{{ $notification->source_url }}" class="btn btn-default" role="button"><span class="fa fa-link"></span>Go to Source</a>
