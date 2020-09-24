@@ -23,8 +23,8 @@
           </div>
           <div class="col-md-3 col-lg-2 sm-icons">
               <h6>Follow Us</h6>
-              <a href=https://www.facebook.com/ittilaa><span class="fa fa-facebook-square"></span></a>
-              <a href=https://twitter.com/ittilaa><span class="fa fa-twitter-square"></span></a>
+              <a target="_blank" href=https://www.facebook.com/ittilaa><span class="fa fa-facebook-square"></span></a>
+              <a target="_blank" href=https://twitter.com/ittilaa><span class="fa fa-twitter-square"></span></a>
           </div>
        </div>
    </div>

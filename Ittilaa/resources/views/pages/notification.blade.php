@@ -36,7 +36,7 @@
          @endif
          <p class="p-black"><b>Department:</b></p>
          <p class="p-black">{{ $notification->unit_name }}</p>
-         <a href="{{ $notification->source_url }}" class="btn btn-default" role="button"><span class="fa fa-link"></span>Go to Source</a>
+         <a target="_blank" href="{{ $notification->source_url }}" class="btn btn-default" role="button"><span class="fa fa-link"></span>Go to Source</a>
       </div>
    </div>
 </div>
