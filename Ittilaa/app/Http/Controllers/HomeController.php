@@ -29,12 +29,14 @@ class HomeController extends Controller
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
+        $filters = (['search_text' => '', 'region_filter' => '', 'department_filter' => '', 'category_filter' => '']);
 
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
-                                    'departments'   => $departments]);
+                                    'departments'   => $departments,
+                                    'filters'       => $filters, ]);
     }
 
     /**
@@ -48,32 +50,48 @@ class HomeController extends Controller
         return view('pages.notification', ['notification' => $notification]);
     }
 
-    public function searchRegion(Request $request) {
+    public function filter_search(Request $request){
 
-        $fields = $request->validate(['region_id' => 'required']);
-        $regionId = $fields['region_id'];
-        $notifications = $this->getNotificationInRegion($regionId)
-                                    ->paginate(config('pagination.home.records_per_page'));
+        $filters = $request->validate(['search_text' => 'nullable',
+                                       'region_filter' => 'nullable',
+                                       'department_filter' => 'nullable',
+                                       'category_filter' => 'nullable']);
 
-        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        $departments = IssuingAuthority::getOrganizationUnits();
-        $regions = Region::getRegions();
-        $categories = Category::getCategories();
+        $notifications = $this->getNotifications();
 
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'categories'    => $categories,
-                                    'regions'       => $regions,
-                                    'region_id'     => $regionId,
-                                    'authorizers'   => $authorizers,
-                                    'departments'   => $departments]);
-    }
+        if ($notifications->count() && !empty($filters['search_text'])) {
+            $search_text = $request->input('search_text');
 
-    public function searchDepartment(Request $request) {
+            $tag_ids = Tag::where('name','LIKE','%'.$search_text.'%')->get('id');
+            $ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
 
-        $fields = $request->validate(['department' => 'required']);
-        $unitName = $fields['department'];
-        $notifications = $this->getNotificationFromUnit($unitName)
-                                    ->paginate(config('pagination.home.records_per_page'));
+            $notifications = $notifications->whereIn('id', $ids);
+        }
+
+        if ($notifications->count() && !empty($filters['region_filter'])) {
+            $region_id = $request->input('region_filter');
+            $notifications = $notifications->where('region_id', $region_id);
+        }
+
+        if ($notifications->count() && !empty($filters['department_filter'])) {
+            $unit_name = $request->input('department_filter');
+            $notifications = $notifications->where('unit_name', $unit_name);
+        }
+
+        if ($notifications->count() && !empty($filters['category_filter'])) {
+            $category_id = $request->input('category_filter');
+            $cat = Category::find($category_id);
+
+            if (empty($cat->level_1)) {
+                $cat_ids = Category::where('name', $cat->name)->get('id');
+                $notifications = $notifications->whereIn('category_id', $cat_ids);
+            }
+            else {
+                $notifications = $notifications->where('category_id', $category_id);
+            }
+        }
+
+        $notifications = $notifications->paginate(config('pagination.home.records_per_page'));
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
@@ -85,63 +103,7 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'department'    => $unitName]);
-    }
-
-    public function searchCategory(Request $request){
-
-        $fields = $request->validate(['category_id' => 'required']);
-        $categoryId = $fields['category_id'];
-        $notifications = $this->getNotificationOfCategory($categoryId)
-                                    ->paginate(config('pagination.home.records_per_page'));
-
-        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        $departments = IssuingAuthority::getOrganizationUnits();
-        $regions = Region::getRegions();
-        $categories = Category::getCategories();
-
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'categories'    => $categories,
-                                    'category_id'   => $categoryId,
-                                    'regions'       => $regions,
-                                    'authorizers'   => $authorizers,
-                                    'departments'   => $departments]);
-    }
-
-    public function searchNotifications(Request $request){
-        $fields = $request->validate(['search_text' => 'required']);
-        $search_text = $fields['search_text'];
-        $notifications = $this->search($search_text)
-                                    ->paginate(config('pagination.home.records_per_page'));
-
-        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        $departments = IssuingAuthority::getOrganizationUnits();
-        $regions = Region::getRegions();
-        $categories = Category::getCategories();
-
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'categories'    => $categories,
-                                    'regions'       => $regions,
-                                    'authorizers'   => $authorizers,
-                                    'departments'   => $departments]);
-    }
-
-    public function searchTag($tag){
-
-        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
-        $departments = IssuingAuthority::getOrganizationUnits();
-        $regions = Region::getRegions();
-        $categories = Category::getCategories();
-
-        $notifications = $this->getNotificationsWithTag($tag)
-                                    ->paginate(config('pagination.home.records_per_page'));
-
-        return view('pages.home', [ 'notifications' => $notifications, 
-                                    'categories'    => $categories,
-                                    'category_id'   => $tag,
-                                    'regions'       => $regions,
-                                    'authorizers'   => $authorizers,
-                                    'departments'   => $departments]);
+                                    'filters'       => $filters, ]);
     }
 
 }

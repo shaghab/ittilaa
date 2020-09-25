@@ -16,6 +16,38 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}" >
     <link rel="stylesheet" href="{{asset('css/style.css')}}" >
+
+    <script type="text/javascript">
+      function regionSelected(region){
+        document.getElementById("region_filter").value = region;
+        document.getElementById("search_form").submit();
+      }
+
+      function unitSelected(unit){
+        document.getElementById("department_filter").value = unit;
+        document.getElementById("search_form").submit();
+      }
+
+      function categorySelected(cat){
+        document.getElementById("category_filter").value = cat;
+        document.getElementById("search_form").submit();
+      }
+
+      function regionSelected_m(region){
+        document.getElementById("region_filter_m").value = region;
+        document.getElementById("search_form_m").submit();
+      }
+
+      function unitSelected_m(unit){
+        document.getElementById("department_filter_m").value = unit;
+        document.getElementById("search_form_m").submit();
+      }
+
+      function categorySelected_m(cat){
+        document.getElementById("category_filter_m").value = cat;
+        document.getElementById("search_form_m").submit();
+      }
+      </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -42,12 +74,17 @@
 </div>
 
 <div class="container-fluid search">
-  <form class="form-inline col-lg-12 d-none d-lg-flex" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
+  <form id="search_form" name="search_form" class="form-inline col-lg-12 d-none d-lg-flex" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
    {{ csrf_field() }}
 
      <div class="form-group search-container">
          {{-- <span class="fa fa-search form-control-icon"></span> --}}
          <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." >
+
+         <input type="hidden" id="region_filter" name="region_filter" value="{{$filters['region_filter']}}" />
+         <input type="hidden" id="department_filter" name="department_filter" value="{{$filters['department_filter']}}" />
+         <input type="hidden" id="category_filter" name="category_filter" value="{{$filters['category_filter']}}" />
+
          <button type="submit" class="btn btn-primary search-btn"><i class="fa fa-search"></i>Search</button>
 
          @if ($errors->has('search_text'))
@@ -57,10 +94,16 @@
          @endif
      </div>
   </form>
-  <form class="form-inline col-xs-12 d-flex d-lg-none" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
+  <form id="search_form_m" name="search_form" class="form-inline col-xs-12 d-flex d-lg-none" method="POST" action="{{ route('search') }}" enctype="multipart/form-data">
    {{ csrf_field() }}
+
    <div class="form-group search-container col">
        <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." name="search">
+
+       <input type="hidden" id="region_filter_m" name="region_filter" value="{{$filters['region_filter']}}" />
+       <input type="hidden" id="department_filter_m" name="department_filter" value="{{$filters['department_filter']}}" />
+       <input type="hidden" id="category_filter_m" name="category_filter" value="{{$filters['category_filter']}}" />
+
        <button type="submit" class="btn btn-primary search-btn"><i class="fa fa-search"></i></button>
 
        @if ($errors->has('search_text'))
@@ -74,11 +117,9 @@
    <div class="col filters d-none d-md-flex">
       <div class="dropdown col">
          <label class="">Filters:</label>
-         <form class="" method="POST" action="{{ route('search_region') }}" enctype="multipart/form-data" >
-         {{ csrf_field() }}
-         
+         <form class="" enctype="multipart/form-data" >
             <div class="dropdown region-dropdown">
-               <select id="region_id" name="region_id" class="form-control" onchange="this.form.submit()">
+               <select id="region_id" name="region_id" class="form-control" onchange="regionSelected(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Region</option>
 
@@ -95,11 +136,9 @@
                @endif
             </div>
          </form> 
-         <form class="" method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
-            {{ csrf_field() }}
-
+         <form class="" enctype="multipart/form-data" >
             <div class="dropdown department-dropdown">
-               <select id="department" name="department" class="form-control" onchange="this.form.submit()">
+               <select id="department" name="department" class="form-control" onchange="unitSelected(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Department</option>
 
@@ -116,11 +155,9 @@
                @endif
             </div> 
          </form>
-         <form class="" method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
-            {{ csrf_field() }}
-            
+         <form class="" enctype="multipart/form-data" >
             <div class="dropdown category-dropdown">
-               <select name="category_id" class="form-control" onchange="this.form.submit()">
+               <select id="category_id" name="category_id" class="form-control" onchange="categorySelected(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Category</option>
 
@@ -141,16 +178,14 @@
    </div>
    <div class="col filters d-inline d-md-none">
          <label class="col">Filters</label>
-         <form class="col" method="POST" action="{{ route('search_region') }}" enctype="multipart/form-data" >
-         {{ csrf_field() }}
-         
+         <form class="col" enctype="multipart/form-data" >
             <div class="dropdown region-dropdown col">
-               <select id="region_id" name="region_id" class="form-control" onchange="this.form.submit()">
+               <select id="region_id" name="region_id" class="form-control" onchange="regionSelected_m(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Region</option>
 
                      @foreach ($regions as $region)
-                        <option class="dropdown-item" value="{{ $region->name }}">{{ $region->name }}</option>
+                        <option class="dropdown-item" value="{{ $region->id }}">{{ $region->name }}</option>
                      </option>
                      @endforeach
                   </div>
@@ -163,11 +198,9 @@
                @endif
             </div>
          </form> 
-         <form class="col" method="POST" action="{{ route('search_department') }}" enctype="multipart/form-data" >
-            {{ csrf_field() }}
-
+         <form class="col" enctype="multipart/form-data" >
             <div class="dropdown department-dropdown col">
-               <select id="department" name="department" class="form-control" onchange="this.form.submit()">
+               <select id="department" name="department" class="form-control" onchange="unitSelected_m(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Department</option>
 
@@ -184,11 +217,9 @@
                @endif
             </div> 
          </form>
-         <form class="col" method="POST" action="{{ route('search_category') }}" enctype="multipart/form-data" >
-            {{ csrf_field() }}
-            
+         <form class="col" enctype="multipart/form-data" >            
             <div class="dropdown category-dropdown col">
-               <select name="category_id" class="form-control" onchange="this.form.submit()">
+               <select id="category_id" name="category_id" class="form-control" onchange="categorySelected_m(this.value)">
                   <div class="dropdown-menu">
                      <option class="dropdown-item" value="">Category</option>
 
