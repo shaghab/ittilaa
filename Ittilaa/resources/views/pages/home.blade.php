@@ -100,7 +100,7 @@
       </div>
     </header>
        <h3 class="text-center">CONVENIENT ACCESS TO GOVERNMENT NOTICES AND POLICIES</h3>
-       <p>Don't miss out on the notices and policies that are important to you. Use Ittila to explore verified Government notifications.</p>
+       <p>Don't miss out on the notices and policies that are important to you. Use ittila to explore verified Government notifications.</p>
 </div>
 
 <div class="container-fluid search">

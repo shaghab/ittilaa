@@ -65,7 +65,7 @@
     background-size: cover;
 
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
   .page-heading > h3{
       text-align: center;
       font-family:Helvetica;
@@ -83,18 +83,20 @@
       padding:0px 10px;
   }
 }
-@media screen and (min-width: 600px){
+@media screen and (min-width: 768px){
     .page-heading > h3{
         text-align: center;
         font-family:Helvetica;
         font-weight: bold;
         color:white;
         margin-top:20px;
+        padding:0px 10px;
     }
     .page-heading > p{
         text-align: center;
         font-family: Roboto;
         color:white;
+        padding:0px 10px;
     }
   }
 .row{
@@ -127,7 +129,7 @@
     pointer-events: none;
     color: #aaa;
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
     .search-container > input{
         width:auto;
         border: 1px solid black;
@@ -143,7 +145,7 @@
         background-image: linear-gradient(135deg, #73a6db,#77c0b1);
     }
 }
-@media screen and (min-width: 600px){
+@media screen and (min-width: 768px){
     .search-container > input{
         width:482px !important;
         border: 1px solid black;
@@ -216,7 +218,7 @@
 .dropdown > select > option{
     font-family:Roboto;
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
     .filters-container{
         padding:0px;
     }
@@ -240,7 +242,7 @@
       font-family:Roboto;
   }
 }
-@media screen and (min-width: 600px){
+@media screen and (min-width: 768px){
     .dropdown > select{
         border:1px solid black;
         margin-left:10px;
@@ -273,7 +275,7 @@
     font-size: 12px;
     font-family: Roboto;
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
   .notifs-card{
       padding:0px;
       border:0px;
@@ -282,7 +284,7 @@
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   }
 }
-@media screen and (min-width: 600px){
+@media screen and (min-width: 768px){
     .notifs-card{
         padding:0px;
         border:0px;
@@ -566,14 +568,14 @@
 .custom-footer > hr{
     border:1px solid #77c0b1;
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 768px){
     .footer-content{
         display: flex;
         flex-direction: column;
         margin-top:40px;
     }
   }
-  @media screen and (min-width: 600px){
+  @media screen and (min-width: 768px){
     .footer-content{
         display: flex;
         margin-top:40px;
@@ -629,7 +631,7 @@
     color:black;
     font-size: 12px;
     margin-top:30px;
-    padding: 0px 10px;
+    padding: 0px 30px;
 }
 
 /* Login Page */

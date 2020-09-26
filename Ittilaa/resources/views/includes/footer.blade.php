@@ -29,12 +29,12 @@
        </div>
    </div>
 </div>
-<div id="copyright text-right" class="footer-copyright">
+<div id="copyright text-right" class="footer-copyright container">
     <p>Disclaimer: This disclaimer informs readers that the
-        information shared through Ittila belongs solely to
+        information shared through ittila belongs solely to
         the issuing authorities. This platform's primary purpose
         is to educate and inform public. None of the administrators
-        or anyone else associated with Ittila, in any scenario 
+        or anyone else associated with ittila, in any scenario 
         whatsoever can be held liable for the reuse of information 
         published on this website.
     </p>
