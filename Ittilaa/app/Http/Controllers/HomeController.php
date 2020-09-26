@@ -106,4 +106,23 @@ class HomeController extends Controller
                                     'filters'       => $filters, ]);
     }
 
+    public function searchTag($tag){
+
+        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
+        $departments = IssuingAuthority::getOrganizationUnits();
+        $regions = Region::getRegions();
+        $categories = Category::getCategories();
+        $filters = (['search_text' => '', 'region_filter' => '', 'department_filter' => '', 'category_filter' => '']);
+
+        $notifications = $this->getNotificationsWithTag($tag)
+                                    ->paginate(config('pagination.home.records_per_page'));
+
+
+        return view('pages.home', [ 'notifications' => $notifications, 
+                                    'categories'    => $categories,
+                                    'regions'       => $regions,
+                                    'authorizers'   => $authorizers,
+                                    'departments'   => $departments,
+                                    'filters'       => $filters, ]);
+    }
 }
