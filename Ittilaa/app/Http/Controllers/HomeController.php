@@ -69,8 +69,8 @@ class HomeController extends Controller
         }
 
         if ($notifications->count() && !empty($filters['region_filter'])) {
-            $region_id = $request->input('region_filter');
-            $notifications = $notifications->where('region_id', $region_id);
+            $region_name = $request->input('region_filter');
+            $notifications = $notifications->where('region_name', $region_name);
         }
 
         if ($notifications->count() && !empty($filters['department_filter'])) {

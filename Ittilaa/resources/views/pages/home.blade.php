@@ -47,7 +47,37 @@
         document.getElementById("category_filter_m").value = cat;
         document.getElementById("search_form_m").submit();
       }
-      </script>
+
+      function removeRegionFilter(){
+        document.getElementById("region_filter").value = "";
+        document.getElementById("search_form").submit();
+      }
+
+      function removeUnitFilter(){
+        document.getElementById("department_filter").value = "";
+        document.getElementById("search_form").submit();
+      }
+
+      function removeCategoryFilter(){
+        document.getElementById("category_filter").value = "";
+        document.getElementById("search_form").submit();
+      }
+
+      function removeRegionFilter_m(){
+        document.getElementById("region_filter_m").value = "";
+        document.getElementById("search_form_m").submit();
+      }
+
+      function removeUnitFilter_m(){
+        document.getElementById("department_filter_m").value = "";
+        document.getElementById("search_form_m").submit();
+      }
+
+      function removeCategoryFilter_m(){
+        document.getElementById("category_filter_m").value = "";
+        document.getElementById("search_form_m").submit();
+      }
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -79,7 +109,7 @@
 
      <div class="form-group search-container">
          {{-- <span class="fa fa-search form-control-icon"></span> --}}
-         <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." >
+         <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." value="{{$filters['search_text']}}" >
 
          <input type="hidden" id="region_filter" name="region_filter" value="{{$filters['region_filter']}}" />
          <input type="hidden" id="department_filter" name="department_filter" value="{{$filters['department_filter']}}" />
@@ -98,7 +128,7 @@
    {{ csrf_field() }}
 
    <div class="form-group search-container col">
-       <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." name="search">
+       <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Find any public notification..." value="{{$filters['search_text']}}">
 
        <input type="hidden" id="region_filter_m" name="region_filter" value="{{$filters['region_filter']}}" />
        <input type="hidden" id="department_filter_m" name="department_filter" value="{{$filters['department_filter']}}" />
@@ -124,7 +154,7 @@
                      <option class="dropdown-item" value="">Region</option>
 
                      @foreach ($regions as $region)
-                        <option class="dropdown-item" value="{{ $region->id }}" @if ($region->id  == (int)(value('region_id'))) selected @endif>{{ $region->name }}</option>
+                        <option class="dropdown-item" value="{{ $region->name }}" >{{ $region->name }}</option>
                      @endforeach
                   </div>
                </select>
@@ -143,7 +173,7 @@
                      <option class="dropdown-item" value="">Department</option>
 
                      @foreach ($departments as $department)
-                        <option class="dropdown-item" value="{{ $department->unit_name }}" @if ($department->unit_name == value('department')) selected @endif>{{ $department->unit_name }}</option>
+                        <option class="dropdown-item" value="{{ $department->unit_name }}" >{{ $department->unit_name }}</option>
                      @endforeach
                   </div>
                </select>
@@ -162,7 +192,7 @@
                      <option class="dropdown-item" value="">Category</option>
 
                      @foreach ($categories as $category)
-                        <option class="dropdown-item" value="{{ $category['id'] }}"  @if ($category['id'] == value('category_id')) selected @endif>{{ $category['name'] }}</option>
+                        <option class="dropdown-item" value="{{ $category['id'] }}" >{{ $category['name'] }}</option>
                      @endforeach
                   </div>
                </select>
@@ -185,7 +215,7 @@
                      <option class="dropdown-item" value="">Region</option>
 
                      @foreach ($regions as $region)
-                        <option class="dropdown-item" value="{{ $region->id }}">{{ $region->name }}</option>
+                        <option class="dropdown-item" value="{{ $region->name }}" >{{ $region->name }}</option>
                      </option>
                      @endforeach
                   </div>
@@ -205,7 +235,7 @@
                      <option class="dropdown-item" value="">Department</option>
 
                      @foreach ($departments as $department)
-                        <option class="dropdown-item" value="{{ $department->unit_name }}">{{ $department->unit_name }}</option>
+                        <option class="dropdown-item" value="{{ $department->unit_name }}" >{{ $department->unit_name }}</option>
                      @endforeach
                   </div>
                </select>
@@ -224,7 +254,7 @@
                      <option class="dropdown-item" value="">Category</option>
 
                      @foreach ($categories as $category)
-                        <option class="dropdown-item" value="{{ $category['id'] }}"  @if ($category['id'] == value('category_id')) selected @endif>{{ $category['name'] }}</option>
+                        <option class="dropdown-item" value="{{ $category['id'] }}" >{{ $category['name'] }}</option>
                      @endforeach
                   </div>
                </select>
@@ -236,6 +266,35 @@
                @endif
             </div>
          </form>
+</div>
+<div class="container filter-tags-container">
+  <!-- TODO: add a list for mobile devices too -->
+  <ul style="list-style-type:none">
+    <li style="float:left">
+      <span name="region_tag" 
+            style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">
+
+        {{ $filters['region_filter'] }}
+        <span onclick="removeRegionFilter()" style="color:red" >x</span>
+      </span>
+    </li>
+    <li style="float:left">
+      <span name="unit_tag" 
+            style="display: <?php if(!empty($filters['department_filter'])) echo('block'); else echo('none'); ?>">
+
+        {{ $filters['department_filter'] }}
+        <span onclick="removeUnitFilter()" style="color:red" >x</span>
+      </span>
+    </li>
+    <li style="float:left">
+      <span name="category_tag" 
+            style="display: <?php if(!empty($filters['category_filter'])) echo('block'); else echo('none'); ?>">
+        
+        {{ $filters['category_filter'] }}
+        <span onclick="removeCategoryFilter()" style="color:red" >x</span>
+      </span>
+    </li>
+  </ul>
 </div>
 <div class="col-xs-12 section-header">
    <h6>MOST RECENT</h6>
