@@ -24,6 +24,7 @@ class Notification extends Model
         'region_id',
         'region_name',
         'publish_date',
+        'deadline',
         'issuer_id',
         'issuing_authority',
         'designation',
@@ -39,12 +40,12 @@ class Notification extends Model
         'approval_status',
     ];
 
-    protected $casts = [
-        'publish_date' => 'dateTime',
-    ];
-
     public function getPublishDate(string $format) {
-        return $this['publish_date']->format($format);
+        return date($format, strtotime($this['publish_date']));
+    }
+
+    public function getDeadlineDate(string $format) {
+        return date($format, strtotime($this['deadline']));
     }
 
     public function getSigningAuthority(){

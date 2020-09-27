@@ -13,9 +13,11 @@
          <h6>{{ $notification->region_name }}</h6>
          <p>Publishing Date: 
             {{ $notification->getPublishDate(config('enum.formats.time')) }}
-         <p>
-         @if (!empty($notification->caption3))
-            <p>{{ $notification->caption3 }}<p>
+         </p>
+         @if (!empty($notification->deadline))
+            <p>Deadline:
+               {{ $notification->getDeadlineDate(config('enum.formats.time')) }}
+            </p>
          @endif
 
          <p>Tags: 

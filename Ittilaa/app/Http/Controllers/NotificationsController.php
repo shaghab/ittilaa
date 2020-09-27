@@ -137,6 +137,14 @@ class NotificationsController extends Controller
                 $publishDate = date($dateFormat, strtotime($data['publish_date']));
                 $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
 
+                if (!empty($data['deadline'])) {
+                    $deadlineDate = date($dateFormat, strtotime($data['deadline']));
+                    $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
+                }
+                else {
+                    $data['deadline'] = null;
+                }
+
                 $data['operator_id'] = auth()->user()->id;
                 $data['approver_id'] = auth()->user()->id;
                 $data['approval_status'] = config('enum.approval_status.approved');
@@ -179,6 +187,7 @@ class NotificationsController extends Controller
             'caption2' => 'nullable',
             'caption3' => 'nullable',
             'publish_date' => 'required',
+            'deadline' => 'nullable',
             'source_url' => 'nullable',
             'tags' => 'nullable' ]);
 
@@ -188,6 +197,7 @@ class NotificationsController extends Controller
             'd_cat_caption' => $request->d_cat_caption,
             'description' => $request->description,
             'publish_date' => $request->publish_date,
+            'deadline' => $request->deadline,
             'issuing_authority'=> $request->issuing_authority,
             'designation' => $request->designation,
             'unit_name' => $request->unit_name,
@@ -223,8 +233,17 @@ class NotificationsController extends Controller
         }
 
         // TODO: later add control for DateTime picking
-        $publishDate = strtotime($data['publish_date']);
-        $data['publish_date'] = date('d/m/Y', $publishDate);
+        $dateFormat = 'd/m/Y H:i:s';
+        $publishDate = date($dateFormat, strtotime($data['publish_date']));
+        $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
+
+        if (!empty($data['deadline'])) {
+            $deadlineDate = date($dateFormat, strtotime($data['deadline']));
+            $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
+        }
+        else {
+            $data['deadline'] = null;
+        }
 
         // TODO: add a control to add new issuing authority also make these fields selectable
         $authority = IssuingAuthority::createNew  (['name' => $data['issuing_authority'],
@@ -244,10 +263,10 @@ class NotificationsController extends Controller
         $data['approver_id'] = auth()->user()->id;
         $data['approval_status'] = config('enum.approval_status.pending');
 
-        // get business rules to extract captions (different categories will have different captions)
-        if (empty($data['caption2'])) {
-            $data['caption2'] = $data['publish_date'];
-        }
+        // TODO: get business rules to extract captions (different categories will have different captions)
+        // if (empty($data['caption2'])) {
+        //     $data['caption2'] = $data['publish_date'];
+        // }
 
         $notification = Notification::create($data);
         if($notification) {

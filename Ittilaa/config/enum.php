@@ -15,6 +15,7 @@ return [
         'unit_name',
         'unit_type',
         'publish_date',
+        'deadline',
         'source_url',
         'caption1',
         'caption2',
