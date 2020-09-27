@@ -267,65 +267,37 @@
             </div>
          </form>
 </div>
-<div class="container filter-tags-container">
+<div class="filters filter-tags-container">
   <div>
-    <ul style="list-style-type:none">
-      <li style="float:left">
+    <ul class="search-tags">
+      <li>
         <span name="region_tag" 
               style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">
 
           {{ $filters['region_filter'] }}
-          <span onclick="removeRegionFilter()" style="color:red" >x</span>
+          <span onclick="removeRegionFilter()" class="fa fa-times"></span>
         </span>
       </li>
-      <li style="float:left">
+      <li>
         <span name="unit_tag" 
               style="display: <?php if(!empty($filters['department_filter'])) echo('block'); else echo('none'); ?>">
 
           {{ $filters['department_filter'] }}
-          <span onclick="removeUnitFilter()" style="color:red" >x</span>
+          <span onclick="removeUnitFilter()" class="fa fa-times"></span>
         </span>
       </li>
-      <li style="float:left">
+      <li>
         <span name="category_tag" 
               style="display: <?php if(!empty($filters['category_filter'])) echo('block'); else echo('none'); ?>">
           
           {{ $filters['category_filter'] }}
-          <span onclick="removeCategoryFilter()" style="color:red" >x</span>
+          <span onclick="removeCategoryFilter()" class="fa fa-times"></span>
         </span>
       </li>
     </ul>
   </div>
-<!--   TODO: Myra check if you need a separate version for mobile devices and uncomment this section otherwise delete it -->
-<!-- 
-  <div>
-    <ul style="list-style-type:none">
-      <li style="float:left">
-        <span name="region_tag_m" 
-              style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">
 
-          {{ $filters['region_filter'] }}
-          <span onclick="removeRegionFilter_m()" style="color:red" >x</span>
-        </span>
-      </li>
-      <li style="float:left">
-        <span name="unit_tag_m" 
-              style="display: <?php if(!empty($filters['department_filter'])) echo('block'); else echo('none'); ?>">
 
-          {{ $filters['department_filter'] }}
-          <span onclick="removeUnitFilter_m()" style="color:red" >x</span>
-        </span>
-      </li>
-      <li style="float:left">
-        <span name="category_tag_m" 
-              style="display: <?php if(!empty($filters['category_filter'])) echo('block'); else echo('none'); ?>">
-          
-          {{ $filters['category_filter'] }}
-          <span onclick="removeCategoryFilter_m()" style="color:red" >x</span>
-        </span>
-      </li>
-    </ul>
-  </div> -->
 </div>
 <div class="col-xs-12 section-header">
    <h6>MOST RECENT</h6>
@@ -364,12 +336,12 @@
             {{ $notifications->onEachSide(1)->links() }}
       </div>
 </div>
-
+</div>
+</div>
 <!-- end of content -->
-    </div>
+   
     <footer class="container-fluid">
         @include('includes.footer')
     </footer>
-</div>
 </body>
 </html>

@@ -20,7 +20,7 @@
             </p>
          @endif
 
-         <p>Tags: 
+         <p class="tags-para">Tags: 
             @php
                $tags = $notification->getTags();
             @endphp

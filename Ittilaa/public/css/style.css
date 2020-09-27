@@ -129,6 +129,23 @@
     pointer-events: none;
     color: #aaa;
 }
+.search-tags{
+    list-style-type: none;
+}
+.search-tags > li{
+    float:left;
+    color:white;
+    background-color:#77c0b1;
+    border:1px solid #77c0b1;
+    border-radius: 20px;
+    font-size: 14px;
+    padding:5px;
+    margin: 0px 2px;
+    cursor:pointer;
+}
+.search-tags > li:hover{
+    opacity:0.8;
+}
 @media screen and (max-width: 768px){
     .search-container > input{
         width:auto;
@@ -574,11 +591,42 @@
         flex-direction: column;
         margin-top:40px;
     }
+    .footer-copyright{
+        text-align: left;
+    }
+    .footer-copyright > p{
+        font-family: Roboto;
+        color:black;
+        font-size: 12px;
+        margin-top:30px;
+        padding: 0px 10px;
+    }
+    .footer-title{
+        color:#495057 !important;
+        font-weight:Bold;
+        margin-bottom:-2px;
+    }
   }
   @media screen and (min-width: 768px){
     .footer-content{
         display: flex;
         margin-top:40px;
+    }
+    .footer-copyright{
+        text-align: center;
+    }
+    .footer-copyright > p{
+        font-family: Roboto;
+        color:black;
+        font-size: 12px;
+        margin-top:30px;
+        padding: 0px 30px;
+    }
+    .footer-title{
+        color:#495057 !important;
+        font-weight:Bold;
+        margin-bottom:-2px;
+        margin-left:-20px;
     }
     .sm-icons{
         margin-left:20px;
@@ -598,12 +646,6 @@
     height: 50px;
     width: 150px;
 }
-.footer-title{
-    color:#495057 !important;
-    font-weight:Bold;
-    margin-bottom:-2px;
-    margin-left:-20px;
-}
 .footer-title > span{
     margin-right:5px;
     color:#77c0b1;
@@ -622,16 +664,6 @@
 .sm-icons > a:visited{
     color:#62a799;
     font-size:28px;
-}
-.footer-copyright{
-    text-align: center;
-}
-.footer-copyright > p{
-    font-family: Roboto;
-    color:black;
-    font-size: 12px;
-    margin-top:30px;
-    padding: 0px 30px;
 }
 
 /* Login Page */
@@ -739,6 +771,9 @@
         margin-bottom:50px;
         border:1px solid black;
     }
+}
+.tags-para{
+    line-height: 2.5;
 }
 .notif-details{
     margin-top:30px;
