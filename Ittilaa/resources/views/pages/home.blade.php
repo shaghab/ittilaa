@@ -270,26 +270,20 @@
 <div class="filters filter-tags-container">
   <div>
     <ul class="search-tags">
-      <li>
-        <span name="region_tag" 
-              style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">
-
+      <li style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">
+        <span name="region_tag" >
           {{ $filters['region_filter'] }}
           <span onclick="removeRegionFilter()" class="fa fa-times"></span>
         </span>
       </li>
-      <li>
-        <span name="unit_tag" 
-              style="display: <?php if(!empty($filters['department_filter'])) echo('block'); else echo('none'); ?>">
-
+      <li style="display: <?php if(!empty($filters['department_filter'])) echo('block'); else echo('none'); ?>">
+        <span name="unit_tag" >
           {{ $filters['department_filter'] }}
           <span onclick="removeUnitFilter()" class="fa fa-times"></span>
         </span>
       </li>
-      <li>
-        <span name="category_tag" 
-              style="display: <?php if(!empty($filters['category_filter'])) echo('block'); else echo('none'); ?>">
-          
+      <li style="display: <?php if(!empty($filters['category_filter'])) echo('block'); else echo('none'); ?>">
+        <span name="category_tag" >
           {{ $filters['category_filter'] }}
           <span onclick="removeCategoryFilter()" class="fa fa-times"></span>
         </span>
