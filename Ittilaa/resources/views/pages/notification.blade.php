@@ -3,7 +3,9 @@
 
 <div class="container notifs-container">
    <div class="col notifs-page d-inline d-lg-flex">
+      
       <div class="col-lg-7">
+         <a href="{{route("home")}}" class="notifs-tag"><span class="fa fa-chevron-left"></span> Back to Home</a>
          <embed class="notif-embed" src="{{ asset('storage/'. $notification->notice_link) }}" height="100%" width="100%">
       </div>
 
@@ -12,11 +14,11 @@
          <h6>{{ $notification->title }}</h6>
          <h6>{{ $notification->region_name }}</h6>
          <p>Publishing Date: 
-            {{ $notification->getPublishDate(config('enum.formats.time')) }}
+            {{ $notification->getPublishDate(config('enum.formats.date')) }}
          </p>
          @if (!empty($notification->deadline))
             <p>Deadline:
-               {{ $notification->getDeadlineDate(config('enum.formats.time')) }}
+               {{ $notification->getDeadlineDate(config('enum.formats.datetime')) }}
             </p>
          @endif
 

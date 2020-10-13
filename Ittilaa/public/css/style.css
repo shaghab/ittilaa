@@ -764,6 +764,9 @@
         height:100vw;
         border:1px solid black;
     }
+    .notif-details{
+        margin-top:20px;
+    }
 }
 @media screen and (min-width: 800px){
     .notif-embed{
@@ -771,13 +774,14 @@
         margin-bottom:50px;
         border:1px solid black;
     }
+    .notif-details{
+        margin-top:50px;
+    }
 }
 .tags-para{
     line-height: 2.5;
 }
-.notif-details{
-    margin-top:30px;
-}
+
 .notif-details > label{
     font-family: Roboto;
     color:white;

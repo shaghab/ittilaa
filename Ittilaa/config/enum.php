@@ -45,7 +45,8 @@ return [
     ],
 
     'formats' => [
-        'time' => 'j M, Y h:i A',
+        'date' => 'j M, Y',
+        'datetime' => 'j M, Y h:i A',
     ],
 
 // TODO: do something with routes, they are all over the place
