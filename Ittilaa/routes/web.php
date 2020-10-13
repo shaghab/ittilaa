@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::post('/search', 'HomeController@filter_search')->name('search');
+Route::any('/search', 'HomeController@filter_search')->name('search');
 
 Route::get('/notification{notification}', 'HomeController@show')->name('show_notification');
 Route::get('/search/tag{tag}', 'HomeController@searchTag')->name('search_tag'); // TODO: change url to tag='tag_text'

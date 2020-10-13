@@ -57,6 +57,13 @@ class HomeController extends Controller
                                        'department_filter' => 'nullable',
                                        'category_filter' => 'nullable']);
 
+        $searchTags = array(
+            'search_text' => '',
+            'region_filter' => '',
+            'department_filter' => '',
+            'category_filter' => '',
+        );
+
         $notifications = $this->getNotifications();
 
         if ($notifications->count() && !empty($filters['search_text'])) {
@@ -66,16 +73,19 @@ class HomeController extends Controller
             $ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
 
             $notifications = $notifications->whereIn('id', $ids);
+            $searchTags['search_text'] = $search_text;
         }
 
         if ($notifications->count() && !empty($filters['region_filter'])) {
             $region_name = $request->input('region_filter');
             $notifications = $notifications->where('region_name', $region_name);
+            $searchTags['region_filter'] = $region_name;
         }
 
         if ($notifications->count() && !empty($filters['department_filter'])) {
             $unit_name = $request->input('department_filter');
             $notifications = $notifications->where('unit_name', $unit_name);
+            $searchTags['department_filter'] = $unit_name;
         }
 
         if ($notifications->count() && !empty($filters['category_filter'])) {
@@ -89,9 +99,11 @@ class HomeController extends Controller
             else {
                 $notifications = $notifications->where('category_id', $category_id);
             }
+            $searchTags['category_filter'] = $category_id;
         }
 
         $notifications = $notifications->paginate(config('pagination.home.records_per_page'));
+        $notifications->appends($searchTags);
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
