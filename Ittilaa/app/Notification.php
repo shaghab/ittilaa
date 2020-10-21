@@ -83,7 +83,7 @@ class Notification extends Model
         }
 
         $tagNames = explode(';', $tags);
-        $tagNames = array_map('trim', $tagNames);
+        $tagNames = array_unique(array_map('trim', $tagNames));
  
         for($index = 0; $index < count($tagNames); $index++)  {
 
