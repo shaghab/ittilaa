@@ -28,7 +28,7 @@ class CreateNotificationsTable extends Migration
             $table->text('description');
             $table->foreignId('region_id')->constrained('x_regions');
             $table->string('region_name');
-            $table->dateTime('publish_date');
+            $table->dateTime('publish_date')->nullable();
             
             $table->foreignId('issuer_id')->constrained('x_issuing_authorities');
             $table->string('issuing_authority')->nullable();
