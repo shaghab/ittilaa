@@ -4,6 +4,15 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-181321389-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-181321389-1');
+</script>
+
 <!-- you can change app name in .env file. Also, you can change page title to something else -->
 <title>{{config('app.name', 'Ittila')}}</title>
 
