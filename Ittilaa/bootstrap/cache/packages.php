@@ -52,15 +52,4 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
-  'spatie/laravel-analytics' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\Analytics\\AnalyticsServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Analytics' => 'Spatie\\Analytics\\AnalyticsFacade',
-    ),
-  ),
 );
