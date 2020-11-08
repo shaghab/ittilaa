@@ -134,15 +134,33 @@ class NotificationsController extends Controller
                 }
 
                 $dateFormat = 'd/m/Y H:i:s';
-                if (!empty($data['publish_date'])) {
-	                $publishDate = date($dateFormat, strtotime($data['publish_date']));
-	                $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
-	            }
+		        if (!empty(trim($data['publish_date']))) {
+		        	$dateStr = strtotime($data['publish_date']);
+		        	if ($dateStr !== false){
+			            $publishDate = date($dateFormat, $dateStr);
+			            $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
+			        }
+		        	else{
+		        		$data['publish_date'] = null;
+		        	}
+		        }
+		        else {
+		        	$data['publish_date'] = null;
+		        }
 
-                if (!empty($data['deadline'])) {
-                    $deadlineDate = date($dateFormat, strtotime($data['deadline']));
-                    $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
-                }
+		        if (!empty(trim($data['deadline']))) {
+		        	$dateStr = strtotime($data['deadline']);
+		        	if ($dateStr !== false){
+			            $deadlineDate = date($dateFormat, $dateStr);
+			            $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
+		        	}
+		        	else{
+		        		$data['deadline'] = null;
+		        	}
+		        }
+		        else {
+		        	$data['deadline'] = null;
+		        }
 
                 $data['operator_id'] = auth()->user()->id;
                 $data['approver_id'] = auth()->user()->id;
@@ -185,7 +203,7 @@ class NotificationsController extends Controller
             'caption1' => 'nullable',
             'caption2' => 'nullable',
             'caption3' => 'nullable',
-            'publish_date' => 'required',
+            'publish_date' => 'nullable',
             'deadline' => 'nullable',
             'source_url' => 'nullable',
             'tags' => 'nullable' ]);
@@ -232,15 +250,33 @@ class NotificationsController extends Controller
         }
 
         // TODO: later add control for DateTime picking
-        $dateFormat = 'd/m/Y H:i:s';
-        if (!empty($data['publish_date'])) {
-            $publishDate = date($dateFormat, strtotime($data['publish_date']));
-            $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
+		$dateFormat = 'd/m/Y H:i:s';
+        if (!empty(trim($data['publish_date']))) {
+        	$dateStr = strtotime($data['publish_date']);
+        	if ($dateStr !== false){
+	            $publishDate = date($dateFormat, $dateStr);
+	            $data['publish_date'] = date_create_from_format($dateFormat, $publishDate);
+	        }
+        	else{
+        		$data['publish_date'] = null;
+        	}
+        }
+        else {
+        	$data['publish_date'] = null;
         }
 
-        if (!empty($data['deadline'])) {
-            $deadlineDate = date($dateFormat, strtotime($data['deadline']));
-            $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
+        if (!empty(trim($data['deadline']))) {
+        	$dateStr = strtotime($data['deadline']);
+        	if ($dateStr !== false){
+	            $deadlineDate = date($dateFormat, $dateStr);
+	            $data['deadline'] = date_create_from_format($dateFormat, $deadlineDate);
+        	}
+        	else{
+        		$data['deadline'] = null;
+        	}
+        }
+        else {
+        	$data['deadline'] = null;
         }
 
         // TODO: add a control to add new issuing authority also make these fields selectable
