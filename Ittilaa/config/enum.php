@@ -2,6 +2,7 @@
 
 return [
     'notification_fields' => [
+        'slug',
         'short_title',
         'title',
         'category',
@@ -47,6 +48,11 @@ return [
     'formats' => [
         'date' => 'j M, Y',
         'datetime' => 'j M, Y h:i A',
+        'url_date' => 'j-M-Y'
+    ],
+
+    'delimitors' => [
+        'url' => ": / ? # [ ] @ ! $ & ' ( ) * + , ; = \' \" < > % { } | \ ^ ` ~ [ ]",
     ],
 
 // TODO: do something with routes, they are all over the place

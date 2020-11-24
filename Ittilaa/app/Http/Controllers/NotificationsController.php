@@ -170,6 +170,7 @@ class NotificationsController extends Controller
                 $notification = Notification::create($data);
                 if($notification) {
                     $notification->addTags($tagNames);
+                    $notification->updateSlug();
                 }
                 
             } catch (Exception $e) {
@@ -305,6 +306,7 @@ class NotificationsController extends Controller
         $notification = Notification::create($data);
         if($notification) {
             $notification->addTags($fields['tags']);
+            $notification->updateSlug();
         }
 
         return redirect()->route('data_entry')->withSuccess('Data saved successfully!');

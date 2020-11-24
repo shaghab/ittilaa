@@ -12,6 +12,7 @@ class Notification extends Model
 
     // The attributes that are mass assignable.
     protected $fillable = [
+        'slug',
         'short_title',
         'title',
         'category_id',
@@ -98,6 +99,22 @@ class Notification extends Model
                 $this->tags()->attach($tag);
             }
         }
+    }
+
+    public function updateSlug() {
+        $slug_str = $this->title;
+        if ($this->publish_date)
+            $slug_str = $this->getPublishDate(config('enum.formats.date')) . '-' . $slug_str;
+
+        $delim_chars = config('enum.delimitors.url');
+        $delim_arr = explode(" ", $delim_chars);
+
+        $str = trim(str_replace($delim_arr, " ", $slug_str));
+        $arr = array_filter(explode(" ", $str), function($value) { return !is_null($value) && $value !== ''; });
+        $slug = strtolower(implode("-", $arr));
+
+        $this->update(["slug" => $slug]);
+        return $slug;
     }
 
 }

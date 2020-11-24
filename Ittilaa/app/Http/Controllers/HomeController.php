@@ -24,32 +24,90 @@ class HomeController extends Controller
      */
     public function index() {
 
-        $notifications = $this->getNotifications()->paginate(config('pagination.home.records_per_page'));
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
-        $filters = (['search_text' => '', 'region_filter' => '', 'department_filter' => '', 'category_filter' => '']);
+        $searchTags = array(
+            'search_text' => '',
+            'region_filter' => '',
+            'department_filter' => '',
+            'category_filter' => '',
+        );
+
+        $notifications = $this->getNotifications()->paginate(config('pagination.home.records_per_page'));
+        $notifications->appends($searchTags);
 
         return view('pages.home', [ 'notifications' => $notifications, 
                                     'categories'    => $categories,
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'filters'       => $filters, ]);
+                                    'filters'       => $searchTags ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string, string, string
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        $notification = Notification::find($id);
+    public function show($category, $region_name, $slug) {
+        $category = str_replace("-", "/", $category);
+        $region_name = str_replace("-", " ", $region_name);
+        $notification = Notification::where([   ['slug', '=', $slug], 
+                                                ['category', '=', $category], 
+                                                ['region_name', '=', $region_name]   ])->first();
+
         return view('pages.notification', ['notification' => $notification]);
     }
 
+    /**
+     * Display a list of resource w.r.t. params.
+     *
+     * @param  string, string (can be null)
+     * @return \Illuminate\Http\Response
+     */
+    public function index_cat_region($category, $region_name = null) {
+
+        $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
+        $departments = IssuingAuthority::getOrganizationUnits();
+        $regions = Region::getRegions();
+        $categories = Category::getCategories();
+
+        $category = str_replace("-", "/", $category);
+        $notifications = Notification::where('category', $category);
+        if ($notifications->count()){
+            if ($region_name){
+                $region_name = str_replace("-", " ", $region_name);
+                $notifications = $notifications->where('region_name', $region_name);
+            }
+        }
+
+        $searchTags = array(
+            'search_text' => '',
+            'region_filter' => $region_name,
+            'department_filter' => '',
+            'category_filter' => $category,
+        );
+
+        $notifications = $notifications->paginate(config('pagination.home.records_per_page'));
+        $notifications->appends($searchTags);
+
+        return view('pages.home', [ 'notifications' => $notifications, 
+                                    'categories'    => $categories,
+                                    'regions'       => $regions,
+                                    'authorizers'   => $authorizers,
+                                    'departments'   => $departments,
+                                    'filters'       => $searchTags ]);
+    }
+
+    /**
+     * Display searched list of resource w.r.t param
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
     public function filter_search(Request $request){
 
         $filters = $request->validate(['search_text' => 'nullable',
@@ -115,19 +173,31 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'filters'       => $filters, ]);
+                                    'filters'       => $searchTags ]);
     }
 
+    /**
+     * Display searched list of resource w.r.t. param
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
     public function searchTag($tag){
 
         $authorizers = IssuingAuthority::getAuthorizerDesignations(); 
         $departments = IssuingAuthority::getOrganizationUnits();
         $regions = Region::getRegions();
         $categories = Category::getCategories();
-        $filters = (['search_text' => '', 'region_filter' => '', 'department_filter' => '', 'category_filter' => '']);
+        $searchTags = array(
+            'search_text' => '',
+            'region_filter' => '',
+            'department_filter' => '',
+            'category_filter' => '',
+        );
 
         $notifications = $this->getNotificationsWithTag($tag)
                                     ->paginate(config('pagination.home.records_per_page'));
+        $notifications->appends($searchTags);
 
 
         return view('pages.home', [ 'notifications' => $notifications, 
@@ -135,6 +205,6 @@ class HomeController extends Controller
                                     'regions'       => $regions,
                                     'authorizers'   => $authorizers,
                                     'departments'   => $departments,
-                                    'filters'       => $filters, ]);
+                                    'filters'       => $searchTags ]);
     }
 }
