@@ -117,7 +117,7 @@ class Notification extends Model
             $this->update(["slug" => $slug]);
         } 
         catch (Exception $e) {
-            report($e);
+            //report($e);
         }
 
         return $slug;
