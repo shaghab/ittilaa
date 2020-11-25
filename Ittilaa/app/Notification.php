@@ -114,6 +114,12 @@ class Notification extends Model
         $slug = strtolower(implode("-", $arr));
 
         try{
+            $count = Notification::where('slug', 'LIKE', $slug.'%')->count();
+            if ($count > 0){
+                $count++;
+                $slug = $slug . '-' . $count;
+            }
+
             $this->update(["slug" => $slug]);
         } 
         catch (Throwable $e) {
