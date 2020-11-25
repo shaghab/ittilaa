@@ -56,8 +56,9 @@ class HomeController extends Controller
         $category = str_replace("-", "/", $category);
         $region_name = str_replace("-", " ", $region_name);
         $notification = Notification::where([   ['slug', '=', $slug], 
-                                                ['category', '=', $category], 
-                                                ['region_name', '=', $region_name]   ])->first();
+                                                [DB::raw('LOWER(category)'), '=', $category], 
+                                                [DB::raw('LOWER(region_name)'), '=', $region_name]   ])
+                                    ->first();
 
         return view('pages.notification', ['notification' => $notification]);
     }
@@ -76,12 +77,10 @@ class HomeController extends Controller
         $categories = Category::getCategories();
 
         $category = str_replace("-", "/", $category);
-        $notifications = Notification::where('category', $category);
-        if ($notifications->count()){
-            if ($region_name){
+        $notifications = Notification::where(DB::raw('LOWER(category)'), $category);
+        if ($region_name){
                 $region_name = str_replace("-", " ", $region_name);
-                $notifications = $notifications->where('region_name', $region_name);
-            }
+                $notifications = $notifications->where(DB::raw('LOWER(region_name)'), $region_name);
         }
 
         $searchTags = array(

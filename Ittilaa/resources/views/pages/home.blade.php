@@ -325,7 +325,7 @@
                <p class="card-text caption2">{{ $notification->caption2 }}</p>
             </div>
             <div class="card-img-overlay notifs-img-overlay">
-            <a href="{{ route('show_notification', ['category' => str_replace('/', '-', $notification->category), 'region_name' => str_replace(' ', '-', $notification->region_name), 'slug' => $notification->slug]) }}" class="btn btn-primary btn-sm {{$notification->category_banner_style}} stretched-link">{{ $notification->d_cat_caption }}</a> 
+            <a href="{{ route('show_notification', ['category' => strtolower(str_replace('/', '-', $notification->category)), 'region_name' => strtolower(str_replace(' ', '-', $notification->region_name)), 'slug' => $notification->slug]) }}" class="btn btn-primary btn-sm {{$notification->category_banner_style}} stretched-link">{{ $notification->d_cat_caption }}</a> 
             </div>
          </div>
          @endfor
