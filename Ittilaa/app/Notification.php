@@ -116,8 +116,8 @@ class Notification extends Model
         try{
             $this->update(["slug" => $slug]);
         } 
-        catch (Exception $e) {
-            //report($e);
+        catch (Throwable $e) {
+            report($e);
         }
 
         return $slug;
