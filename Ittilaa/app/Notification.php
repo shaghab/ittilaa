@@ -113,8 +113,15 @@ class Notification extends Model
         $arr = array_filter(explode(" ", $str), function($value) { return !is_null($value) && $value !== ''; });
         $slug = strtolower(implode("-", $arr));
 
-        $this->update(["slug" => $slug]);
+        try{
+            $this->update(["slug" => $slug]);
+        } 
+        catch (Exception $e) {
+            report($e);
+        }
+
         return $slug;
+
     }
 
 }
