@@ -90,13 +90,6 @@
 </head>
 <body>
 <div class="container-fluid">
-    {{-- <header>
-      <div class="header-hr">
-        <span>
-           <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_001.png" alt="Ittilaa Logo"></a>
-        </span>
-      </div>
-    </header> --}}
     <div class="container-fluid">
 
 <!-- start of content -->
@@ -104,7 +97,7 @@
    <header>
       <div class="header-hr">
         <span>
-           <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_002.png" alt="Ittilaa Logo"></a>
+           <a href="{{route("home")}}"> <img src="{{ asset('images') . '/Ittilaa Logo_002.png' }}" alt="Ittilaa Logo"></a>
         </span>
       </div>
     </header>

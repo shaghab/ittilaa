@@ -1,5 +1,16 @@
-@extends('layouts.default')
-@section('content')
+<!doctype html>
+<html>
+<head>
+    @include('includes.head')
+    <metadata/>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        @include('includes.header')
+    </header>
+
+    <div class="container-fluid">
 
 <div class="container notifs-container">
    <div class="col notifs-page d-inline d-lg-flex">
@@ -45,4 +56,10 @@
    </div>
 </div>
 
-@endsection
+    </div>
+    <footer class="container-fluid">
+        @include('includes.footer')
+    </footer>
+</div>
+</body>
+</html>

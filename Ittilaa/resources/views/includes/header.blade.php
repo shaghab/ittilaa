@@ -3,6 +3,6 @@
 
 <div class="blkheader-hr">
     <span>
-       <a href="{{route("home")}}"> <img src="../images/Ittilaa Logo_001.png" alt="Ittilaa Logo"></a>
+       <a href="{{route("home")}}"> <img src="{{ asset('images') . '/Ittilaa Logo_001.png' }}" alt="Ittilaa Logo"></a>
     </span>
 </div>
