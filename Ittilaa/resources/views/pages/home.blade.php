@@ -269,7 +269,7 @@
             </div>
          </form>
 </div>
-<div class="filters filter-tags-container">
+<div class="filters filter-tags-container" style="<?php if (empty($filters['region_filter']) && empty($filters['department_filter']) && empty($filters['category_filter'])) echo('display: none'); ?>">
   <div>
     <ul class="search-tags">
       <li style="display: <?php if(!empty($filters['region_filter'])) echo('block'); else echo('none'); ?>">

@@ -123,16 +123,6 @@ class HomeController extends Controller
 
         $notifications = $this->getNotifications();
 
-        if ($notifications->count() && !empty($filters['search_text'])) {
-            $search_text = $request->input('search_text');
-
-            $tag_ids = Tag::where('name','LIKE','%'.$search_text.'%')->get('id');
-            $ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
-
-            $notifications = $notifications->whereIn('id', $ids);
-            $searchTags['search_text'] = $search_text;
-        }
-
         if ($notifications->count() && !empty($filters['region_filter'])) {
             $region_name = $request->input('region_filter');
             $notifications = $notifications->where('region_name', $region_name);
@@ -157,6 +147,24 @@ class HomeController extends Controller
                 $notifications = $notifications->where('category_id', $category_id);
             }
             $searchTags['category_filter'] = $category_id;
+        }
+
+        if ($notifications->count() && !empty($filters['search_text'])) {
+            $search_text = $request->input('search_text');
+
+            $tag_ids = Tag::where('name','LIKE','%'.$search_text.'%')->get('id');
+            $ids = DB::table('x_notifications_tags')->whereIn('tag_id', $tag_ids)->pluck('notification_id');
+
+            $notifications = $notifications->whereIn('id', $ids)
+                                           ->orWhere('title', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('category', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('region_name', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('unit_name', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('issuing_authority', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('designation', 'LIKE', '%'.$search_text.'%')
+                                           ->orWhere('description', 'LIKE', '%'.$search_text.'%');
+
+            $searchTags['search_text'] = $search_text;
         }
 
         $notifications = $notifications->paginate(config('pagination.home.records_per_page'));
